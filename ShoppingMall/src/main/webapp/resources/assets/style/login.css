@@ -1,0 +1,59 @@
+@charset "UTF-8";
+body{
+	background-color: lightgray;
+}
+.s_login{
+	padding: 83px 0;
+	display:block;
+	width: 100px;
+    height: 43px;
+    background-position: 0 0;
+    margin: auto 40% ;
+}
+
+#logoimg{
+	width: 507px;
+	height: 100px;
+}
+
+#login_form input[type=text],input[type=password]{
+	width: 500px;
+	height: 54px;
+}
+#login_form input[type=button]{
+	width: 507px;
+	height: 54px;
+	background: red;
+	color: white;
+	font-size: 23px;	
+}
+.auto_login_chk ,.login_find{
+	display:inline-block;
+	font-size: 18px;
+}
+.login_find{
+	
+	position: absolute;
+	right: 0;
+}
+.side{
+	padding-top:10px;
+	position:absolute;
+	width: 507px;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+a:link {
+	color: black;
+	text-decoration: none;
+}
+a:visited { 
+	color: black; 
+	text-decoration: none;
+}
+a:hover { 
+	color: black; 
+	text-decoration: underline;
+}
