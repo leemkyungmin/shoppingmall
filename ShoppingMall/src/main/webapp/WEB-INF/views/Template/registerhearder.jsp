@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> <!-- 부스트스랩 (modal 창 사용하기 위한 js파일)  -->
 <style type="text/css">
-	.reg_header{
+	.reg_header, .wrap{
 		position: relative;
 		margin : 50px 300px 0px;
 		border-bottom: 1px solid black;
