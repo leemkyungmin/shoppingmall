@@ -149,31 +149,58 @@
 
 <!-- join_user_Conditions.js 생성 -->
 <script>
+	$('.step1').removeClass('on');
+	$('.step2').addClass('on');
+	$('.step3').removeClass('on');
+	$('.step4').removeClass('on');
 	$().ready(function(){
 		var allcheck=false;
 		
-		// 체크박스가 변경되었을때 ????
-		/* $('.input[type=checkbox]').onchange(function(){
+		function chk_onchage(){
 			
-		}); */
+		}
+		// 체크박스가 변경되었을때 ????
+		
 		$('.check_allbtn').click(function(){
 			if(allcheck ==false){
-				$('input:checkbox').attr('checked',true);
-				allcheck =true;
-				$(this).css('background-color','red');
-				$(this).css('color','white');
-				$(this).css('font-weight','bold');
-				$('#btn_next').attr('disabled',false);
-				
+				$("input[name=agreeYn]:checkbox").each(function() {
+					if($(this).is(':checked')==false){
+						$(this).prop("checked", true);
+						allcheck =true;
+					}
+					$('.check_allbtn').css('background-color','red');
+					$('.check_allbtn').css('color','white');
+					$('.check_allbtn').css('font-weight','bold');
+					$('#btn_next').attr('disabled',false);
+				});
+				//$('input[name=agreeYn]:checkbox').attr('checked',true);
 			}else{
-				$('input:checkbox').attr('checked',false);
-				allcheck =false;
-				$(this).css('background-color','white');
-				$(this).css('color','black');
-				$(this).css('font-weight','inherit');
-				$('#btn_next').attr('disabled',true);
+				$("input[name=agreeYn]:checkbox").each(function() {
+					if($(this).is(':checked')){
+						$(this).prop("checked", false);
+						allcheck =false;
+						
+					}
+					$('.check_allbtn').css('background-color','white');
+					$('.check_allbtn').css('color','black');
+					$('.check_allbtn').css('font-weight','inherit');
+					$('#btn_next').attr('disabled',true);
+				});
+				
 			}
 		});
+		
+		$('.test').click(function(){
+			$('.test').each(function(){
+				if($(this).is(':checked')){
+					$('#btn_next').attr('disabled',false);
+					
+				}else{
+					$('#btn_next').attr('disabled',true);
+				}
+			})
+		});
+		
 	});
 </script>
 
@@ -206,7 +233,7 @@
 							<li class="agree-item">
 								<div class="agree-item-title">
 									<span class="c-ick">
-										<input type="checkbox" name="agreeYn" id="agreeYn01">
+										<input type="checkbox" name="agreeYn" id="agreeYn01" class="test">
 										<label for="link_agree01" class="agree01">
 											아이디 이용약관 동의 (필수)
 										</label>
@@ -220,7 +247,7 @@
 							<li class="agree-item">
 								<div class="agree-item-title">
 									<span class="c-ick">
-										<input type="checkbox" name="agreeYn" id="agreeYn02">
+										<input type="checkbox" name="agreeYn" id="agreeYn02" class="test">
 										<label for="link_agree02" class="agree02">
 											아이디 개인 정보 수집/이용 동의(필수)
 										</label>
@@ -234,7 +261,7 @@
 							<li class="agree-item">
 								<div class="agree-item-title">
 									<span class="c-ick">
-										<input type="checkbox" name="agreeYn" id="agreeYn03">
+										<input type="checkbox" name="agreeYn" id="agreeYn03" class="test">
 										<label for="link_agree03" class="agree03">
 											제 3자 정보 제공(필수)
 										</label>
