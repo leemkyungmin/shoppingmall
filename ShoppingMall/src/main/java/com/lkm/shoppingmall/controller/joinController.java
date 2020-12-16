@@ -2,13 +2,26 @@ package com.lkm.shoppingmall.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lkm.shoppingmall.commom.command;
+import com.lkm.shoppingmall.dao.joinDAO;
 
 @Controller
 public class joinController {
 
+	
+	@Autowired
+	private SqlSession sqlSession;
+	private command command;
+	
 	//회원 가입 페이지 이동
 	@RequestMapping("registerForm")
 	public String goregister(HttpServletRequest req,Model model) {
@@ -54,9 +67,17 @@ public class joinController {
 		
 		return "join/member/agree/agree05";
 	}
-	
+	//일반회원 정보 입력 페이지
 	@RequestMapping("memberRegisterPage")
 	public String memberRegister() {
 		return "join/member/memberRegisterPage";
+	}
+	
+	//아이디 중복체크
+	@RequestMapping(value ="uIdcheck",method=RequestMethod.POST, produces="text/html; charset=utf-8")
+	@ResponseBody
+	public String uIdcheck(@RequestParam("uId") String uId) {
+		joinDAO JDAO = sqlSession.getMapper(joinDAO.class);
+		return JDAO.uIdcheck(uId)+"";
 	}
 }
