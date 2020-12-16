@@ -210,7 +210,7 @@
 			<div class="page_title">
 				<h1>가입 약관 동의</h1>
 			</div>
-			<form id="agreeForm" name="agreeForm" method="post">
+			<form id="agreeForm" name="agreeForm" method="post" action="memberRegisterPage">
 				<div class="agree-section">
 					<span class="check_allbtn">
 						<i class="fas fa-check fa-3x" id="select_all"></i>

@@ -34,24 +34,29 @@ public class joinController {
 	@RequestMapping("agree02")
 	public String memberagree02() {
 		
-		return "join/member/agree02";
+		return "join/member/agree/agree02";
 	}
 	//약관 동의 페이지3 
 	@RequestMapping("agree03")
 	public String memberagree03() {
 		
-		return "join/member/agree03";
+		return "join/member/agree/agree03";
 	}
 	//약관 동의 페이지4 
 	@RequestMapping("agree04")
 	public String memberagree04() {
 		
-		return "join/member/agree04";
+		return "join/member/agree/agree04";
 	}
 	//약관 동의 페이지2 
 	@RequestMapping("agree05")
 	public String memberagree05() {
 		
-		return "join/member/agree05";
+		return "join/member/agree/agree05";
+	}
+	
+	@RequestMapping("memberRegisterPage")
+	public String memberRegister() {
+		return "join/member/memberRegisterPage";
 	}
 }
