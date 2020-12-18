@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lkm.shoppingmall.command.uEmail_AuthCommand;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.joinDAO;
 
@@ -21,6 +23,7 @@ public class joinController {
 	@Autowired
 	private SqlSession sqlSession;
 	private command command;
+
 	
 	//회원 가입 페이지 이동
 	@RequestMapping("registerForm")
@@ -73,11 +76,29 @@ public class joinController {
 		return "join/member/memberRegisterPage";
 	}
 	
-	//아이디 중복체크
+	//아이디 중복체크 ajax
 	@RequestMapping(value ="uIdcheck",method=RequestMethod.POST, produces="text/html; charset=utf-8")
 	@ResponseBody
 	public String uIdcheck(@RequestParam("uId") String uId) {
 		joinDAO JDAO = sqlSession.getMapper(joinDAO.class);
 		return JDAO.uIdcheck(uId)+"";
+	}
+	
+	//이메일 인증 ajax
+	@Autowired
+	private JavaMailSender mailSender;
+	@RequestMapping(value="uEmail_Auth")
+	@ResponseBody
+	public String uEmil_Auth(HttpServletRequest req,Model model) {
+		String uEmail = req.getParameter("uEmail");
+		String uSerid = req.getParameter("uSerid");
+		model.addAttribute("uEmail", uEmail);
+		model.addAttribute("uSerid", uSerid);
+		System.out.println("uSerid : " + uSerid + " uEmail : "+ uEmail);	
+		System.out.println("mail_Sender : "+mailSender);
+		model.addAttribute("mailSender",mailSender);
+		uEmail_AuthCommand auto_cmd = new uEmail_AuthCommand();
+		
+		return auto_cmd.execute(sqlSession, model);
 	}
 }
