@@ -55,8 +55,11 @@ function DaumPostcode() {
 </script>
 <script>
 	$().ready(function(){
+		
 		$('#Email_host').css('display','none');
-		var idChecked = 'idUnchecked';
+		var idChecked = 'Unchecked';
+		var pwChecked ='Unchecked';
+		var emailChecked ='Unchecked';
 		$('#uId').keyup(function(){
 			var id = $('#uId').val();
 			var idk =$('.idcheck');
@@ -71,19 +74,21 @@ function DaumPostcode() {
 						if(data =='0'){
 							idk.empty();
 							idk.text('사용 가능한 아이디입니다.');
-							idChecked = 'idchecked';
+							idChecked = 'checked';
 						}else{
 							idk.empty();
 							idk.text('이미 사용중인 아이디입니다.');
 							$('#uId').focus();
-							idChecked = 'idUnchecked';
+							idChecked = 'Unchecked';
 						}
 					},
 					error : function(){
+						idChecked = 'Unchecked';
 						alert('ajax 통신 실패');
 					}
 					
 				});
+				  ;
 			}
 			
 		});
@@ -96,6 +101,7 @@ function DaumPostcode() {
 			pwchk();
 		});
 		function pwchk(){
+			pwChecked='Unchecked';
 			var uPwchk = $('.uPwcheck');
 			var uPw = $('#uPw').val();
 			var uPw2 = $('#uPw2').val();
@@ -108,18 +114,22 @@ function DaumPostcode() {
 				if(uPw == uPw2){
 					if(uPw =='' || uPw2 ==''){
 						uPwchk.text('비밀번호를 입력해주세요.');
+						pwChecked='Unchecked';
 					}else if(uPw.length<6){
 						uPwchk.text('비밀번호는 6자 이상으로 입력해주세요');
+						pwChecked='Unchecked';
 					}else if(!pwReg.test(uPw)){
 						uPwchk.text('비밀번호 최소 6자 이상 문자 1개이상, 특수문자 를 입력해주세요');
+						pwChecked='Unchecked';
 					}else{
 						uPwchk.text('비밀번호가 일치합니다.');
+						pwChecked='checked';
 					}	
 				}else {
 					uPwchk.text('비밀번호가 틀립니다.');
+					pwChecked='Unchecked';
 				}
-			}else{
-				uPwchk.empty();
+				   
 			}
 			
 		}
@@ -135,8 +145,10 @@ function DaumPostcode() {
 				$('#Email_host').val(email);
 			}
 		});
-		
+		var Email_Auth_key ;
+		var click;
 		$('#uEmailchk').click(function(){
+			Email_Auth_key ='';
 			var Email_host = $('#Email_host');
 			var uEmail = $('#uEmail');
 			var Email;
@@ -150,32 +162,83 @@ function DaumPostcode() {
 				Email = uEmail.val() + '@' + Email_host.val();
 				$.ajax({
 					url : 'uEmail_Auth',
-					type : 'post',
-					data : 'uEmail = ' + Email + '&uSerid=' + $('#uId').val(),
+					type : 'POST',
+					data : 'uEmail=' + Email + '&uSerid=' + $('#uId').val(),
 					success : function(data){
-						$('.email_check').removeAttr('hidden');
+						Email_Auth_key=data;
+						$('#myModal').show();
 						var start_min =5;
 						var start_sec =0;
-						setInterval(() => {
-							if(start_sec==0){
-								start_min -=1;
-								start_sec =60;
-							}else {
-								start_sec -=1;
+						click =setInterval(() => {
+							if(start_min ==0 && start_sec ==0){
+								clearInterval(click);
+								alert('인증 시간이 만료되었습니다.');
+								email_auth_cancel();
+							}else{
+								if(start_sec==0){
+									start_min -=1;
+									start_sec =60;
+								}else {
+									start_sec -=1;
+								}
+								if(start_min ==0 && start_sec == 0){
+									clearInterval();
+								}
+								$('.time').text((start_min.length=1 ? '0'+start_min : start_min) + ' : ' +(start_sec >9 ?start_sec : '0'+start_sec));
 							}
-							$('.time').text(start_min.length=1 ? '0'+start_min : start_min + ' : ' +start_sec >9 ?start_sec : '0'+start_sec);
+							
 						}, 1000);
+						
 					},error:function(){
 						alert('ajax 통신실패');
 					}
 				});
 			}
-			 
+			
+		});
+		//생성된 인증번호와 사용자가 입력한 인증번호를 검사하는 clickEvent
+		$('.auth-check').click(function(){
+			var uEmail_auth = $('#uEmail-auth').val();
+			if(Email_Auth_key == uEmail_auth){
+				alert('인증 성공');
+				
+				clearInterval(click);
+				emailChecked ='checked';
+				$('#myModal').hide();
+			
+				return;
+			}else{
+				alert('인증 번호를 확인해주세요');
+				emailChecked ='Unchecked';
+			}
+		});
+		function email_auth_cancel(){
+			Email_Auth_key ='';
+			emailChecked ='Unchecked';
+			$('#uEmail-auth').val('');
+			$('#myModal').hide();
+		}
+		
+		
+		$('#step01-next').click(function(){
+			if(idChecked =='Unchecked'){
+				alert('이미 사용중인 아이디 이거나 아이디가 입력되지 않았습니다.').
+				$('#uId').focus();
+			}else if(pwChecked =='Unchecked'){
+				alert('비밀번호가 틀리거나 조건이 맞지 않습니다.').
+				$('#uPw').focus();
+			}else if(emailChecked =='Unchecked'){
+				alert('이메일 인증하지 않았습니다..').
+				$('#uEmail').focus();
+			}else{
+				$('.step1').css({'display' : 'none'});
+				$('.step2').css({'display' : 'block'});
+			}
+			
 			
 		});
 		
 	});
-	
 </script>
 <style>
 	.wrap {
@@ -202,14 +265,20 @@ function DaumPostcode() {
 		height : 50px; 
 		margin-top:15px;
 	}
-	.mreg-form .form-style label{
+	.mreg-form .form-style label {
 		display:inline-block;
 		text-align:center;
 		width: 70px;
 		height: 100%;
 		margin-right: 15px;
 	}
-	.mreg-form .form-style input[type=text],input[type=password]{
+	.uEmail-auth-label{
+		display:inline-block;
+		text-align:center;
+		width: 70px;
+		margin-right: 15px;
+	}
+	.mreg-form .form-style input[type=text],input[type=password] ,#uEmail-auth{
 		width: 400px;
 		height: 32px;
 	}
@@ -227,7 +296,73 @@ function DaumPostcode() {
 		background: red;
 		color:white;
 	}
-	
+	.modal-backdrop fade in{
+		height: 0;
+	}
+	#Modal,#myModal {
+         display: none;
+	    position: absolute;
+	    margin: auto;
+	    width: 700px;
+	    height: 800px;
+	    z-index: 1;
+	    left: 17%;
+	    top: 41%;
+    }
+        
+    #Modal h2{
+    	margin:0;
+   	}
+  
+    #Modal .modal-content,#myModal .modal-body {
+	    width:100%;
+	    height : 250px;
+	    margin:0px auto;
+	    padding:20px 10px;
+	    background:#fff;
+    }
+    #myModal .modal-title {
+    	width: 700px;
+    	position: relative;
+    	height: 100%;
+    line-height: 100%;
+         
+	}
+	#myModal .modal-title .title {
+		position: absolute;
+		text-align: center;
+		/* left: 10px; */
+		width: 100%;
+		font-size: 18px;
+	}
+	#Modal .modal-content,#myModal .modal-title .close {
+    	position: absolute;
+   		right: 30px;
+         
+	}
+        
+	#Modal .modal_layer ,#myModal .modal_layer{
+    	position:fixed;
+    	top:0;
+    	left:0;
+		width:100%;
+   		height:100%;
+    	background:rgba(0, 0, 0, 0.5);
+     	z-index:-1;
+	}
+	#myModal .modal-header{
+		position: relative;
+		width: 700px;
+		height: 46px;
+		background: white;
+		border-bottom: 1px solid black;
+		padding:10px 10px;
+	}
+	.modal-header >button{
+		position: absolute;
+		bottom: 0;
+		right: 10px;
+	}
 	
 </style>
 	
@@ -271,21 +406,10 @@ function DaumPostcode() {
 							<input type="button" id="uEmailchk" value="이메일 인증하기">
 						</div>
 						<!-- 이메일 인증 div 열기 $('.email_check').attr('hidden',false);-->
-						<div class="email_check" hidden="hidden">
-							<div class="email-check_title">
-								<h1>입력하신 이메일로 인증코드를 입력해주세요!</h1>
-							</div>
-							<div class="email-auth-user-input">
-								<input type="text" id="uEmail-auth">
-							</div>
-							<div class="email-auth-btn">
-								<p class=".time"></p>
-								<button class="auth-check" value="입력"></button>
-							</div>
-						</div>
+						
 						<div class="controll-btns">
-							<button class="cancel" id="cancel" >취소</button>
-							<button class="next" id="step01-next" disabled="disabled">다음</button>
+							<input type="button" class="cancel" id="cancel" value="취소" >
+							<input type="button" id="step01-next" value="다음">
 						</div>
 					</div>
 					<div class="step2">
@@ -309,6 +433,44 @@ function DaumPostcode() {
 				</form>
 			</div>
 		</div>
+		<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header" data-backdrop="static">
+			<!-- data-dismiss="modal" -->
+		<div class="modal-title" data-backdrop="static">
+			<div class="email-check_title">
+					<h1>입력하신 이메일로 인증코드를 입력해주세요!</h1>
+			</div>
+			
+		</div>   	
+			
+		</div>
+		<div class="modal-body" data-backdrop="static">
+			<div class="email_check">
+				<label for="uEmail-auth" class="uEmail-auth-label">
+				인증번호</label><input type="text" id="uEmail-auth"><input type="button" class="auth-check" value="입력" data-toggle="modal" data-target="#myModal"><br/>
+				<label class="left_time">남은 시간 :</label> <span class="time"></span>
+								
+			</div>
+		</div>
+		<div class="modal-foot" data-backdrop ="static">
+			<input type="button" onclick = "email_auth_cancel()" value="취소">
+		</div>
+		
+				  
+		<div class="modal_layer" data-backdrop="static"></div>
+	</div>
+	<script>
+		
+		$().ready(function(){
+			setInterval(() => {
+				if($('.modal-backdrop').val()==''){
+					$('.modal-backdrop').remove();
+				}	
+			}, 500);
+		});
+		//Modal 버튼 Controll
+		
+	</script> 
 	</div>
 	
 </body>

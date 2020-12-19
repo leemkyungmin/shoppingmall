@@ -87,14 +87,12 @@ public class joinController {
 	//이메일 인증 ajax
 	@Autowired
 	private JavaMailSender mailSender;
-	@RequestMapping(value="uEmail_Auth")
+	
+	@RequestMapping(value = "uEmail_Auth",method=RequestMethod.POST, produces="text/html; charset=utf-8")
 	@ResponseBody
-	public String uEmil_Auth(HttpServletRequest req,Model model) {
-		String uEmail = req.getParameter("uEmail");
-		String uSerid = req.getParameter("uSerid");
-		model.addAttribute("uEmail", uEmail);
-		model.addAttribute("uSerid", uSerid);
-		System.out.println("uSerid : " + uSerid + " uEmail : "+ uEmail);	
+	public String uEmil_Auth(HttpServletRequest request,Model model) {
+		
+		model.addAttribute("request",request);	
 		System.out.println("mail_Sender : "+mailSender);
 		model.addAttribute("mailSender",mailSender);
 		uEmail_AuthCommand auto_cmd = new uEmail_AuthCommand();

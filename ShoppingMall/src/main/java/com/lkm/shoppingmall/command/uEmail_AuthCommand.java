@@ -2,6 +2,8 @@ package com.lkm.shoppingmall.command;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,8 +18,11 @@ public class uEmail_AuthCommand  {
 				
 			Map<String, Object> map = model.asMap();
 			JavaMailSender mailSender = (JavaMailSender)map.get("mailSender");
-						
-			String uEmail =(String) map.get("uEmail");
+			
+			HttpServletRequest request =(HttpServletRequest) map.get("request");
+			
+			String uEmail =request.getParameter("uEmail");
+			String uSerid =request.getParameter("uSerid");
 			SimpleMailMessage message = new SimpleMailMessage();
 			
 			message.setFrom("lkmshoppingmall@gmail.com");  // 보내는 사람의 메일 주소
@@ -29,7 +34,7 @@ public class uEmail_AuthCommand  {
 					authKey+=randomnum.charAt((int) (Math.random() * randomnum.length()));
 				}
 				message.setSubject("lkmShoppingmall 인증메일입니다.\n");
-				message.setText((String)map.get("uSerid") + "님\n" +
+				message.setText(uSerid + "님\n" +
 						"인증 번호 : " +authKey +" 입니다.\n" );
 				
 				System.out.println(message);

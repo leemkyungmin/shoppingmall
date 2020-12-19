@@ -340,7 +340,7 @@
 				if($('.modal-backdrop').val()==''){
 					$('.modal-backdrop').remove();
 				}	
-			}, 10);
+			}, 500);
 		});
 			$('#myModal').on('show.bs.modal',function(e){
 				var button = $(e.relatedTarget);
