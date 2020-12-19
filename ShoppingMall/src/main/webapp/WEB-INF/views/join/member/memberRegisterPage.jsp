@@ -212,11 +212,16 @@ function DaumPostcode() {
 				emailChecked ='Unchecked';
 			}
 		});
+		$('#email_auth_cancel').click(function(){
+			email_auth_cancel();
+			clearInterval(click);
+		});
 		function email_auth_cancel(){
 			Email_Auth_key ='';
 			emailChecked ='Unchecked';
 			$('#uEmail-auth').val('');
 			$('#myModal').hide();
+			
 		}
 		
 		
@@ -237,7 +242,51 @@ function DaumPostcode() {
 			
 			
 		});
+		$('#cancel').click(function(){
+			if(confirm('회원 가입을 취소하시겠습니까?')){
+				location.href='index';
+			}else{
+				return;
+			}
+		});
 		
+		$('#reg_cancel').click(function(){
+			if(confirm('회원 가입을 취소하시겠습니까?')){
+				location.href='index';
+			}else{
+				return;
+			}
+		});
+		
+		
+		var uPhonechecked ="Unchecked";
+		var uPhoneReg = new RegExp('(01[016789])([1-9]{1}[0-9]{2,3})([0-9]{4})$');
+		$('#uPhone').keyup(function(){
+			var uPhone = $('#uPhone').val();
+			var uPhone_check =$('.uPhone_check');
+			if(uPhone.length == 11){
+				if(uPhoneReg.test(uPhone)){
+					uPhonechecked = "checked";
+					uPhone_check.text('사용 가능한 번호');
+				}else{
+					uPhonechecked = "Unchecekd";
+					uPhone_check.text('형식에 맞지 않는 번호');
+				}
+			}else {
+				uPhonechecked =="Unchecked";
+				uPhone_check.text('휴대폰번호 11자리(하이픈 빼고 입력해주세요)');
+			}
+		});
+		$('#reg_complate').click(function(){
+			if(idChecked =='checked' && uPhonechecked =='checked' && pwChecked =='checked' && emailChecked =='checked' && $('#uName').val().length !=0){
+				$('#fm').submit();
+			}else{
+				alert('잘못된 정보가 입력됬습니다. 다시 작성해주세요');
+				$('.step1').css({'display' : 'block'});
+				$('.step2').css({'display' : 'block'});
+				$('#fm').reset();
+			}
+		});
 	});
 </script>
 <style>
@@ -255,14 +304,19 @@ function DaumPostcode() {
 		height: 500px;
 
 	}
-	.mreg-form .step2{
-		display:none;
-	}
+	
 	.mreg-form .form-style{
 		position:relative;
 		left:80px;
 		width: 1000px;
 		height : 50px; 
+		margin-top:15px;
+	}
+	.post_address{
+		position:relative;
+		left:80px;
+		width: 1000px;
+		height : 150px; 
 		margin-top:15px;
 	}
 	.mreg-form .form-style label {
@@ -316,10 +370,22 @@ function DaumPostcode() {
   
     #Modal .modal-content,#myModal .modal-body {
 	    width:100%;
-	    height : 250px;
+	    height:100px;
 	    margin:0px auto;
 	    padding:20px 10px;
 	    background:#fff;
+    }
+    .modal-foot{
+   		width:100%;
+	    height:100px;
+	    text-align:center;
+	    margin:0px auto;
+	    padding:20px 10px;
+	    background:#fff;
+    }
+    .modal-foot input[type=button]{
+    	    width: 150px;
+    		height: 50px;
     }
     #myModal .modal-title {
     	width: 700px;
@@ -363,16 +429,44 @@ function DaumPostcode() {
 		bottom: 0;
 		right: 10px;
 	}
+	.controll-btns{
+		width: 100%;
+		height: 200px;
+		text-align: center;
+		
+	}
+	.controll-btns input[type=button],.form-style input[type=button]{
+		width: 200px;
+	    height: 50px;
+	    margin: 20px;
+	}
+	.auth-check{
+		width: 100px;
+		height: 32px;
+		margin-left  :20px;
+	}
+	.mreg-form .step2{
+		display:none; 
+	} 
+	.step2 .post_address input{
+		width: 200px;
+	    height: 32px;
+	    margin: 2px auto;
+	}
+	.step2 .post_address input[type=text]:last-child {
+		width: 300px;
+	    height: 32px;
+	    margin: 2px auto;
+	}
 	
 </style>
-	
 	<div class="wrap">
 		<div class="wrap-content">
 			<div class="reg-title">
 				<h1>가입 정보 입력</h1>
 			</div>
 			<div class="mreg-form">
-				<form  method="post" action="memberRegSuccess">
+				<form  method="post" action="memberRegSuccess" id="fm">
 					<div class="step1">
 						<div class="form-style">
 							<label for = "uId">아이디</label>
@@ -415,19 +509,24 @@ function DaumPostcode() {
 					<div class="step2">
 						<div class="form-style">
 							<label for = "uName">이름</label>
-							<input type= "text" name="uName" id="uName">
+							<input type= "text" name="uName" id="uName" placeholder="이름">
 						</div>
 						<div class="form-style">
 							<label for = "uPhone">전화번호</label>
-							<input type= "text" name="uPhone" id="uPhone">
+							<input type= "text" name="uPhone" id="uPhone" placeholder="전화번호 하이픈(-)빼고" maxlength="11">
+							<span class="uPhone_check"></span>
 						</div>
 						<div class="post_address">
-							<input type="text" id="postcode" placeholder="우편번호" readonly="readonly">
+							<input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly="readonly">
 							<input type="button" onclick="DaumPostcode()" value="우편번호찾기"/><br/>
-							<input type="text" id="roadAddress" placeholder="도로명주소" readonly="readonly">
-							<input type="text" id="jibunAddress" placeholder="지번주소" readonly="readonly">
-							<span id="guide" style="color:#999;display:none"></span>
-							<input type="text" id="detailAddress" placeholder="상세주소">
+							<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" readonly="readonly">
+							<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" readonly="readonly">
+							<span id="guide" style="color:#999;display:none"></span><br/>
+							<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
+						</div>
+						<div class="form-style">
+							<input type="button" class="reg_controll" id="reg_cancel" value="회원가입 취소">
+							<input type="button" class="reg_controll" id="reg_complate" value="회원가입 ">
 						</div>
 					</div>
 				</form>
@@ -447,13 +546,14 @@ function DaumPostcode() {
 		<div class="modal-body" data-backdrop="static">
 			<div class="email_check">
 				<label for="uEmail-auth" class="uEmail-auth-label">
-				인증번호</label><input type="text" id="uEmail-auth"><input type="button" class="auth-check" value="입력" data-toggle="modal" data-target="#myModal"><br/>
+				인증번호</label><input type="text" id="uEmail-auth"><br/>
 				<label class="left_time">남은 시간 :</label> <span class="time"></span>
 								
 			</div>
 		</div>
 		<div class="modal-foot" data-backdrop ="static">
-			<input type="button" onclick = "email_auth_cancel()" value="취소">
+			<input type="button" id ="email_auth_cancel" value="취소">
+			<input type="button" class="auth-check" value="입력" data-toggle="modal" data-target="#myModal">
 		</div>
 		
 				  

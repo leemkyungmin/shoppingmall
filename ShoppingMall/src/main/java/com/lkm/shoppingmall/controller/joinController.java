@@ -1,5 +1,7 @@
 package com.lkm.shoppingmall.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lkm.shoppingmall.command.memberRegSuccessCommand;
 import com.lkm.shoppingmall.command.uEmail_AuthCommand;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.joinDAO;
@@ -98,5 +101,17 @@ public class joinController {
 		uEmail_AuthCommand auto_cmd = new uEmail_AuthCommand();
 		
 		return auto_cmd.execute(sqlSession, model);
+	}
+	
+	//일반 회원 가입 성공
+	@RequestMapping("memberRegSuccess")
+	public String memberRegSuccess(HttpServletRequest req,Model model) {
+		model.addAttribute("req", req);
+		command =new memberRegSuccessCommand();
+		command.execute(sqlSession, model);
+		Map<String,Object> map =model.asMap();
+		int result =(Integer) map.get("result");
+		System.out.println(result);
+		return "redirect:/login";
 	}
 }
