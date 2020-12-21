@@ -5,10 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.lkm.shoppingmall.dao.loginDAO">
 	
-	<select id="loginchk" parameterType="String" resultType="com.lkm.shoppingmall.dto.userDto">
+	<select id="userloginchk" parameterType="String" resultType="com.lkm.shoppingmall.dto.userDto">
 		SELECT * 
 		FROM USERS 
 		WHERE USERID = #{param1} and UPW = #{param2}
+	</select>	
+	<select id="deptloginchk" parameterType="com.lkm.shoppingmall.dto.departmentDto" resultType="com.lkm.shoppingmall.dto.departmentDto">
+		SELECT * 
+		FROM DEPT 
+		WHERE DID = '${dId}' and DPW = '${dPw}'
 	</select>	
 
 </mapper>

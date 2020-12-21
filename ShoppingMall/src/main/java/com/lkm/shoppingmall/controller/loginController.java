@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.*;
+import com.lkm.shoppingmall.dto.departmentDto;
 import com.lkm.shoppingmall.dto.userDto;
 
 
@@ -26,8 +27,12 @@ public class loginController {
 	//로그인 페이지 이동
 	@RequestMapping("login")
 	public String gologin(HttpServletRequest req,Model model) {
+		if(req.getSession().getAttribute("uSerid") !=null && req.getSession().getAttribute("dId") !=null) {
+			return "login/loginPage";
+		}else {
+			return "redirect:index";
+		}
 		
-		return "login/loginPage";
 	}
 	
 	//ajax 로그인	
@@ -35,20 +40,46 @@ public class loginController {
 	@ResponseBody
 	public String loginchk(HttpServletRequest request) {
 		
-		String uSerid = request.getParameter("uSerid");
-		String uPw = request.getParameter("uPw");
 		
-		loginDAO ldao = sqlSession.getMapper(loginDAO.class);
-		userDto udto =new userDto();
-		udto = ldao.loginchk(uSerid, uPw);
+		String type= request.getParameter("type");
+		System.out.println(type);
 		String result = "0";
-		if (udto != null) {
-			request.getSession().setAttribute("uSerid", udto.getuSerid());
-			request.getSession().setAttribute("upw", udto.getuPw());
-			request.getSession().setAttribute("uName", udto.getuSerName());
-			result = "1";
+		if(type.equals("user")) {
+			String uSerid = request.getParameter("uSerid");
+			String uPw = request.getParameter("uPw");
+			loginDAO ldao = sqlSession.getMapper(loginDAO.class);
+			userDto udto =new userDto();
+			udto = ldao.userloginchk(uSerid, uPw);
+			
+			if (udto != null) {
+				request.getSession().setAttribute("uSerid", udto.getuSerid());
+				request.getSession().setAttribute("upw", udto.getuPw());
+				request.getSession().setAttribute("uName", udto.getuName());
+				request.getSession().setAttribute("point", udto.getuPoint());
+				result = "1";
+			}
+		}else {
+			String dId = request.getParameter("uSerid");
+			String dPw = request.getParameter("uPw");
+			departmentDto deptDTO =new departmentDto();
+			loginDAO ldao =sqlSession.getMapper(loginDAO.class);
+			deptDTO.setdId(dId);
+			deptDTO.setdPw(dPw);
+			
+			departmentDto resultDTO =ldao.deptloginchk(deptDTO);
+			System.out.println(resultDTO.getdId());
+			System.out.println(resultDTO.getdPw());
+			if (resultDTO != null) {
+				request.getSession().setAttribute("dId", resultDTO.getdId());
+				request.getSession().setAttribute("dPw", resultDTO.getdPw());
+				request.getSession().setAttribute("dName", resultDTO.getdName());
+				request.getSession().setAttribute("point", resultDTO.getdPoint());
+				result = "1";
+			}
+			System.out.println(request.getSession().getAttribute("dId"));
+			
 		}
-				 
+			 
 		return result;
 	}
 	

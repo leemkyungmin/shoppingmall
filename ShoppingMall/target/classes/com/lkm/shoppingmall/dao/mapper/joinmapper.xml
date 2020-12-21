@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE USERID = #{param1}
 	</select>
 	<insert id="signinMember" parameterType="com.lkm.shoppingmall.dto.userDto">
-		INSERT INTO USERS(UIDX,USERID,UPW,UNAME,UADDRESS,UPHONE,UPHOTO,UPOINT,UREG_DATE) VALUES(
+		INSERT INTO USERS(UIDX,USERID,UPW,UNAME,UADDRESS,UPHONE,UPHOTO,UPOINT,UREG_DATE,UGRADE) VALUES(
 			USERS_SEQ.NEXTVAL,
 			'${uSerid}',
 			'${uPw}',
@@ -18,6 +18,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			'${uAddress}',
 			'${uPhone}',
 			'null',
+			0,
+			SYSDATE
+			,'0'
+		)
+	</insert>
+	<select id="dIdcheck" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM DEPT
+		WHERE DID =#{param1}
+	</select>
+	<select id="dSaup_nocheck" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM DEPT
+		WHERE DSAUP_NO =#{param1}
+	</select>
+	<insert id="signinDepartment" parameterType="com.lkm.shoppingmall.dto.departmentDto">
+		INSERT INTO DEPT(DIDX,DID,DPW,DPHONE,DSAUP_NO,DTYPE,DNAME,DADDRESS,DPOINT,DREG_DATE) VALUES(
+			DEPT_SEQ.NEXTVAL,
+			'${dId}',
+			'${dPw}',
+			'${dPhone}',
+			'${dSaup_no}',
+			'${dType}',
+			'${dName}',
+			'${dAddress}',
 			0,
 			SYSDATE
 		)

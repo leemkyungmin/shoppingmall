@@ -58,8 +58,8 @@
 <body>
 	<header class="reg_header">
 		<h1>
-			<img alt="메인 로고" src="resources/assets/images/logo1.PNG" onclick="location.href='index'">
-			<span>회원 가입</span>
+			<img alt="메인 로고" src="../resources/assets/images/logo1.PNG" onclick="location.href='../index'">
+			<span class="reg_type"></span>
 		</h1>
 		<ol class="location">
 			<li class="step1">1 회원선택</li>

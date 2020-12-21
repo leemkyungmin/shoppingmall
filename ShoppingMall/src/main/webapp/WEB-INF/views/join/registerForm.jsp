@@ -6,7 +6,7 @@
 	.register_wrap .register_img .join_person{
 		position:relative;
 		margin : 10px 300px 50px;
-		background: url("resources/assets/images/register_img.gif") no-repeat 0 0;
+		background: url("../resources/assets/images/register_img.gif") no-repeat 0 0;
 		background-size : 100%;
 		height: 500px;
 	
@@ -119,7 +119,7 @@
  						사업자 등록증을 보유한<br>
  						구매회원
  					</p>
- 					<a href="departmentBuys">
+ 					<a href="department_Reg?dType=buy">
  						가입하기
  					</a>
  				</li>
@@ -132,7 +132,7 @@
  						사업자 등록증을 보유한<br>
  						판매회원
  					</p>
- 					<a href="departmentSeller">
+ 					<a href="department_Reg?dType=sell">
  						가입하기
  					</a>
  				</li>

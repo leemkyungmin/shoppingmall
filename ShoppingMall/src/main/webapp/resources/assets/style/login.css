@@ -1,7 +1,5 @@
 @charset "UTF-8";
-body{
-	background-color: lightgray;
-}
+
 .s_login{
 	padding: 83px 0;
 	display:block;
@@ -20,7 +18,7 @@ body{
 	width: 500px;
 	height: 54px;
 }
-#login_form input[type=button]{
+#login_form .form-body input[type=button]{
 	width: 507px;
 	height: 54px;
 	background: red;
@@ -56,4 +54,38 @@ a:visited {
 a:hover { 
 	color: black; 
 	text-decoration: underline;
+}
+.login_type{
+	width: 508px;
+	height : 80px;
+	
+	text-align: center;
+	margin-bottom: 10px;
+	border :1px solid black;
+}
+.login_type input[type=button]{
+	display:inline-block;
+	width: 230px; 
+	height: 100%;
+	border:0;
+	text-align:center;
+	outline: 0;
+	font-size: 20px;
+	background: white;
+}
+
+.login_type .user-border{
+	width : 250.4px;
+    height: 100%;
+    display: inline-block;
+    border-right: 1px solid black;
+}
+.login_type .dept-border{
+	width : 251px;
+	height: 100%;
+    display: inline-block;
+}
+.user-border,#user_login{
+	background: yellow;
+	font-weight: bold;
 }

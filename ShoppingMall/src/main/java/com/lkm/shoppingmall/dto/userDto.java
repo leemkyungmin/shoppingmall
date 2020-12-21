@@ -1,5 +1,7 @@
 package com.lkm.shoppingmall.dto;
 
+import java.sql.Date;
+
 public class userDto {
 
 	int uIdx;
@@ -9,9 +11,27 @@ public class userDto {
 	String uAddress;
 	String uPhone;
 	int uPoint;
+	String uGrade;
+	Date uReg_date;
 	
 	public userDto() {
 		
+	}
+
+	public Date getuReg_date() {
+		return uReg_date;
+	}
+
+	public void setuReg_date(Date uReg_date) {
+		this.uReg_date = uReg_date;
+	}
+
+	public String getuGrade() {
+		return uGrade;
+	}
+
+	public void setuGrade(String uGrade) {
+		this.uGrade = uGrade;
 	}
 
 	public int getuIdx() {
@@ -70,7 +90,7 @@ public class userDto {
 		this.uPoint = uPoint;
 	}
 
-	public userDto(int uIdx, String uSerid, String uPw, String uName, String uAddress, String uPhone, int uPoint) {
+	public userDto(int uIdx, String uSerid, String uPw, String uName, String uAddress, String uPhone, int uPoint,String uGrade) {
 		super();
 		this.uIdx = uIdx;
 		this.uSerid = uSerid;
@@ -79,6 +99,7 @@ public class userDto {
 		this.uAddress = uAddress;
 		this.uPhone = uPhone;
 		this.uPoint = uPoint;
+		this.uGrade = uGrade;
 	}
 	
 	

@@ -20,7 +20,7 @@ import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.joinDAO;
 
 @Controller
-public class joinController {
+public class joinMemberController {
 
 	
 	@Autowired
@@ -29,7 +29,7 @@ public class joinController {
 
 	
 	//회원 가입 페이지 이동
-	@RequestMapping("registerForm")
+	@RequestMapping("join/registerForm")
 	public String goregister(HttpServletRequest req,Model model) {
 			 
 		String type =req.getParameter("type"); 	
@@ -38,7 +38,7 @@ public class joinController {
 	}
 	// 일반 회원
 	// 약관 동의 페이지
-	@RequestMapping("userRegisterForm")
+	@RequestMapping("join/userRegisterForm")
 	public String register() {
 		return "join/join_user_Conditions";
 	}
@@ -74,16 +74,17 @@ public class joinController {
 		return "join/member/agree/agree05";
 	}
 	//일반회원 정보 입력 페이지
-	@RequestMapping("memberRegisterPage")
+	@RequestMapping("join/memberRegisterPage")
 	public String memberRegister() {
 		return "join/member/memberRegisterPage";
 	}
 	
 	//아이디 중복체크 ajax
-	@RequestMapping(value ="uIdcheck",method=RequestMethod.POST, produces="text/html; charset=utf-8")
+	@RequestMapping(value ="join/uIdcheck",method=RequestMethod.POST, produces="text/html; charset=utf-8")
 	@ResponseBody
 	public String uIdcheck(@RequestParam("uId") String uId) {
 		joinDAO JDAO = sqlSession.getMapper(joinDAO.class);
+		System.out.println(uId);
 		return JDAO.uIdcheck(uId)+"";
 	}
 	
@@ -91,7 +92,7 @@ public class joinController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	@RequestMapping(value = "uEmail_Auth",method=RequestMethod.POST, produces="text/html; charset=utf-8")
+	@RequestMapping(value = "join/uEmail_Auth",method=RequestMethod.POST, produces="text/html; charset=utf-8")
 	@ResponseBody
 	public String uEmil_Auth(HttpServletRequest request,Model model) {
 		
@@ -104,14 +105,13 @@ public class joinController {
 	}
 	
 	//일반 회원 가입 성공
-	@RequestMapping("memberRegSuccess")
+	@RequestMapping("join/memberRegSuccess")
 	public String memberRegSuccess(HttpServletRequest req,Model model) {
 		model.addAttribute("req", req);
 		command =new memberRegSuccessCommand();
 		command.execute(sqlSession, model);
 		Map<String,Object> map =model.asMap();
 		int result =(Integer) map.get("result");
-		System.out.println(result);
 		return "redirect:/login";
 	}
 }

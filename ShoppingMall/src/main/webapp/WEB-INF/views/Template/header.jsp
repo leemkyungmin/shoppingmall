@@ -32,7 +32,7 @@
 			
 		});
 		$('.register').click(function(){
-			location.href="registerForm";
+			location.href="join/registerForm";
 		})
 	});
 </script>
@@ -44,9 +44,6 @@
 	<header>
 		<div class="main-header">
 			<ul class="header-style">
-				<li>
-					<button class="sidemenu"><i class="fas fa-bars"></i></button>
-				</li>
 				<li>
 					<a href="index">
 						<img alt="메인 이미지" src="${pageContext.request.contextPath}/resources/assets/images/logo1.PNG">
@@ -65,18 +62,24 @@
 				</li>
 				
 			</ul>
-			<div class="group_login_register">
-				<button class="login">
-					로그인
-				</button>
-				<c:if test="${sessionScope.uSerid ==null }">
-					<button class="register">회원 가입</button>				
-				</c:if>
-				<c:if test="${sessionScope.uSerid !=null }">
-					<button class="logout">로그 아웃</button>				
-				</c:if>
+			<div class="title_menu">
+				<div class="group_menu">
 				
+				</div>
+				<div class="group_login_register">
+					
+					<c:if test="${sessionScope==null }">
+						<button class="login">로그인</button>
+						<button class="register">회원 가입</button>				
+					</c:if>
+					<c:if test="${sessionScope !=null }">
+						<button class="myPage">마이페이지</button>
+						<button class="logout">로그 아웃</button>				
+					</c:if>
+					
+				</div>
 			</div>
+			
 		</div>
 		
 		<!-- 로그인 세션을 통해서 사용자 정보가 있으면 마이페이지 ,배송조회 ,카트 등등 선택 메뉴 /// 없으면 회원가입 , 로그인  -->
