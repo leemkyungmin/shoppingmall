@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.lkm.shoppingmall.command.indexCommand;
+import com.lkm.shoppingmall.command.searchCommand;
 import com.lkm.shoppingmall.commom.command;
 
 
@@ -23,6 +24,7 @@ public class indexController {
 	private SqlSession sqlSession;
 	private command command;
 	
+	//index 페이지
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String mainPage(HttpServletRequest req,Model model) {
 		
@@ -39,4 +41,13 @@ public class indexController {
 		
 		return "index";
 	}
+	
+	@RequestMapping(value="search",method=RequestMethod.GET)
+	public String search(HttpServletRequest req,Model model) {
+		model.addAttribute("req", req);
+		command =new searchCommand();
+		command.execute(sqlSession, model);
+		return "searchPage";
+	}
+	
 }

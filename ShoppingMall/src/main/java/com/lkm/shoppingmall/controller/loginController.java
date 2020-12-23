@@ -52,10 +52,12 @@ public class loginController {
 			udto = ldao.userloginchk(uSerid, uPw);
 			
 			if (udto != null) {
-				request.getSession().setAttribute("uSerid", udto.getuSerid());
-				request.getSession().setAttribute("upw", udto.getuPw());
-				request.getSession().setAttribute("uName", udto.getuName());
+				request.getSession().setAttribute("idx", udto.getuIdx());
+				request.getSession().setAttribute("id", udto.getuSerid());
+				request.getSession().setAttribute("pw", udto.getuPw());
+				request.getSession().setAttribute("Name", udto.getuName());
 				request.getSession().setAttribute("point", udto.getuPoint());
+				request.getSession().setAttribute("type", type);
 				result = "1";
 			}
 		}else {
@@ -70,10 +72,12 @@ public class loginController {
 			System.out.println(resultDTO.getdId());
 			System.out.println(resultDTO.getdPw());
 			if (resultDTO != null) {
-				request.getSession().setAttribute("dId", resultDTO.getdId());
-				request.getSession().setAttribute("dPw", resultDTO.getdPw());
-				request.getSession().setAttribute("dName", resultDTO.getdName());
+				request.getSession().setAttribute("Idx", resultDTO.getdIdx());
+				request.getSession().setAttribute("Id", resultDTO.getdId());
+				request.getSession().setAttribute("Pw", resultDTO.getdPw());
+				request.getSession().setAttribute("Name", resultDTO.getdName());
 				request.getSession().setAttribute("point", resultDTO.getdPoint());
+				request.getSession().setAttribute("type", type);
 				result = "1";
 			}
 			System.out.println(request.getSession().getAttribute("dId"));

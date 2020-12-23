@@ -5,8 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.lkm.shoppingmall.dao.indexDAO">
 	<select id="getbanner" resultType="com.lkm.shoppingmall.dto.bannerDto">
-		select * from banner
+		SELECT *
+		FROM BANNER
 	</select>
-	
-
+	<select id="searchResult" parameterType="String" resultType="com.lkm.shoppingmall.dto.searchDto">
+		SELECT p.PIDX, p.PNAME,NVL(AVG(r.RATING),0),NVL(COUNT(r.PIDX),0),d.DNAME,TO_CHAR(no.PNIMG)
+		FROM PRODUCTS p, DEPT d,REVIEW R,PRODUCTS_NOTICE no
+		WHERE p.PNAME LIKE '%' || #{param1} ||'%' 
+		and p.PIDX = R.PIDX and  p.DIDX = d.DIDX and p.PIDX =no.PIDX
+        group by p.PIDX, p.PNAME,d.DNAME,TO_CHAR(no.PNIMG)
+	</select>
+ 
 </mapper>

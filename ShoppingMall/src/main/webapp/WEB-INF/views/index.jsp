@@ -39,11 +39,14 @@
 		  });
 		  
 		  setInterval(NextSlide, 5000); //자동 슬라이드 설정
-
+		  
+		  
+		  
+		  
 		});
 	</script>
-	
-  <ul class="slider">
+  <div class="wrap">
+  	<ul class="slider">
     <c:forEach var="bimg" items="${bdto}">
 	    <li>
 	      <div>
@@ -70,6 +73,8 @@
 			</div>		
 		</div>
 	</div>
+  </div>
+  
 		
 	
 	
