@@ -115,7 +115,7 @@
 .mysearch-content li a:hover {
 	text-decoration: underline;
 }
-.group-search.show{
+.group-search.show{ 
 	display:block;
 }
 
