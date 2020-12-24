@@ -57,41 +57,7 @@
 	
 	//검색바 클릭시
 	
-	/*var btn =document.getElementById("search-item");
-	var body = document.getElementById('body');
-	console.log(btn);
-	console.log(body);
-	btn.addEventListener('click',function(){
-		if($('.group-search').css('display','none')){
-		    $('.group-search').toggle();
-		}
-	})
-	body.addEventListener('click',function(e){
-		e.stopPropagation();
-		if($(e.target).find('search-item')){
-			
-		}else{
-			$('.group-search').toggle();
-		}
-		
-			
-		
-	})
-	  $('#search-item').click(function(event){
-		if($('.group-search').css('display','none')){
-		    $('.group-search').toggle();
-		}
-	}); 
-	$('body').click(function(event){
-		event.stopPropagation();
-		if($('.group-search').css('display','none')){
-		    $('.group-search').toggle();
-		}else{
-			 $('.group-search').toggle();
-		}
-
-		
-	}); */ 
+	
 	
 	$(document).on('click','#search-item',function(e){
 		$('.group-search').addClass('show');
@@ -155,32 +121,34 @@
 			</div>
 		</div>
 			<div class="title_menu" >
-				<div class="group_menu">
-				
-				</div>
-				<div class="group_login_register">
+				<div class="shopping-list">
+					<div class="group_menu">
+						<ul>
+							<li>의류</li>
+							<li>식품</li>
+							<li>뷰티</li>
+							<li>가전제품 </li>
+							<li>인테리어</li>
+						</ul>
+					</div>
+					<div class="">
+						<!-- 상단 li:hover 해당 div 표시 -->
+					</div>
+					<div class="group_login">
+						<c:if test="${sessionScope.uSerid==null || sessionScope.dId==null}">
+							<a class="login">로그인</a>
+							<a class="register">회원가입</a>				
+						</c:if>
+						<c:if test="${sessionScope.uSerid!=null || sessionScope.dId!=null }">
+							<a class="myPage">마이페이지</a>
+							<a class="logout">로그아웃</a>				
+						</c:if>
 					
-					<c:if test="${sessionScope==null }">
-						<button class="login">로그인</button>
-						<button class="register">회원 가입</button>				
-					</c:if>
-					<c:if test="${sessionScope !=null }">
-						<button class="myPage">마이페이지</button>
-						<button class="logout">로그 아웃</button>				
-					</c:if>
-					
+					</div>
 				</div>
 			</div>
 		
 		
 		<!-- 로그인 세션을 통해서 사용자 정보가 있으면 마이페이지 ,배송조회 ,카트 등등 선택 메뉴 /// 없으면 회원가입 , 로그인  -->
-		<div class="side_bar">
-			<c:if test="${sessionScope.uSerid !=null }">
-				세션있음
-			</c:if>
-			<c:if test="${sessionScope.uSerid ==null }">
-				세션없음
-			</c:if>
-			<!-- 로그인 세션 처리후  -->
-		</div>
+		
 	</header>

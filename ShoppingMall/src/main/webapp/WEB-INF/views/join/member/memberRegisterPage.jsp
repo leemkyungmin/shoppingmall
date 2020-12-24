@@ -13,7 +13,7 @@
 		var pwChecked ='Unchecked';
 		var emailChecked ='Unchecked';
 		$('#uId').keyup(function(){
-			var uid = $('#uId').val();
+			var id = $('#uId').val();
 			var idk =$('.idcheck');
 			if(id.length ==0){
 				idk.empty();				

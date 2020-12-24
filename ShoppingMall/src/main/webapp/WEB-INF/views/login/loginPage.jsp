@@ -10,10 +10,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- ajax -->
 </head>
 <body>
-<c:if test="${sessionScope ==null }">
-
-
-
+<c:if test="${sessionScope.uSerid !=null ||  sessionScope.dId !=null}">
+		<script type="text/javascript">
+			location.href='index';
+		</script>
+</c:if>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
@@ -64,11 +65,7 @@
 		});
 	});
 </script>
-	<c:if test="${sessionScope.uSerid !=null }">
-		<script type="text/javascript">
-			location.href='index';
-		</script>
-	</c:if>
+	
 	<div class="s_login">
 		<h1 class="login_logo">
 			<a href="index"><img id="logoimg" src="resources/images/쇼핑몰_로고.PNG" alt="회원가입 로고"></a>
@@ -106,6 +103,6 @@
 		</form>
 		
 	</div>
-</c:if>
+
 </body>
 </html>

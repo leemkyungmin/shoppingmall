@@ -1,6 +1,13 @@
 package com.lkm.shoppingmall.command;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +33,8 @@ public class searchCommand implements command {
 		
 		model.addAttribute("sdto",sdto);
 		model.addAttribute("query",query);
+		
+		
 		
 	}
 

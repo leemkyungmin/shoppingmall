@@ -27,11 +27,8 @@ public class loginController {
 	//로그인 페이지 이동
 	@RequestMapping("login")
 	public String gologin(HttpServletRequest req,Model model) {
-		if(req.getSession().getAttribute("uSerid") !=null && req.getSession().getAttribute("dId") !=null) {
-			return "login/loginPage";
-		}else {
-			return "redirect:index";
-		}
+		
+		return "login/loginPage";
 		
 	}
 	
