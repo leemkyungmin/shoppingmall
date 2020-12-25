@@ -2,12 +2,12 @@
 
 
 .main-header{
-	  
+	margin: 0 50px 0 50px;  
     position: fixed;
     top: 0;
     left: 0;
     padding: 5px;
-    width: 100%;
+    width: 80%;
     height: 120px;
     font-size: 18px;
     background-color: white;
@@ -144,4 +144,57 @@
 .group-search.show{ 
 	display:block;
 }
+.group_login a:hover{
+	text-decoration: underline;
+	cursor:Pointer;
+}
+#searchBarBtn:hover{
+	cursor: pointer;
+}
+.main-header .user-controll{
+	position: absolute;
+    right: 0px;
+    top :40px;
+    text-align: right;
+}
+.main-header .user-controll ul .user-icon {
+	position: relative;
+    float: left;
+    margin: 0 0 0 25px;
+    padding: 0 0 15px 0;
+}
+.c_layer{
+	display: none;
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    left: 11px;
+    top: 35px;
+    position: absolute;
+    text-align: left;
+    box-sizing: border-box;
+    background: white;
+    margin-top: 20px;
+    
+}
+.c_layer.active{
+	display:block;
+}
+.c_layer li {
+	display: block;
+}
 
+.main-header .user-controll ul li i{
+	width: 50px;
+    margin-bottom: 10px;
+    height: 50px;
+    margin-right: 15px;
+}
+.c_layer li a{
+	display: block;
+    height: 35px;
+    text-align:center;
+    line-height: 35px;
+    color: #111;
+    font-size: 15px;
+}
