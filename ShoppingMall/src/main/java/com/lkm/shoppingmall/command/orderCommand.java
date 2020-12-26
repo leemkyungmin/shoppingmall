@@ -25,8 +25,7 @@ public class orderCommand implements command {
 		
 		String stDay =req.getParameter("stDay");
 		String endDay =req.getParameter("endDay");
-		System.out.println("stDay : "+stDay);
-		System.out.println("endDay : "+endDay);
+		String query =req.getParameter("query");
 		Date time = new Date();
 		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -34,10 +33,16 @@ public class orderCommand implements command {
 			
 			Calendar ctime = Calendar.getInstance();
 			ctime.add(Calendar.MONTH,-1);
+			ctime.add(Calendar.DATE, -1);
 			stDay =sdf.format(ctime.getTime());
-			endDay =sdf.format(time);
+			Calendar etime =Calendar.getInstance();
+			etime.add(Calendar.DATE, +1);
+			endDay =sdf.format(etime.getTime());
+			System.out.println(endDay);
 		}
-		
+		if(query ==null) {
+			query ="";
+		}
 		
 		
 		String uSerid = "";
@@ -57,6 +62,8 @@ public class orderCommand implements command {
 			dId = (String) session.getAttribute("dId");
 			uOrderList =ODAO.getOrderList(stDay, endDay,"0",idx); 
 		}
+		System.out.println(idx+" "+stDay+" "+endDay);
+		System.out.println(uOrderList.get(0).getbOrder_status());
 		model.addAttribute("OrderList",uOrderList);
 		model.addAttribute("years",sdf.format(time));
 	}

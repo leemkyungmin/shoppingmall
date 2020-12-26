@@ -19,7 +19,7 @@ public class orderController {
 	private SqlSession sqlSession;
 	private command command;
 
-	@RequestMapping("order/OrderList")
+	@RequestMapping("/order/OrderList")
 	public String orderList(HttpServletRequest req,Model model) {
 		HttpSession session = req.getSession();
 		if(session.getAttribute("idx") !=null) {

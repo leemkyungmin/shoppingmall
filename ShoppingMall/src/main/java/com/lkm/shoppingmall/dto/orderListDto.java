@@ -1,20 +1,43 @@
 package com.lkm.shoppingmall.dto;
 
+import java.sql.Date;
+
 public class orderListDto {
 	
 	int bIdx;
 	int pIdx;
 	String bOrder_num;
 	String pName;
-	String Price;
-	String pOrder_price;
-	char bOrder_status;
-	String bCount;
+	int price;
+	int pOrder_price;
+	int bOrder_status;
+	int count;
 	String pNimg;
+	Date bDate;
 	
 	public orderListDto() {}
 	
 	
+	public Date getbDate() {
+		return bDate;
+	}
+	
+
+	public int getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+
+	public void setbDate(Date bDate) {
+		this.bDate = bDate;
+	}
+
+
 	public int getpIdx() {
 		return pIdx;
 	}
@@ -47,30 +70,20 @@ public class orderListDto {
 	public void setpName(String pName) {
 		this.pName = pName;
 	}
-	public String getPrice() {
-		return Price;
-	}
-	public void setPrice(String price) {
-		Price = price;
-	}
-	public String getpOrder_price() {
+	
+	public int getpOrder_price() {
 		return pOrder_price;
 	}
-	public void setpOrder_price(String pOrder_price) {
+	public void setpOrder_price(int pOrder_price) {
 		this.pOrder_price = pOrder_price;
 	}
-	public char getbOrder_status() {
+	public int getbOrder_status() {
 		return bOrder_status;
 	}
-	public void setbOrder_status(char bOrder_status) {
+	public void setbOrder_status(int bOrder_status) {
 		this.bOrder_status = bOrder_status;
 	}
-	public String getbCount() {
-		return bCount;
-	}
-	public void setbCount(String bCount) {
-		this.bCount = bCount;
-	}
+
 	public String getpNimg() {
 		return pNimg;
 	}
@@ -79,18 +92,29 @@ public class orderListDto {
 	}
 
 
-	public orderListDto(int bIdx,int pIdx, String bOrder_num, String pName, String price, String pOrder_price,
-			char bOrder_status, String bCount, String pNimg) {
+	public int getCount() {
+		return count;
+	}
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+
+	public orderListDto(int bIdx,int pIdx, String bOrder_num, String pName, int price, int pOrder_price,
+			int bOrder_status, int count, String pNimg,Date bDate) {
 		super();
 		this.bIdx = bIdx; 
 		this.pIdx = pIdx;
 		this.bOrder_num = bOrder_num;
 		this.pName = pName;
-		Price = price;
+		this.price = price;
 		this.pOrder_price = pOrder_price;
 		this.bOrder_status = bOrder_status;
-		this.bCount = bCount;
+		this.count = count;
 		this.pNimg = pNimg;
+		this.bDate = bDate;
 	}
 	
 	

@@ -17,6 +17,9 @@
     	
     
 }
+header{
+	border-bottom: 1px solid gray;
+}
 .title_menu{
 	margin-top:130px;
 	height: 66px;

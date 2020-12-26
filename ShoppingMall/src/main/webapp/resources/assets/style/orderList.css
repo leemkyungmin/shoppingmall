@@ -1,0 +1,178 @@
+@charset "UTF-8";
+.wrap{
+	width: 1500px;
+	min-height: 1900px;
+	position: relative;
+    z-index: 20;
+    margin: 0 auto;
+    padding: 10px 0 50px;
+    outline: none;
+}
+.wrap .wrap_content{
+	width: 1200px;
+	position: relative;
+	float:left;
+}
+
+.my_mall_list h2{
+	float: left;
+    width: 185px;
+    height: 41px;
+    margin-top: 5px;
+}
+.orderList-title{
+	width: 100%;
+    overflow: hidden;
+    margin-top: -37px;
+}
+.orderList-title strong{
+	font-size: 20px;
+}
+.order-status{
+	color: red;
+}
+.my_mall-list{
+	overflow: hidden;
+    width: 100%;
+}
+.side_list{
+	float: left;
+    position: relative;
+    z-index: 100;
+    width: 185px;
+    height:1000px;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+.cOrder{
+	position: relative;
+    width: 100%;
+	display:block;
+	border :1px solid black;
+	margin: 20px 10px;
+	height: 110px;
+}
+
+.cOrder .cContent{
+	float: left;
+    width: 110px;
+    height: 110px;
+    text-align: center;
+    line-height: 110px;
+    border-right: 1px solid black;
+    background: lightgray;
+}
+
+.cOrder .cBtns{
+	height: 100%;
+    position: relative;
+    float: left;
+    width: 900px;
+    margin: 10px;
+
+}
+.cBtns .cTimeBtns input[type=button]{
+	margin-right:5px;
+}
+.cBtns .cinput{
+	display:inline-block;
+	
+}
+.cBtns div{
+	margin-top: 6px;
+}
+.calender-controll input[type=text]{
+	width: 450px;
+	height: 20px;	
+}
+.order-list,.myorderlist-title{
+	margin :10px;
+	width: 100%;
+}
+table, th, td {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    word-break: break-all;
+    border: 1px solid gray;
+}
+.order-list .order-table{
+	width: 100%;
+}
+.order-list .order-table tr{
+	width: 1200px;
+}
+.order-list .order-table thead tr th:first-child {
+	width: 200px;
+}
+.order-list .order-table thead tr th:nth-child(2) {
+	width: 700px;
+}
+.order-list .order-table thead tr th:nth-child(3),th:nth-child(4),th:nth-child(5) {
+	width: 200px;
+}
+.order-list .order-table tbody td{
+	height: 85px;
+	text-align: center;
+}
+.order-list .order-table tbody td:nth-child(2){
+	text-align: left;
+	padding-left :10px;
+}
+.no_info {
+    padding: 57px 0 70px;
+    border-left: none;
+    text-align: center;
+    line-height: 180%;
+}
+.order-table thead tr{
+	height: 30px;
+	background: lightgray;
+}
+.info-box{
+	width : 100%;
+	height : 200px;
+	margin : 10px;
+	border : 1px solid black;	
+}
+.info-box h3{
+    background: lightgray;
+    margin: 5px 0 0 0;
+}
+.ul-box{
+	float: left;
+	margin: 0;
+}
+.ul-box li{
+	width:150px;
+	height: 55px;
+	line-height:55px;
+	border: 1px solid gray;
+    margin-right: 10px;
+    text-align: center;
+    vertical-align: middle;
+    background: lightgray;
+}
+.ul-box li a{
+	text-decoration: none;
+	color: black;
+}
+.detail{
+	display: table;
+    float: left;
+    height: 165px;
+    background-color: #fff;
+    padding-left: 3px;
+}
+.detail dl{
+	text-align: left;
+	vertical-align: middle;
+	display: table-cell;
+}
+.detail dl dd{
+	font-size: 15px;
+}
+.detail dl,.detail dd{
+	margin: 0;
+}

@@ -5,9 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.lkm.shoppingmall.dao.OrderDAO">
 	<select id="getOrderList" parameterType="String" resultType="com.lkm.shoppingmall.dto.orderListDto">
-		SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,b.COUNT,pn.PNIMG
+		SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,b.COUNT,pn.PNIMG,b.BDATE
 		FROM BUYS b,PRODUCTS p,PRODUCTS_NOTICE pn
-		WHERE b.UIDX =${param3} AND b.BIDX =${param4} AND p.PIDX = b.PIDX AND p.PIDX =pn.PIDX 
+		WHERE b.UIDX =${param3} AND p.DIDX =b.DIDX AND p.PIDX = b.PIDX AND p.PIDX =pn.PIDX 
 		AND b.bdate BETWEEN '${param1}' and '${param2}'
 	</select>
  
