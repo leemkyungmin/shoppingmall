@@ -1,4 +1,4 @@
-package com.lkm.shoppingmall.command;
+package com.lkm.shoppingmall.command.member;
 
 import java.util.Map;
 

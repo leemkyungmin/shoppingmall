@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.lkm.shoppingmall.command.memberRegSuccessCommand;
-import com.lkm.shoppingmall.command.uEmail_AuthCommand;
+import com.lkm.shoppingmall.command.member.memberRegSuccessCommand;
+import com.lkm.shoppingmall.command.member.uEmail_AuthCommand;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.joinDAO;
 

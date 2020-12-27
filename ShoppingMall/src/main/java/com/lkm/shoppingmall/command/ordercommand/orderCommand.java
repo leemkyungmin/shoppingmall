@@ -1,12 +1,11 @@
-package com.lkm.shoppingmall.command;
-
+package com.lkm.shoppingmall.command.ordercommand;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import com.lkm.shoppingmall.commom.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,12 +17,15 @@ import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.OrderDAO;
 import com.lkm.shoppingmall.dto.orderListDto;
 
-public class orderCancelListCommand implements command {
+public class orderCommand implements command {
 
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
+		
 		Map<String,Object> map =model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		Map<String,Object> result = new HashMap<String, Object>();
 		
 		String stDay =req.getParameter("stDay");
 		String endDay =req.getParameter("endDay");
@@ -56,9 +58,8 @@ public class orderCancelListCommand implements command {
 		String type =(String) session.getAttribute("type");
 		String idx = (Integer) session.getAttribute("idx")+"";
 		
-		Map<String,Object> result =new HashMap<String, Object>();
 		int page ;
-		
+		int totalCount=0;		
 		//페이징 처리
 		if(req.getParameter("page") !=null) {
 			page =Integer.parseInt(req.getParameter("page"));
@@ -69,29 +70,29 @@ public class orderCancelListCommand implements command {
 		int recordPerPage = 5; // 1페이지당 보여줄 갯수
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = recordPerPage * page;
-		int totalCount =0;
+		
 		result.put("stDay", stDay);
 		result.put("endDay", endDay);
 		result.put("beginRecord",beginRecord);
 		result.put("endRecord", endRecord);
 		
 		
+		
 		OrderDAO ODAO = sqlSession.getMapper(OrderDAO.class);
 		if(type.equals("user")) {
 			result.put("uidx", idx);
-			uOrderList =ODAO.getOrderCancelUserList(result);
+			uOrderList =ODAO.getOrderUserList(result);
 			totalCount =ODAO.getOrderUserCount(result);
-		}else { 
-			result.put("uidx", idx);
-			uOrderList =ODAO.getOrderCancelDeptList(result); 
+		}else {
+			result.put("didx", idx);
+			uOrderList =ODAO.getOrderDeptList(result);
 			totalCount =ODAO.getOrderDeptCount(result);
 		}
-		String pageMaker = PageMaker.getPageView("OrderCancelList", page, recordPerPage, totalCount);
-		model.addAttribute("pageMaker", pageMaker);
+		String pageMaker = PageMaker.getPageView("OrderList" , page, recordPerPage, totalCount);
+		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("OrderList",uOrderList);
 		model.addAttribute("stDay",stDay);
 		model.addAttribute("endDay",endDay);
 	}
 
-	
 }

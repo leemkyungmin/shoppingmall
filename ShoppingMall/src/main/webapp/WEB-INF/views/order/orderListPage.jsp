@@ -91,10 +91,10 @@
 					<h3>나의 쇼핑내역</h3>
 				</div>
 				<div class="side-item">
-					<a href="OrderList">주문/배송조회</a>
+					<a href="${pageContext.request.contextPath}/order/OrderList">주문/배송조회</a>
 				</div>
 				<div class="side-item">
-					<a href="OrderCancelList">취소/반품/교환</a>
+					<a href="${pageContext.request.contextPath}/order/OrderCancelList">취소/반품/교환</a>
 				</div>
 			</div>
 			<div class="smyCustomerService">
@@ -102,7 +102,7 @@
 					<h3>회원정보</h3>
 				</div>
 				<div class="side-item">
-					<a href="">상담 내역</a>
+					<a href="${pageContext.request.contextPath}/my/CustomerService">상담 내역</a>
 				</div>
 				<div class="side-item">
 					<a href="">회원정보 변경/탈퇴</a>

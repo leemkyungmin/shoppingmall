@@ -1,4 +1,4 @@
-package com.lkm.shoppingmall.command;
+package com.lkm.shoppingmall.command.index;
 
 
 import java.util.ArrayList;

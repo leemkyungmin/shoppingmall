@@ -173,12 +173,12 @@
 										<a href="${pageContext.request.contextPath}/order/OrderCancelList">취소/반품/교환</a>
 									</li>
 									<li>
-										<a href="">고객센터</a>
+										<a href="${pageContext.request.contextPath}/my/CustomerService">고객센터</a>
 									</li>
 									<li>
 										<a href="member/confirmPassword">회원정보</a>
 									</li>
-									<c:if test="${sessionScope.uSerid !=null || sessionScope.dId !=null }">
+									<c:if test="${sessionScope !=null }">
 										<li>
 											<a href="${pageContext.request.contextPath}/logout">로그아웃 </a>
 										</li>
@@ -211,11 +211,11 @@
 						<!-- 상단 li:hover 해당 div 표시 -->
 					</div>
 					<div class="group_login">
-						<c:if test="${sessionScope.uSerid==null || sessionScope.dId==null}">
+						<c:if test="${sessionScope ==null}">
 							<a class="login">로그인</a>
 							<a class="register">회원가입</a>				
 						</c:if>
-						<c:if test="${sessionScope.uSerid!=null || sessionScope.dId!=null }">
+						<c:if test="${sessionScope !=null }">
 							<a class="myPage">마이페이지</a>
 							<a class="logout">로그아웃</a>				
 						</c:if>

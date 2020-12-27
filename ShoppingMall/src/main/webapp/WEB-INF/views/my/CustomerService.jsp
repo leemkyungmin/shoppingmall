@@ -2,88 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../Template/header.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/style/orderList.css">
-<c:set var="stDay" value="${stDay}"/>
-<c:set var="endDay" value="${endDay}"/>
-<c:set var="styear" value="${fn:substring(stDay,0,4)}"/>
-<c:set var="stmonth" value="${fn:substring(stDay,5,7)}"/>
-<c:set var="stday" value="${fn:substring(stDay,8,10)}"/>
-<c:set var="endyear" value="${fn:substring(endDay,0,4)}"/>
-<c:set var="endmonth" value="${fn:substring(endDay,5,7)}"/>
-<c:set var="endday" value="${fn:substring(endDay,8,10)}"/>
 
 <script>
-	$().ready(function(){
-		
-		sDay_update();
-		eDay_update();
-		function sDay_update(){
-			$('#st_day').html('');
-			var year = $('#st_year').val();
-			var month = $('#st_month').val();
-			var date = 32-new Date(year,month-1,32).getDate();
-			var syear = '${styear}';
-			var smonth = '${stmonth}';
-			var sday  ='${stday}';
-			
-			var html ='';
-			var i =0;
-			for(i = 1; i<date+1; i++){
-				if(year == syear && month == smonth && i==sday){
-					html +='<option value='+i+' selected="selected" onselect="st_dayChange()">';
-					html +=i;
-					html +='</option>';
-				}else{
-					html +='<option value='+i+' onselect="st_dayChange()">';
-					html +=i;
-					html +='</option>';
-				}
-			}
-			$('#st_day').html(html);
-			
-		}
-		function eDay_update(){
-			$('#end_day').html('');
-			var year = $('#end_year').val();
-			var month = $('#end_month').val();
-			var date = 32-new Date(year,month-1,32).getDate();
-			var eyear = '${endyear}';
-			var emonth = '${endmonth}';
-			var eday  ='${endday}';
-			var html ='';
-			var i =0;
-			for(i = 1; i<date+1; i++){
-				if(year == eyear && month == emonth && (i+1)==eday){
-					html +='<option value='+i+' selected="selected" onselect="end_dayChange()">';
-					html +=i;
-					html +='</option>';
-				}else{
-					html +='<option value='+i+' onselect="end_dayChange()">';
-					html +=i;
-					html +='</option>';
-				}
-			}
-			$('#end_day').html(html);
-		}
-		
-		$('#st_month').change(function(){
-			sDay_update();
-		});
-		$('#st_year').change(function(){
-			sDay_update();
-		});
-		$('#end_month').change(function(){
-			eDay_update();
-		});
-		$('#end_month').change(function(){
-			eDay_update();
-		});
-	});
+	
 </script>
 
 
 	<div class="wrap">
 		<div class="my_mall-list">
-			<h2>취소내역</h2>
+			<h2>상담 내역</h2>
 		</div>
 		<div class="side_list">
 			<div class="smyshopping">
@@ -114,106 +41,18 @@
 		</div>
 		<div class="wrap_content">
 			
-			<div class="orderList">
-				<div class="orderList-title">
-					<strong>
-						<span class="order-status">취소/반품/교환</span>조회
-					</strong>
-				</div>
-				<div class="cOrder">
-					<div class="cContent">
-						조회 기간
-					</div>
-					<div class="cBtns">
-						<div class="cTimeBtns">
-							<input class="cTimetrack" type="button" name="Today" id="Today" value="오늘">
-							<input class="cTimetrack" type="button" name="Week" id="Week" value="1주일">
-							<input class="cTimetrack" type="button" name="Month" id="Month" value="1개월">
-							<input class="cTimetrack" type="button" name="6Month" id="6Month" value="6개월">
-							<input class="cTimetrack" type="button" name="Year" id="Year" value="1년">
-							
-						</div>
-						<div class="cinput">
-							
-							<select id="st_year" onchange="st_dayChange()">
-																
-								<c:forEach var="i" begin="0" end="9">
-									<c:if test="${styear eq (styear-i) }">
-										<option value="${styear-i }"  selected="selected">${styear-i }</option>
-									</c:if>
-									<c:if test="${styear ne (styear-i) }">
-										<option value="${styear-i }" >${styear-i}</option>
-									</c:if>
-										
-								</c:forEach>
-							</select> 년 
-							<select id="st_month" onchange ="st_dayChange()">
-								<c:forEach var = "i" begin="1" end="12">
-									
-									<c:if test="${stmonth eq i}">
-										<option value="${stmonth}" selected="selected">${stmonth}</option>
-									</c:if>
-									<c:if test="${stmonth ne i}">
-										<option value="${i}">${i}</option>
-									</c:if>
-								</c:forEach>
-							</select> 월 
-							<select id="st_day" onchange ="st_dayChange()">
-																
-							</select> 일
-						</div>
-						 ~ 
-						<div class="cinput">
-							
-							<select id="end_year" onchange ="end_dayChange()">
-																
-								<c:forEach var="i" begin="0" end="9">
-									<c:if test="${endyear eq (endyear-i) }">
-										<option value="${endyear-i }" selected="selected">${endyear-i }</option>
-									</c:if>
-									<c:if test="${endyear ne (endyear-i) }">
-										<option value="${endyear-i }">${endyear-i }</option>
-									</c:if>
-										
-								</c:forEach>
-							</select> 년 
-							<select id="end_month" onchange ="end_dayChange()">
-								<c:forEach var = "i" begin="1" end="12">
-									
-									<c:if test="${endmonth eq i}">
-										<option value="${endmonth}" selected="selected" >${endmonth}</option>
-									</c:if>
-									<c:if test="${endmonth ne i}">
-										<option value="${i}" >${i}</option>
-									</c:if>
-								</c:forEach>
-							</select> 월 
-							<select id="end_day" onchange ="end_dayChange()">
-																
-							</select> 일 
-						</div>
-						<div class="calender-controll">
-							<form action="OrderCancelList" method="post">
-								<input type="hidden" id="stDay" name="stDay" value="${years }">
-								<input type="hidden" id="endDay" name="endDay" value="${years }" >
-								<input type="text" id="query" name="query" placeholder="주문 상품명을 검색하세요!">
-								<input type="submit" id="search-btn" value="조회하기">
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 			
 			<div class="myorderlist-title">
-				<h2>주문 내역</h2>
+				<h2>상담 내역</h2>
 			</div>			
 			<div class="order-list">
 				<table class="order-table">
 					<thead>
 						<tr>
-							<th>주문 일자</th>
-							<th>주문 상품 정보</th>
-							<th>상품 금액(수량)</th>
+							<th>상담 번호</th>
+							<th>상담 제목</th>
+							<th>사</th>
 							<th>배송비</th>
 							<th>주문상태</th>
 						</tr>

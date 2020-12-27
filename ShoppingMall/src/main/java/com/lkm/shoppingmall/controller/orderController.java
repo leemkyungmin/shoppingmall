@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lkm.shoppingmall.command.orderCancelListCommand;
-import com.lkm.shoppingmall.command.orderCommand;
+import com.lkm.shoppingmall.command.ordercommand.orderCancelListCommand;
+import com.lkm.shoppingmall.command.ordercommand.orderCommand;
 import com.lkm.shoppingmall.commom.command;
 
 @Controller
