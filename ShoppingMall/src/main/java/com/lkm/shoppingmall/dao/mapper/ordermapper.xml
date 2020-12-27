@@ -4,11 +4,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.lkm.shoppingmall.dao.OrderDAO">
-	<select id="getOrderList" parameterType="String" resultType="com.lkm.shoppingmall.dto.orderListDto">
-		SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,b.COUNT,pn.PNIMG,b.BDATE
-		FROM BUYS b,PRODUCTS p,PRODUCTS_NOTICE pn
-		WHERE b.UIDX =${param3} AND p.DIDX =b.DIDX AND p.PIDX = b.PIDX AND p.PIDX =pn.PIDX 
-		AND b.bdate BETWEEN '${param1}' and '${param2}'
+	<select id="getOrderUserList" parameterType="Map" resultType="com.lkm.shoppingmall.dto.orderListDto">
+		SELECT ROWNUM,a.*
+		FROM(
+			SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,b.COUNT,pn.PNIMG,b.BDATE
+			FROM BUYS b,PRODUCTS p,PRODUCTS_NOTICE pn
+			WHERE b.UIDX =${uidx} AND b.PDIDX=0 AND p.DIDX =b.DIDX AND p.PIDX = b.PIDX AND p.PIDX =pn.PIDX 
+			AND b.bdate BETWEEN '${stDay}' and '${endDay}') a
+		WHERE ROWNUM BETWEEN ${beginRecord} AND ${endRecord}
 	</select>
- 
+	<select id="getOrderDeptList" parameterType="Map" resultType="com.lkm.shoppingmall.dto.orderListDto">
+		SELECT ROWNUM,a.*
+		FROM(
+			SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,b.COUNT,pn.PNIMG,b.BDATE
+			FROM BUYS b,PRODUCTS p,PRODUCTS_NOTICE pn,DEPT d
+			WHERE b.UIDX =0 AND  b.PDIDX =${didx} AND p.DIDX =b.DIDX  AND p.PIDX =pn.PIDX 
+			AND b.bdate BETWEEN '${stDay}' and '${endDay}') a
+		WHERE ROWNUM BETWEEN ${beginRecord} AND ${endRecord}
+	</select>
+	<select id="getOrderCancelUserList" parameterType="HashMap" resultType="com.lkm.shoppingmall.dto.orderListDto">
+		SELECT ROWNUM,a.*
+		FROM( 
+			SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,b.COUNT,pn.PNIMG,b.BDATE
+			FROM BUYS b,PRODUCTS p,PRODUCTS_NOTICE pn
+			WHERE b.UIDX =${uidx} AND b.PDIDX=0 AND p.DIDX =b.DIDX AND p.PIDX = b.PIDX AND p.PIDX =pn.PIDX 
+			AND b.bdate BETWEEN '${stDay}' and '${endDay}' AND b.BORDER_STATUS >7) a
+		WHERE ROWNUM BETWEEN ${beginRecord} AND ${endRecord}
+	</select>
+	<select id="getOrderCancelDeptList" parameterType="HashMap" resultType="com.lkm.shoppingmall.dto.orderListDto">
+		SELECT ROWNUM ,a.*
+		FROM( 
+			SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,b.COUNT,pn.PNIMG,b.BDATE
+			FROM BUYS b,PRODUCTS p,PRODUCTS_NOTICE pn,DEPT d
+			WHERE b.UIDX =0 AND  b.PDIDX =${didx} AND p.DIDX =b.DIDX AND p.PIDX =pn.PIDX 
+			AND b.bdate BETWEEN '${stDay}' and '${endDay}' AND b.BORDER_STATUS >7 ) a
+		WHERE ROWNUM BETWEEN ${beginRecord} AND ${endRecord}
+	</select>
+ 	<select id="getOrderUserCount" parameterType="Map" resultType="int">
+ 		SELECT COUNT(a.co) 
+ 		FROM(
+ 		 SELECT COUNT(*) as co 
+ 		 FROM BUYS b,PRODUCTS p,PRODUCTS_NOTICE pn,DEPT d
+			WHERE b.UIDX =${uidx} AND  b.PDIDX =0 AND p.DIDX =b.DIDX  AND p.PIDX =pn.PIDX 
+			AND b.bdate BETWEEN '${stDay}' and '${endDay}') a
+ 	</select>
+ 	<select id="getOrderDeptCount" parameterType="Map" resultType="int" >
+ 		SELECT COUNT(a.co) 
+ 		FROM(
+ 			SELECT COUNT(*) as co
+ 			FROM BUYS b,PRODUCTS p,PRODUCTS_NOTICE pn,DEPT d
+			WHERE b.UIDX =0 AND  b.PDIDX =#{didx} AND p.DIDX =b.DIDX  AND p.PIDX =pn.PIDX 
+			AND b.bdate BETWEEN '#{stDay}' and '#{endDay}') a
+ 	</select>
 </mapper>

@@ -170,7 +170,7 @@
 										<a href="${pageContext.request.contextPath}/order/OrderList">주문/배송 조회</a>
 									</li>
 									<li>
-										<a href="${pageContext.request.contextPath}/order/CancelStatus">취소/반품/교환</a>
+										<a href="${pageContext.request.contextPath}/order/OrderCancelList">취소/반품/교환</a>
 									</li>
 									<li>
 										<a href="">고객센터</a>

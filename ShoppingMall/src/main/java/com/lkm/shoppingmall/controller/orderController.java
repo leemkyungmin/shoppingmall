@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.lkm.shoppingmall.command.orderCancelListCommand;
 import com.lkm.shoppingmall.command.orderCommand;
 import com.lkm.shoppingmall.commom.command;
 
@@ -31,5 +32,17 @@ public class orderController {
 			return "redirect:/login"; 
 		}
 		
+	}
+	@RequestMapping("/order/OrderCancelList")
+	public String orderCancelList(HttpServletRequest req ,Model model) {
+		HttpSession session =req.getSession();
+		if(session.getAttribute("idx") !=null) {
+			model.addAttribute("req", req);
+			command =new orderCancelListCommand();
+			command.execute(sqlSession, model);
+			return "order/orderCancelList"; 
+		} else {
+			return "redirect:/login"; 
+		}
 	}
 }

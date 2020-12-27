@@ -83,7 +83,7 @@
 
 	<div class="wrap">
 		<div class="my_mall-list">
-			<h2>구매내역</h2>
+			<h2>취소내역</h2>
 		</div>
 		<div class="side_list">
 			<div class="smyshopping">
@@ -117,7 +117,7 @@
 			<div class="orderList">
 				<div class="orderList-title">
 					<strong>
-						<span class="order-status">주문/배송</span>조회
+						<span class="order-status">취소/반품/교환</span>조회
 					</strong>
 				</div>
 				<div class="cOrder">
@@ -193,7 +193,7 @@
 							</select> 일 
 						</div>
 						<div class="calender-controll">
-							<form action="OrderList" method="post">
+							<form action="OrderCancelList" method="post">
 								<input type="hidden" id="stDay" name="stDay" value="${years }">
 								<input type="hidden" id="endDay" name="endDay" value="${years }" >
 								<input type="text" id="query" name="query" placeholder="주문 상품명을 검색하세요!">
@@ -220,7 +220,7 @@
 					</thead>
 					<tbody>
 						
-						<c:if test="${OrderList.size() >0 }">
+						<c:if test="${OrderList.size() >0 }">		
 							<c:forEach var="orderlist" items="${OrderList}" varStatus="i">
 								<tr>
 									<td>
@@ -253,37 +253,17 @@
 										${orderlist.pOrder_price}원
 									</td>
 									<td>
-										
-										<c:if test="${orderlist.bOrder_status eq 1 }">
+										<c:if test="${orderlist.bOrder_status eq 8 }">
 											<div class="o-status">
-												입금 대기	
+												취소 대기
 											</div>
 										</c:if>
-										<c:if test="${orderlist.bOrder_status eq 2 }">
+										<c:if test="${orderlist.bOrder_status eq 9 }">
 											<div class="o-status">
-												상품 준비
+												취소 완료
 											</div>
+										</c:if>
 											
-										</c:if>
-										<c:if test="${orderlist.bOrder_status eq 3 }">
-											<div class="o-status">
-												상품 배송중
-											</div>
-											<div class="order-location">
-												<input type="button" id="olocation" name="olocation">
-												<input type="button" id="Reviewrite" name="Reviewrite">
-											</div>
-											
-										</c:if>
-										<c:if test="${orderlist.bOrder_status eq 4 }">
-											<div class="o-status">
-												상품
-											</div>
-											<div class="order-location">
-													<input type="button" id="olocation" name="olocation">
-													<input type="button" id="Reviewrite" name="Reviewrite">
-											</div>
-										</c:if> 
 									</td>
 								</tr>
 							</c:forEach>
@@ -292,14 +272,14 @@
 							<tr>
 								<td colspan="6" class="no_info">
 									<strong>
-										최근 주문/배송 조회 내역이 없습니다.
+										취소/반품/교환 현황이 없습니다.
 									</strong>
 								</td>
 							</tr>
 						</c:if>
 					</tbody>
 					<tfoot>
-						<th colspan="6">${pageMaker }</th>
+						<th colspan="6">${pageMaker}</th>
 					</tfoot>
 				</table>
 			</div>
