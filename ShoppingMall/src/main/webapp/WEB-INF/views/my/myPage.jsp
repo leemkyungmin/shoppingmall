@@ -4,7 +4,17 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/style/orderList.css">
 
 <script>
-	
+	$().ready(function(){
+		$('#Email_addr').attr('readonly','readonly');
+		$('#email_change').change(function(){
+			if($('#email_change').val()==''){
+				$('#Email_addr').removeAttr('readonly','readonly');
+			}else{
+				$('#Email_addr').attr('readonly','readonly');
+				$('#Email_addr').val($('#email_change').val());
+			}
+		});
+	});
 </script>
 
 
@@ -76,7 +86,21 @@
 									</tr>
 									<tr>
 										<td>이메일 주소</td>
-										<td colspan="3">${udto.uEmail}</td>
+										<td colspan="3">
+											<c:set var="email" value="${udto.uEmail}"/>
+											<c:set var="email_addr" value="${fn:substringAfter(email,'@') }"/>
+											<input type="text" id="uEmail" value=${fn:substringBefore(email,'@') }>@
+											<input type="text" id="Email_addr" value=${email_addr }>
+											<select id="email_change">
+												<option value="">직접 입력</option>
+												<option value="naver.com">naver.com</option>
+												<option value="hanmail.net">hanmail.net</option>
+												<option value="daum.net">daum.net</option>
+												<option value="nate.com">nate.com</option>
+												<option value="gmail.com">gmail.com</option>
+											</select>
+											
+										</td>
 									</tr>
 									<tr>
 										<td>전화번호</td>
@@ -103,5 +127,8 @@
 		
 	</div>
 <script>
+	$().ready(function(){
+		$('#email_change').val('${email_addr}').attr('SELECTED','SELECTED');
+	});
 </script>
 <%@ include file="../Template/fotter.jsp" %>
