@@ -11,11 +11,12 @@
 	<div class="wrap">
 		<div class="my_mall-list">
 			<h2>상담 내역</h2>
+			
 		</div>
 		<div class="side_list">
 			<div class="smyshopping">
 				<div class="side-title">
-					<h3>나의 쇼핑내역</h3>
+					<h3>상담 내역</h3>
 				</div>
 				<div class="side-item">
 					<a href="${pageContext.request.contextPath}/order/OrderList">주문/배송조회</a>
@@ -32,7 +33,7 @@
 					<a href="${pageContext.request.contextPath}/my/CustomerService">상담 내역</a>
 				</div>
 				<div class="side-item">
-					<a href="">회원정보 변경/탈퇴</a>
+					<a href="${pageContext.request.contextPath}/my/confirmPassword">회원정보 변경/탈퇴</a>
 				</div>
 				<div class="side-item">
 					<a href="">나의 배송지 관리</a>
@@ -45,192 +46,78 @@
 			
 			<div class="myorderlist-title">
 				<h2>상담 내역</h2>
+				<div class="customer-svc-write">
+					<a href="Write-Customer-Service">
+						상담글 쓰기
+					</a>
+				</div>
+				
 			</div>			
-			<div class="order-list">
-				<table class="order-table">
+			<div class="custom_list">
+				<table class="custom_svc">
 					<thead>
 						<tr>
 							<th>상담 번호</th>
-							<th>상담 제목</th>
-							<th>사</th>
-							<th>배송비</th>
-							<th>주문상태</th>
+							<th>상담분류</th>
+							<th>제목</th>
+							<th>작성일</th>
+							<th>상담 상태</th>
 						</tr>
 					</thead>
 					<tbody>
 						
-						<c:if test="${OrderList.size() >0 }">		
-							<c:forEach var="orderlist" items="${OrderList}" varStatus="i">
+						<c:if test="${csdto.size() >0 }">		
+							<c:forEach var="csdto" items="${csdto}" varStatus="i">
 								<tr>
 									<td>
-										<div class="order_bdate">
-											${orderlist.bDate}
-										</div>
-										<div class="order_num">
-											(${orderlist.bOrder_num})
+										<div class="csdto-num">
+											${csdto.cIdx}
 										</div>
 									</td>
 									<td>
-										<div class="products_info">
-											<div class="products_img">
-												<img alt="상품이미지" src="${pageContext.request.contextPath}/resource/products_img/${orderlist.pNimg}">
-											</div>
-											<div class="products_name">
-												${orderlist.pName }
-											</div>
+										<div class="csdto-type">
+											${cdto.cType }
 										</div>
 									</td>
 									<td>
-										<div class="price">
-											${orderlist.price }원
-										</div>
-										<div class="count">
-											(${orderlist.count }개)
+										<div class="csdto-title">
+											${csdto.cTitle}
 										</div>
 									</td>
 									<td>
-										${orderlist.pOrder_price}원
+										${csdto.cReg_date}
 									</td>
 									<td>
-										<c:if test="${orderlist.bOrder_status eq 8 }">
-											<div class="o-status">
-												취소 대기
-											</div>
+										<c:if test="${csdto.cStatus eq 0 }">
+											상담 대기중
 										</c:if>
-										<c:if test="${orderlist.bOrder_status eq 9 }">
-											<div class="o-status">
-												취소 완료
-											</div>
+										<c:if test="${csdto.cStatus eq 1 }">
+											상담 완료
 										</c:if>
-											
 									</td>
 								</tr>
 							</c:forEach>
 						</c:if> 
-						<c:if test="${OrderList.size() eq 0 }">
+						<c:if test="${csdto.size() eq 0 }">
 							<tr>
 								<td colspan="6" class="no_info">
 									<strong>
-										취소/반품/교환 현황이 없습니다.
+										작성된 상담내역이 없습니다.
 									</strong>
 								</td>
 							</tr>
 						</c:if>
 					</tbody>
 					<tfoot>
-						<th colspan="6">${pageMaker}</th>
+						<th colspan="6">${pagemaker}</th>
 					</tfoot>
 				</table>
 			</div>
 			
-			<script type="text/javascript">
-				function tab_ch(num){
-					var i;
-					for( i =1; i<4; i++){
-						$('#tabMenuId'+i).css({'background' :'lightgray'});
-						$('.tab_id'+i).css({'display' : 'none'});
-					}
-					$('#tabMenuId'+num).css({'background' :'white'});
-					$('.tab_id'+num).css({'display' : 'block'});
-				}
-			</script>
 			
-			<div class="info-box">
-				<h3>알아두세요!</h3>
-				<div class="information">
-					<ul class="ul-box">
-						<li id="tabMenuId1">
-							<a href="javascript:tab_ch(1)" onmouseover="tab_ch(1)" onfocus="tab_ch(1)">공통 안내</a>
-						</li>
-						<li id="tabMenuId2">
-							<a href="javascript:tab_ch(2)" onmouseover="tab_ch(2)" onfocus="tab_ch(2)">해외배송상품 안내</a>
-						</li>
-						<li id="tabMenuId3">
-							<a href="javascript:tab_ch(3)" onmouseover="tab_ch(3)" onfocus="tab_ch(3)">전새계배송 안내</a>
-						</li>
-					</ul>
-					<div class="tab_id1" style="display:block">
-						<div class="detail">
-							<dl>
-								<dd>배송완료 후 구매확정을 하지 않은 경우에는 <strong>배송이 완료된 일로부터 7일 경과 후, 8일째 자동으로 구매확정</strong> 됩니다.
-								<br> 단, 화물/퀵배송 등 배송완료 확인이 불가한 경우에는 판매자가 <strong>상품을 발송 처리한 일로부터 28일 경과 후, 29일째 자동으로 구매확정</strong> 됩니다.</dd>
-								<dd>자동 구매확정시에는 구매 적립 혜택을 받지 못할 수도 있으니 주의하시기 바랍니다.</dd>
-								<dd>OK캐쉬백 카드번호가 오등록 되는 경우 카드번호가 자동삭제되며, 11번가 포인트로 적립이 이루어집니다.</dd>
-								<dd>e쿠폰, 모바일상품권 등 SMS로 발송되는 상품은 구매후 <strong>"배송완료"</strong> 상태이며, 오프라인 매장에서 <strong>서비스 이용 후 자동으로 구매확정</strong> 됩니다.</dd>
-								<dd>티켓11번가 주문건중, 공연일이 있는 경우는 "공연일+1일째", 공연일이 없는 경우는 "배송중+29일째" 자동으로 구매확정 됩니다.</dd>
-							</dl>
-						</div>
-					</div>
-					<div class="tab_id2" style="display:none">
-						<div class="detail">
-							<dl>
-								<dd><strong>해외배송 상품이란?</strong> 상품명 앞에 <span class="ic_plane"><em>비행기</em></span> 아이콘이 붙은 상품은 해외에서 배송되는 항공 배송 상품입니다.</dd>
-								<dd><strong>항공배송 상품의 경우</strong> 해외에서 상품을 배송하여 배송준비중 상태와 배송중 상태가 다소 길어질 수 있습니다.</dd>
-								<dd><strong>배송준비중</strong> : 판매자가 상품의 재고를 확인하고 국내로 배송하기 위해 준비중인 상태입니다. 구매 대행의 경우 해외 쇼핑몰에 주둔이 되어<br> 현지에서 배송을 위해 물류센터로 이동중인 상태가 포함되어 있어 배송준비중 상태가 약 5~10일 가량 유지될 수 있습니다.</dd>
-								<dd><strong>배송중</strong> : 판매자가 해외에서 상품을 국내로 배송한 상태입니다, 물품발송 이후 해외배송을 통해 국내 도착까지는 약 9~20일 가량 소요 될 수 있습니다.</dd>
-							</dl>
-						</div>
-					</div>
-					<div class="tab_id3" style="display:none">
-						<div class="detail">
-						<dl>
-								<dd>전세계배송 주문은 <strong>배송준비중 단계까지만 취소가 가능</strong>하며, 판매자 부담의 배송비가 발생한 경우에는 판매자 승인이 필요합니다.</dd>
-								<dd><strong>반품</strong>은 11번가 홈페이지 고객센터 <strong>E-MAIL상담</strong>을 통해서만 신청이 가능합니다.</dd>
-								<dd>전세계배송 이용 상품은 반품만 가능하며 <strong>교환은 가능하지 않다는 점을 주의</strong>하여 주십시오.</dd>
-								<dd>취소/반품과 관련하여 상세한 내용은 <strong>전세계배송관 &gt; 전세계배송 안내</strong>를 확인하여 주십시오.</dd>
-							</dl>
-						</div>
-					</div>
-				</div>
-			</div>	
-			<div class="product_status">
-				<div class="step1">
-					<div class="step_status">
-						<span class="red_bold">1.</span>입금 대기중<br>
-						결제를 완료해주세요							
-					</div>
-				</div>
-				<div class="pstatus">
-					<i class="fas fa-arrow-right fa-2x"></i>
-				</div>
-				<div class="step1">
-					<div class="step_status">
-						<span class="red_bold">2.</span>결제완료<br>
-						판매자가 주문정보를<br/>
-						확인하기 전입니다.							
-					</div>
-				</div>
-				<div class="pstatus">
-					<i class="fas fa-arrow-right fa-2x"></i>
-				</div>
-				<div class="step1">
-					<div class="step_status">
-						<span class="red_bold">3.</span>배송 준비중<br>
-						판매자가 주문을 확인하고<br/>
-						배송을 준비 중입니다.							
-					</div>
-				</div>
-				<div class="pstatus">
-					<i class="fas fa-arrow-right fa-2x"></i>
-				</div>
-				<div class="step1">
-					<div class="step_status">
-						<span class="red_bold">4.</span>배송중<br>
-						물품이 발송되어<br/>
-						고객님께 배송합니다.							
-					</div>
-				</div>
-				<div class="pstatus">
-					<i class="fas fa-arrow-right fa-2x"></i>
-				</div>
-				<div class="step1">
-					<div class="step_status">
-						<span class="red_bold">5.</span>배송완료<br>
-						상품수령후 구매확정을<br/>
-						선택하시면 거래가 종료됩니다.							
-					</div>
-				</div>
-			</div>
+			
+			
+			
 			
 			
 		</div>

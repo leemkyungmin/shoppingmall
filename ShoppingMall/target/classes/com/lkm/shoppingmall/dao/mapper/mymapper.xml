@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.lkm.shoppingmall.dao.myDAO">
+	 
+	 <select id="getCustomer_svc" parameterType="Map" resultType="com.lkm.shoppingmall.dto.CustomerServiceDto">
+	 	SELECT ROWNUM ,a.*
+	 	FROM 
+		 	(SELECT *
+		 	FROM CUSTOMER_SERVICE
+		 	WHERE UIDX =${uIdx} AND DIDX =${dIdx} ) a
+		WHERE ROWNUM between ${beginRecord} AND ${endRecord}
+	 </select>
+	 <select id="getPageCount" parameterType="Map" resultType="int" >
+	 	SELECT COUNT(*)
+	 	FROM CUSTOMER_SERVICE
+	 	WHERE UIDX =${uIdx} AND DIDX =${dIdx}
+	 </select>
+	 <select id="userInfo" parameterType="String" resultType="com.lkm.shoppingmall.dto.userDto">
+	 	SELECT *
+	 	FROM USERS
+	 	WHERE UIDX =#{idx}
+	 </select>
+	 <select id="deptInfo" parameterType="String" resultType ="com.lkm.shoppingmall.dto.departmentDto">
+	 	SELECT *
+	 	FROM DEPT
+	 	WHERE DIDX =#{idx}
+	 </select>
+</mapper>

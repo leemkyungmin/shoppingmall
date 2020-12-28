@@ -176,9 +176,9 @@
 										<a href="${pageContext.request.contextPath}/my/CustomerService">고객센터</a>
 									</li>
 									<li>
-										<a href="member/confirmPassword">회원정보</a>
+										<a href="${pageContext.request.contextPath}/my/confirmPassword">회원정보</a>
 									</li>
-									<c:if test="${sessionScope !=null }">
+									<c:if test="${sessionScope.idx !=null }">
 										<li>
 											<a href="${pageContext.request.contextPath}/logout">로그아웃 </a>
 										</li>
@@ -211,11 +211,11 @@
 						<!-- 상단 li:hover 해당 div 표시 -->
 					</div>
 					<div class="group_login">
-						<c:if test="${sessionScope ==null}">
+						<c:if test="${sessionScope.idx ==null}">
 							<a class="login">로그인</a>
 							<a class="register">회원가입</a>				
 						</c:if>
-						<c:if test="${sessionScope !=null }">
+						<c:if test="${sessionScope.idx !=null }">
 							<a class="myPage">마이페이지</a>
 							<a class="logout">로그아웃</a>				
 						</c:if>

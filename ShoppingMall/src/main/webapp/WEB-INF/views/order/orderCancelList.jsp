@@ -105,7 +105,7 @@
 					<a href="${pageContext.request.contextPath}/my/CustomerService">상담 내역</a>
 				</div>
 				<div class="side-item">
-					<a href="">회원정보 변경/탈퇴</a>
+					<a href="${pageContext.request.contextPath}/my/confirmPassword">회원정보 변경/탈퇴</a>
 				</div>
 				<div class="side-item">
 					<a href="">나의 배송지 관리</a>

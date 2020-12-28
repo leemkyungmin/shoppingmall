@@ -13,9 +13,18 @@ public class userDto {
 	int uPoint;
 	String uGrade;
 	Date uReg_date;
+	String uEmail;
 	
 	public userDto() {
 		
+	}
+
+	public String getuEmail() {
+		return uEmail;
+	}
+
+	public void setuEmail(String uEmail) {
+		this.uEmail = uEmail;
 	}
 
 	public Date getuReg_date() {
@@ -90,7 +99,7 @@ public class userDto {
 		this.uPoint = uPoint;
 	}
 
-	public userDto(int uIdx, String uSerid, String uPw, String uName, String uAddress, String uPhone, int uPoint,String uGrade) {
+	public userDto(int uIdx, String uSerid, String uPw, String uName, String uAddress, String uPhone, int uPoint,String uGrade,String uEmail) {
 		super();
 		this.uIdx = uIdx;
 		this.uSerid = uSerid;
@@ -100,6 +109,7 @@ public class userDto {
 		this.uPhone = uPhone;
 		this.uPoint = uPoint;
 		this.uGrade = uGrade;
+		this.uEmail = uEmail;
 	}
 	
 	

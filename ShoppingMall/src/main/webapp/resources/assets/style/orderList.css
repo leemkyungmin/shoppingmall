@@ -105,7 +105,7 @@ table, th, td {
 	width: 700px;
 }
 .order-list .order-table thead tr th:nth-child(3),th:nth-child(4),th:nth-child(5) {
-	width: 200px;
+	width: 300px;
 }
 .order-list .order-table tbody td{
 	height: 85px;
@@ -207,4 +207,95 @@ table, th, td {
 }
 .side_list .side-item {
 	margin: 5px;
+}
+.customer-svc-write{
+	display: inline-block;
+    float: right;
+    margin-top: 30px;
+    font-size: 20px;
+}
+.customer-svc-write a{
+	text-decoration: none;
+	color: black;
+}
+.myorderlist-title h2{
+	display:inline-block;
+}
+
+.custom_list .custom_svc thead{
+	background: lightgray;
+}
+
+.custom_list .custom_svc{
+	width: 100%;
+}
+.custom_list .custom_svc tr{
+	width: 1200px;
+}
+.custom_list .custom_svc thead tr th:first-child {
+	width: 200px;
+}
+.custom_list .custom_svc thead tr th:nth-child(2) {
+	width: 200px;
+}
+.custom_list .custom_svc thead tr th:nth-child(3),th:nth-child(4),th:nth-child(5) {
+	width: 700px;
+}
+.custom_list .custom_svc tbody td{
+	height: 85px;
+	text-align: center;
+}
+.custom_list .custom_svc thead tr{
+	height: 30px;
+    background: lightgray;
+}
+.custom_list{
+	min-height: 500px;
+	margin: 10px;
+    width: 100%;
+}
+.myPage_info {
+	width: 100%;
+    overflow: hidden;
+    margin-top: -37px;
+    margin-left: 10px;
+}
+.user-update-menu{
+	margin: 10px;
+}
+.user-info-title .font-span{
+	font-size: 25px;
+}.user-info-title .font-span.red{
+	color: red;
+}
+.user-info-title{
+	border-bottom :3px solid black;
+	padding-bottom: 13px;
+}
+.user-update-menu ul{
+	list-style: inside;
+}
+.user-update-menu ul li{
+	margin-top: 5px;
+}
+.user-info-title .font-small {
+	font-size: 12px;
+}
+.font-small.red{
+	color: red;	
+}
+.user-info table {
+	width: 100%;
+}
+.user-info table tbody tr td:first-child {
+	width: 300px;
+	background: #f8f8f8;
+	height: 50px;
+}
+.user-info table tbody .id-rows td:nth-child(2) {
+	width: 340px;
+}
+.user-info table tbody .id-rows td:nth-child(3) {
+	width: 200px;
+	background: #f8f8f8;
 }
