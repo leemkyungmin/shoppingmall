@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lkm.shoppingmall.command.my.CsutomerSvcCommand;
 import com.lkm.shoppingmall.command.my.updateuserCommand;
 import com.lkm.shoppingmall.commom.command;
+import com.lkm.shoppingmall.dao.myDAO;
 
 @Controller
 public class myController {
@@ -75,5 +76,34 @@ public class myController {
 			return "0";
 		}
 	}
-	
+	@RequestMapping("my/UpdatePwForm")
+	public String updatepwForm() {
+		return "my/UpdatePwForm";
+	}
+	@RequestMapping(value="my/updatepw",method=RequestMethod.POST,produces ="text/html; charset=utf-8")
+	@ResponseBody
+	public String updatepw(HttpServletRequest req,Model model) {
+		
+		HttpSession session = req.getSession();
+		
+		String old_pw = req.getParameter("old_pw");
+		String new_pw = req.getParameter("new_pw");
+		
+		int result=0;
+		myDAO mDAO = sqlsession.getMapper(myDAO.class);
+		
+		if(session.getAttribute("type").equals("user")) {
+			result =mDAO.UpdateUserPw(old_pw, new_pw);
+		} else {
+			result =mDAO.UpdateDeptPw(old_pw, new_pw);
+		}
+		
+		if(result ==1) {
+			session.removeAttribute("pw");
+			session.setAttribute("pw",new_pw);
+		}
+		
+		return result+"";
+		
+	}
 }

@@ -14,6 +14,9 @@
 				$('#Email_addr').val($('#email_change').val());
 			}
 		});
+		$('#pwchange').click(function(){
+			window.open('${pageContext.request.contextPath}/my/UpdatePwForm','비밀번호 변경', "width = 500, height = 500, top = 100, left = 500, location = no");
+		});
 	});
 </script>
 

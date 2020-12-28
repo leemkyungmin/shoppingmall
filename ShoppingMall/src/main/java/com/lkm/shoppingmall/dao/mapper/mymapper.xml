@@ -28,4 +28,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	FROM DEPT
 	 	WHERE DIDX =#{idx}
 	 </select>
+	 
+	 <update id="UpdateUserPw" parameterType="String" >
+	 	UPDATE USERS 
+	 	SET UPW ='${param2}'
+	 	WHERE UPW ='${param1}'
+	 </update>
+	 <update id="UpdateDeptPw" parameterType="String" >
+	 	UPDATE DEPT 
+	 	SET DPW ='${param2}'
+	 	WHERE DPW ='${param1}'
+	 </update>
+	 
 </mapper>

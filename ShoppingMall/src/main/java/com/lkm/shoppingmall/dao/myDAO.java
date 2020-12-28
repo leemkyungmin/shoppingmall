@@ -16,4 +16,8 @@ public interface myDAO {
 	
 	public userDto userInfo(String idx);
 	public departmentDto deptInfo(String idx);
+	
+	public int UpdateUserPw(String old_pw,String new_pw);
+	public int UpdateDeptPw(String old_pw,String new_pw);
+	
 }
