@@ -14,9 +14,17 @@ public class departmentDto {
 	String dAddress;
 	int dPoint;
 	Date dReg_date;
-	
+	String show;
 	public departmentDto() {
 		
+	}
+
+	public String getShow() {
+		return show;
+	}
+
+	public void setShow(String show) {
+		this.show = show;
 	}
 
 	public int getdIdx() {
@@ -100,7 +108,7 @@ public class departmentDto {
 	}
 
 	public departmentDto(int dIdx, String dId, String dPw, String dPhone, String dSaup_no, String dType, String dName,
-			String dAddress, int dPoint, Date dReg_date) {
+			String dAddress, int dPoint, Date dReg_date,String show) {
 		super();
 		this.dIdx = dIdx;
 		this.dId = dId;
@@ -112,6 +120,7 @@ public class departmentDto {
 		this.dAddress = dAddress;
 		this.dPoint = dPoint;
 		this.dReg_date = dReg_date;
+		this.show =show;
 	}
 
 	

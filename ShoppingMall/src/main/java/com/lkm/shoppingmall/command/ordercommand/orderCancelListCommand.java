@@ -40,7 +40,6 @@ public class orderCancelListCommand implements command {
 			Calendar etime =Calendar.getInstance();
 			etime.add(Calendar.DATE, +1);
 			endDay =sdf.format(etime.getTime());
-			System.out.println(endDay);
 		}
 		if(query ==null) {
 			query ="";
@@ -89,6 +88,8 @@ public class orderCancelListCommand implements command {
 		String pageMaker = PageMaker.getPageView("OrderCancelList", page, recordPerPage, totalCount);
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("OrderList",uOrderList);
+		System.out.println("stDay:"+stDay);
+		System.out.println("endDay:"+endDay);
 		model.addAttribute("stDay",stDay);
 		model.addAttribute("endDay",endDay);
 	}

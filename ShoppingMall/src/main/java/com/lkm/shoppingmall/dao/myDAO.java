@@ -20,4 +20,9 @@ public interface myDAO {
 	public int UpdateUserPw(String old_pw,String new_pw);
 	public int UpdateDeptPw(String old_pw,String new_pw);
 	
+	public int updateUser(Map<String,Object> query);
+	
+	public int deleteUser(Map<String,Object> query);
+	public int deleteDept(Map<String,Object> query);
+	
 }

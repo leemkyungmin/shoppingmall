@@ -105,7 +105,8 @@
 					<a href="${pageContext.request.contextPath}/my/CustomerService">상담 내역</a>
 				</div>
 				<div class="side-item">
-					<a href="${pageContext.request.contextPath}/my/confirmPassword">회원정보 변경/탈퇴</a>
+					<a href="${pageContext.request.contextPath}/my/confirmPassword">회원정보 변경</a>
+					/<a href="${pageContext.request.contextPath }/my/deleteuser">탈퇴</a>
 				</div>
 				<div class="side-item">
 					<a href="">나의 배송지 관리</a>
@@ -125,14 +126,7 @@
 						조회 기간
 					</div>
 					<div class="cBtns">
-						<div class="cTimeBtns">
-							<input class="cTimetrack" type="button" name="Today" id="Today" value="오늘">
-							<input class="cTimetrack" type="button" name="Week" id="Week" value="1주일">
-							<input class="cTimetrack" type="button" name="Month" id="Month" value="1개월">
-							<input class="cTimetrack" type="button" name="6Month" id="6Month" value="6개월">
-							<input class="cTimetrack" type="button" name="Year" id="Year" value="1년">
-							
-						</div>
+						
 						<div class="cinput">
 							
 							<select id="st_year" onchange="st_dayChange()">

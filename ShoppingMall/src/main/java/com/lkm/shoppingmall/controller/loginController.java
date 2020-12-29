@@ -48,7 +48,7 @@ public class loginController {
 			userDto udto =new userDto();
 			udto = ldao.userloginchk(uSerid, uPw);
 			
-			if (udto != null) {
+			if (udto != null && !(udto.getShow().toLowerCase().equals("n"))) {
 				request.getSession().setAttribute("idx", udto.getuIdx());
 				request.getSession().setAttribute("id", udto.getuSerid());
 				request.getSession().setAttribute("pw", udto.getuPw());
@@ -56,6 +56,8 @@ public class loginController {
 				request.getSession().setAttribute("point", udto.getuPoint());
 				request.getSession().setAttribute("type", type);
 				result = "1";
+			} else {
+				result ="-1";
 			}
 		}else {
 			String dId = request.getParameter("uSerid");
@@ -68,7 +70,7 @@ public class loginController {
 			departmentDto resultDTO =ldao.deptloginchk(deptDTO);
 			System.out.println(resultDTO.getdId());
 			System.out.println(resultDTO.getdPw());
-			if (resultDTO != null) {
+			if (resultDTO != null && !(resultDTO.getShow().toLowerCase().equals("n"))) {
 				request.getSession().setAttribute("idx", resultDTO.getdIdx());
 				request.getSession().setAttribute("id", resultDTO.getdId());
 				request.getSession().setAttribute("pw", resultDTO.getdPw());
@@ -77,11 +79,12 @@ public class loginController {
 				request.getSession().setAttribute("type", type);
 				request.getSession().setAttribute("buySell",  resultDTO.getdType());
 				result = "1";
+			} else {
+				result ="-1";
 			}
-			System.out.println(request.getSession().getAttribute("dId"));
-			
+						
 		}
-			 
+					 
 		return result;
 	}
 	
@@ -94,7 +97,7 @@ public class loginController {
 	
 		session.invalidate();
 						
-		return "redirect:index";
+		return "redirect:${pageContext.request.contextPath}/index";
 	}
 	
 	

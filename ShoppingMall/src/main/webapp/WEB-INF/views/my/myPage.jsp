@@ -46,7 +46,8 @@
 					<a href="${pageContext.request.contextPath}/my/CustomerService">상담 내역</a>
 				</div>
 				<div class="side-item">
-					<a href="">회원정보 변경/탈퇴</a>
+					<a href="${pageContext.request.contextPath}/my/confirmPassword">회원정보 변경</a>
+					/<a href="${pageContext.request.contextPath }/my/deleteuser">탈퇴</a>
 				</div>
 				<div class="side-item">
 					<a href="">나의 배송지 관리</a>
@@ -70,7 +71,7 @@
 				</div>
 				<div class="user-info">
 					<c:if test="${udto !=null }">
-					<form action="userUpdate" method="post">
+					<form>
 							<table>
 								<tbody>
 									<tr>
@@ -106,8 +107,18 @@
 										</td>
 									</tr>
 									<tr>
+										<c:set var="uPhone" value="${udto.uPhone }"></c:set>
+									
+										<c:set var="first_num" value="${fn:substring(uPhone,0,3)}" ></c:set>
+										<c:set var="second_num" value="${fn:substring(uPhone,3,7) }"></c:set>
+										<c:set var="last_num" value="${fn:substring(uPhone,7,11) }"></c:set>
+										
 										<td>전화번호</td>
-										<td colspan="3">${udto.uPhone }</td>
+										<td colspan="3">
+											<input type="text" name=first_num id="first_num" value=${first_num }> - 
+											<input type="text" name=second_num id="second_num" value=${second_num }> - 
+											<input type="text" name=last_num id="last_num" value=${last_num }>
+										</td>
 									</tr>
 								
 								</tbody>
@@ -121,7 +132,62 @@
 								</tfoot>
 							</table>
 						</form>
-						
+						<script type="text/javascript">
+							$().ready(function(){
+								$('#return_btn').click(function(){
+									location.href="${pageContext.request.contextPath}/order/OrderList";
+								});
+								$('#submit_btn').click(function(){
+									var uEmail = $('#uEmail');
+									var Email_addr =$('#Email_addr');
+									var first_num =$('#first_num');
+									var second_num =$('#second_num');
+									var last_num =$('#last_num');
+									if(uEmail.val() ==''){
+										alert('이메일을 입력해주세요');
+										uEmail.focus();
+									} else if ( Email_addr.val() =='' ){
+										alert('이메일 주소를 입력해주세요');
+										Email_addr.focus();
+									} else if ( first_num.val() ==''  || first_num.val().length <3){
+										alert('전화 번호 양식이 아닙니다.');
+										first_num.focus();
+									} else if ( second_num.val() =='' || second_num.val().length <4){
+										alert('전화 번호 양식이 아닙니다.');
+										second_num.focus();
+									} else if ( last_num.val() ==''  || last_num.val().length <4 ){
+										alert('전화 번호 양식이 아닙니다.');
+										last_num.focus();
+									} else {
+										if(confirm('회원정보를 수정하시겠습니까?')){
+											var email = uEmail.val()+'@'+Email_addr.val();
+											var phone = first_num.val()+second_num.val()+last_num.val();
+											$.ajax({
+												url : '${pageContext.request.contextPath}/my/userUpdate',
+												type :'post',
+												data :'uEmail=' + email +'&uPhone='+phone,
+												success :function(data){
+													if(data ==1){
+														alert('회원정보 수정 완료');
+														history.go(0);
+													} else if(data ==-1){
+														alert('로그인 세션 만료로 업데이트 실패 다시 시도해주세요');
+														location.href='${pageContext.request.contextPath}/login';
+													} else {
+														alert('업데이트 실패');
+													}
+												},error:function(){
+													alert('통신 실패');
+												}
+											});
+										} else {
+											return ;
+										}
+									}
+									
+								});
+							});
+						</script>
 					</c:if>
 				</div>
 			</div>

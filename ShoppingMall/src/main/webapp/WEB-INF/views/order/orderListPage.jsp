@@ -52,7 +52,7 @@
 			var html ='';
 			var i =0;
 			for(i = 1; i<date+1; i++){
-				if(year == eyear && month == emonth && (i+1)==eday){
+				if(year == eyear && month == emonth && (i)==eday){
 					html +='<option value='+i+' selected="selected" onselect="end_dayChange()">';
 					html +=i;
 					html +='</option>';
@@ -77,6 +77,7 @@
 		$('#end_month').change(function(){
 			eDay_update();
 		});
+		
 	});
 </script>
 
@@ -105,7 +106,8 @@
 					<a href="${pageContext.request.contextPath}/my/CustomerService">상담 내역</a>
 				</div>
 				<div class="side-item">
-					<a href="${pageContext.request.contextPath}/my/confirmPassword">회원정보 변경/탈퇴</a>
+					<a href="${pageContext.request.contextPath}/my/confirmPassword">회원정보 변경</a>
+					/<a href="${pageContext.request.contextPath }/my/deleteuser">탈퇴</a>
 				</div>
 				<div class="side-item">
 					<a href="">나의 배송지 관리</a>
@@ -125,14 +127,7 @@
 						조회 기간
 					</div>
 					<div class="cBtns">
-						<div class="cTimeBtns">
-							<input class="cTimetrack" type="button" name="Today" id="Today" value="오늘">
-							<input class="cTimetrack" type="button" name="Week" id="Week" value="1주일">
-							<input class="cTimetrack" type="button" name="Month" id="Month" value="1개월">
-							<input class="cTimetrack" type="button" name="6Month" id="6Month" value="6개월">
-							<input class="cTimetrack" type="button" name="Year" id="Year" value="1년">
-							
-						</div>
+						
 						<div class="cinput">
 							
 							<select id="st_year" onchange="st_dayChange()">
@@ -194,8 +189,8 @@
 						</div>
 						<div class="calender-controll">
 							<form action="OrderList" method="post">
-								<input type="hidden" id="stDay" name="stDay" value="${years }">
-								<input type="hidden" id="endDay" name="endDay" value="${years }" >
+								<input type="hidden" id="stDay" name="stDay" value="${stDay }">
+								<input type="hidden" id="endDay" name="endDay" value="${endDay }" >
 								<input type="text" id="query" name="query" placeholder="주문 상품명을 검색하세요!">
 								<input type="submit" id="search-btn" value="조회하기">
 							</form>

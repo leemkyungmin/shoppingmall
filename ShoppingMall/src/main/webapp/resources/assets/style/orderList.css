@@ -98,14 +98,14 @@ table, th, td {
 .order-list .order-table tr{
 	width: 1200px;
 }
-.order-list .order-table thead tr th:first-child {
-	width: 200px;
+.order-list .order-table thead tr th:first-child,.order-list .order-table tbody tr td:first-child {
+	width: 250px;
 }
-.order-list .order-table thead tr th:nth-child(2) {
-	width: 700px;
+.order-list .order-table thead tr th:nth-child(2),.order-list .order-table tbody tr td:nth-child(2) {
+	width: 450px;
 }
 .order-list .order-table thead tr th:nth-child(3),th:nth-child(4),th:nth-child(5) {
-	width: 300px;
+	width: 200px;
 }
 .order-list .order-table tbody td{
 	height: 85px;
@@ -233,13 +233,13 @@ table, th, td {
 	width: 1200px;
 }
 .custom_list .custom_svc thead tr th:first-child {
-	width: 200px;
+	width: 250px;
 }
 .custom_list .custom_svc thead tr th:nth-child(2) {
-	width: 200px;
+	width: 450px;
 }
 .custom_list .custom_svc thead tr th:nth-child(3),th:nth-child(4),th:nth-child(5) {
-	width: 700px;
+	width: 200px;
 }
 .custom_list .custom_svc tbody td{
 	height: 85px;
@@ -298,4 +298,81 @@ table, th, td {
 .user-info table tbody .id-rows td:nth-child(3) {
 	width: 200px;
 	background: #f8f8f8;
+}
+
+.user-info table tfoot tr{
+	height: 50px;
+	text-align: center;
+	margin: 10px;
+}
+.user-info table tfoot tr input[type=button]{
+	width: 100px;
+	height: 40px;
+	margin: 5px 10px 5px 0;
+}
+.span_small{
+	font-size: 12px;
+}
+
+.list-on li{
+	margin-top: 5px;
+}
+.delete-info-box{
+	border:1px solid black;
+	margin: 20px 10px;
+}
+.delete_table table {
+	width: 95%;
+	margin:15px auto;
+}
+.delete_table table thead tr{
+	background: #f8f8f8;
+	height: 40px;
+}
+
+.delete_table table tbody td{
+	text-align: center;
+	height: 40px;
+}
+.delete-info-box{
+	width: 100%;
+	padding-bottom: 30px;
+}
+.delete_form{
+	border: 1px solid black;
+	margin: 20px 10px;
+	width: 100%;
+}
+.delete_form_title {
+	background:red;
+	color:white;
+	margin-bottom: 15px;
+	height: 40px;
+}
+.delete_form_title h2{
+	margin: 0;
+}
+.delete_input{
+	width: 500px;
+	margin: 10px auto;
+}
+.delete_input .del-input{
+	margin: 5px;
+	font-size: 15px;
+	height: 30px;
+}
+.delete_input .del-input label{
+	display:inline-block;
+	width: 150px;
+}
+.del-input.btn{
+	margin: 0 auto 20px ;
+	
+}
+.del-input.btn input[type=button]{
+	width: 150px;
+	height: 40px;
+	margin-bottom: 20px;
+	background: red;
+	color: white;
 }

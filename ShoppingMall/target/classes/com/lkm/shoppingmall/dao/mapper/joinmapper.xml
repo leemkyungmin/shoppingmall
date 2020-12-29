@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE USERID = #{param1}
 	</select>
 	<insert id="signinMember" parameterType="com.lkm.shoppingmall.dto.userDto">
-		INSERT INTO USERS(UIDX,USERID,UPW,UNAME,UADDRESS,UPHONE,UPHOTO,UPOINT,UREG_DATE,UGRADE) VALUES(
+		INSERT INTO USERS(UIDX,USERID,UPW,UNAME,UADDRESS,UPHONE,UPHOTO,UPOINT,UREG_DATE,UGRADE,SHOW) VALUES(
 			USERS_SEQ.NEXTVAL,
 			'${uSerid}',
 			'${uPw}',
@@ -20,7 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			'null',
 			0,
 			SYSDATE
-			,'0'
+			,'0',
+			'y'
 		)
 	</insert>
 	<select id="dIdcheck" parameterType="String" resultType="int">
@@ -34,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE DSAUP_NO =#{param1}
 	</select>
 	<insert id="signinDepartment" parameterType="com.lkm.shoppingmall.dto.departmentDto">
-		INSERT INTO DEPT(DIDX,DID,DPW,DPHONE,DSAUP_NO,DTYPE,DNAME,DADDRESS,DPOINT,DREG_DATE) VALUES(
+		INSERT INTO DEPT(DIDX,DID,DPW,DPHONE,DSAUP_NO,DTYPE,DNAME,DADDRESS,DPOINT,DREG_DATE,SHOW) VALUES(
 			DEPT_SEQ.NEXTVAL,
 			'${dId}',
 			'${dPw}',
@@ -44,7 +45,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			'${dName}',
 			'${dAddress}',
 			0,
-			SYSDATE
+			SYSDATE,
+			'y'
 		)
 	</insert>
 

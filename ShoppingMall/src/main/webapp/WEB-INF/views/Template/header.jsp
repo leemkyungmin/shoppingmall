@@ -17,12 +17,12 @@
 <script type="text/javascript">    
 	$(document).ready(function(){
 		$('.login').click(function(){
-			location.href='login';
+			location.href='${pageContext.request.contextPath}/login';
 		});
 		$('.logout').click(function(){
 			if(confirm('로그아웃 하시겠습니까?')){
 				$.ajax({
-					url : 'logout',
+					url : '${pageContext.request.contextPath}/logout',
 					success :function(){
 						alert('로그아웃 성공');
 						location.href='index';
@@ -35,8 +35,11 @@
 			
 		});
 		$('.register').click(function(){
-			location.href="join/registerForm";
+			location.href="${pageContext.request.contextPath}/join/registerForm";
 		})
+		$('.myPage').click(function(){
+			location.href="${pageContext.request.contextPath}/my/confirmPassword";
+		});
 	
 	$('.header-search').click(function(){
 		

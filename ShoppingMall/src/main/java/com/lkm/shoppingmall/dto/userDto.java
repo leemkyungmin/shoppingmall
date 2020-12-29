@@ -14,7 +14,16 @@ public class userDto {
 	String uGrade;
 	Date uReg_date;
 	String uEmail;
+	String show;
 	
+	public String getShow() {
+		return show;
+	}
+
+	public void setShow(String show) {
+		this.show = show;
+	}
+
 	public userDto() {
 		
 	}
@@ -99,7 +108,7 @@ public class userDto {
 		this.uPoint = uPoint;
 	}
 
-	public userDto(int uIdx, String uSerid, String uPw, String uName, String uAddress, String uPhone, int uPoint,String uGrade,String uEmail) {
+	public userDto(int uIdx, String uSerid, String uPw, String uName, String uAddress, String uPhone, int uPoint,String uGrade,String uEmail,String show) {
 		super();
 		this.uIdx = uIdx;
 		this.uSerid = uSerid;
@@ -110,6 +119,7 @@ public class userDto {
 		this.uPoint = uPoint;
 		this.uGrade = uGrade;
 		this.uEmail = uEmail;
+		this.show = show;
 	}
 	
 	

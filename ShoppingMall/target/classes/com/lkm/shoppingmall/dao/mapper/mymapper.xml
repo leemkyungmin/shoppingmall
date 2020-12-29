@@ -39,5 +39,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	SET DPW ='${param2}'
 	 	WHERE DPW ='${param1}'
 	 </update>
+	 <update id="updateUser" parameterType="Map">
+	 	UPDATE USERS
+	 	SET UEMAIL='${uEmail}',
+	 		UPHONE='${uPhone}'
+	 	WHERE UIDX=${uIdx}
+	 </update>
 	 
+	 <update id="deleteUser" parameterType="Map">
+	 	UPDATE USERS 
+	 	SET SHOW ='n'
+	 	WHERE UIDX =${idx} and UPW ='${pw}'
+	 </update>
+	 <update id="deleteDept" parameterType="Map">
+	 	UPDATE DEPT
+	 	SET SHOW='n'
+	 	WHERE DIDX =${idx} and DPW ='${pw}'
+	 </update>
 </mapper>
