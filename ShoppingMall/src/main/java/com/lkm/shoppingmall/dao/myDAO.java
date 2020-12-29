@@ -25,4 +25,6 @@ public interface myDAO {
 	public int deleteUser(Map<String,Object> query);
 	public int deleteDept(Map<String,Object> query);
 	
+	public int user_customer_svc(Map<String,Object> query);
+	public int dept_customer_svc(Map<String,Object> query);
 }

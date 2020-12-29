@@ -56,4 +56,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	SET SHOW='n'
 	 	WHERE DIDX =${idx} and DPW ='${pw}'
 	 </update>
+	 <insert id="user_customer_svc" parameterType="Map">
+	 	INSERT INTO CUSTOMER_SERVICE(
+	 	CIDX,
+	 	CTITLE,
+	 	CCONTENT,
+	 	CTYPE,CHIT,
+	 	CSTATUS,
+	 	UIDX,
+	 	DIDX,
+	 	CREG_DATE
+	 	)
+	 	VALUES(
+	 		CUSTOMER_SERVICE_SEQ.NEXTVAL,
+	 		'${cTitle}',
+	 		'${cContent}',
+	 		'1',
+	 		0,
+	 		0,
+	 		${idx},
+	 		0,
+	 		SYSDATE
+	 	)
+	 </insert>
+	 <insert id="DEPT_customer_svc" parameterType="Map">
+	 	INSERT INTO CUSTOMER_SERVICE(CIDX,CTITLE,CCONTENT,CTYPE,CHIT,CSTATUS,UIDX,DIDX,CREG_DATE)
+	 	VALUES(
+	 		CUSTOMER_SERVICE_SEQ.NEXTVAL,
+	 		${cTitle},
+	 		${cContent},
+	 		'1',
+	 		0,
+	 		0,
+	 		0,
+	 		${idx},
+	 		SYSDATE
+	 	)
+	 </insert>
 </mapper>
