@@ -7,9 +7,9 @@ public class CustomerServiceDto {
 	int cIdx;
 	String cTitle;
 	String cContent;
-	char cType;
+	String cType;
 	int cHit;
-	char cStatus;
+	String cStatus;
 	int uIdx;
 	int dIdx;
 	Date cReg_date;
@@ -35,10 +35,10 @@ public class CustomerServiceDto {
 	public void setcContent(String cContent) {
 		this.cContent = cContent;
 	}
-	public char getcType() {
+	public String getcType() {
 		return cType;
 	}
-	public void setcType(char cType) {
+	public void setcType(String cType) {
 		this.cType = cType;
 	}
 	public int getcHit() {
@@ -47,10 +47,10 @@ public class CustomerServiceDto {
 	public void setcHit(int cHit) {
 		this.cHit = cHit;
 	}
-	public char getcStatus() {
+	public String getcStatus() {
 		return cStatus;
 	}
-	public void setcStatus(char cStatus) {
+	public void setcStatus(String cStatus) {
 		this.cStatus = cStatus;
 	}
 	public int getuIdx() {
@@ -71,7 +71,7 @@ public class CustomerServiceDto {
 	public void setcReg_date(Date cReg_date) {
 		this.cReg_date = cReg_date;
 	}
-	public CustomerServiceDto(int cIdx, String cTitle, String cContent, char cType, int cHit, char cStatus, int uIdx,
+	public CustomerServiceDto(int cIdx, String cTitle, String cContent, String cType, int cHit, String cStatus, int uIdx,
 			int dIdx, Date cReg_date) {
 		super();
 		this.cIdx = cIdx;

@@ -10,8 +10,10 @@ import javax.swing.plaf.synth.SynthSplitPaneUI;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,9 +22,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.lkm.shoppingmall.command.my.CsutomerSvcCommand;
+import com.lkm.shoppingmall.command.my.customer_svc_write;
 import com.lkm.shoppingmall.command.my.updateuserCommand;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.myDAO;
+import com.lkm.shoppingmall.dto.CustomerServiceDto;
 
 @Controller
 public class myController {
@@ -37,7 +41,7 @@ public class myController {
 		HttpSession session =req.getSession();
 		
 		if(session.getAttribute("idx") ==null) {
-			return "redirect:/lgoin";
+			return "redirect:/login";
 		} else {
 			model.addAttribute("req", req);
 			command =new CsutomerSvcCommand();
@@ -231,6 +235,7 @@ public class myController {
 			query.put("idx", idx);
 			query.put("cTitle", req.getParameter("cTitle"));
 			query.put("cContent",req.getParameter("cContent"));
+			query.put("cType",req.getParameter("cType"));
 			if(session.getAttribute("type").equals("user")) {
 				result = mdao.user_customer_svc(query);
 			} else {
@@ -241,4 +246,35 @@ public class myController {
 		return result+"";
 	}
 	
+	@RequestMapping(value="my/custom_svc/{cIdx}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public String getmySerivce(@PathVariable("cIdx") String cIdx,Model model) {
+		
+		model.addAttribute("cIdx", cIdx);
+		command=new customer_svc_write();
+		command.execute(sqlsession, model);
+		return "my/custom_show_my_write_view";
+	}
+	
+	@RequestMapping(value="my/update_custom_svc",method=RequestMethod.POST,produces="text/html; charset=utf-8")
+	@ResponseBody
+	public String updateCustomer_svc(HttpServletRequest req) {
+		
+		String cType =req.getParameter("cType");
+		String cTitle=req.getParameter("cTitle");
+		String cContent =req.getParameter("cContent");
+		String cIdx =req.getParameter("cIdx");
+		
+		Map<String,Object> query = new HashMap<String, Object>();
+		query.put("cType", cType);
+		query.put("cTitle", cTitle);
+		query.put("cContent", cContent);
+		query.put("cIdx", cIdx);
+		
+		myDAO mdao = sqlsession.getMapper(myDAO.class);
+		
+		int result =mdao.update_custeomr_svc(query);
+		
+		return result+"";
+		
+	}
 }

@@ -88,7 +88,7 @@
 		$('#submit-btn').click(function(){
 			var cTitle = $('#cTitle');
 			var cContent = $('#summernote');
-			
+			var cType =$('#cType');
 			if(cTitle.val() ==''){
 				alert('상담 제목을 입력해주세요');
 				cTitle.focus();
@@ -98,7 +98,7 @@
 			} else {
 				$.ajax({
 					url:'${pageContext.request.contextPath}/my/upload_customer_svc',
-					data:'cTitle='+cTitle.val() +'&cContent='+cContent.val(),
+					data:'cTitle='+cTitle.val() +'&cContent='+cContent.val() +'&cType='+cType.val(),
 					type :'post',
 					success:function(data){
 						if(data =='1'){
@@ -130,7 +130,7 @@
 			<div class="title">
 				<div class="ctype">
 					<label>문의 타입</label>
-					<select>
+					<select id="cType">
 						<option value="1">상품문의</option>
 						<option value="2">구매문의</option>
 						<option value="3">판매문의</option>

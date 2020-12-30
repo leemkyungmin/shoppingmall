@@ -22,7 +22,7 @@
 			<ul class="splide__list">
 			<c:forEach var="bimg" items="${bdto}">
 				<li class="splide__slide">
-					 <img class="bimgs" alt="${bimg.bFileinfo }" src="resources/assets/images/bannerImg/${bimg.bFilename}">
+					 <img class="bimgs" alt="${bimg.bFileinfo }" src="${pageContext.request.contextPath }/resources/assets/images/bannerImg/${bimg.bFilename}">
 				</li>
 			</c:forEach>
 				

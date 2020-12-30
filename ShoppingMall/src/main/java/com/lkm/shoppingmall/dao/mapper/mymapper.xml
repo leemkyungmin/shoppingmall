@@ -61,7 +61,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	CIDX,
 	 	CTITLE,
 	 	CCONTENT,
-	 	CTYPE,CHIT,
+	 	CTYPE,
+	 	CHIT,
 	 	CSTATUS,
 	 	UIDX,
 	 	DIDX,
@@ -71,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 		CUSTOMER_SERVICE_SEQ.NEXTVAL,
 	 		'${cTitle}',
 	 		'${cContent}',
-	 		'1',
+	 		'${cType}',
 	 		0,
 	 		0,
 	 		${idx},
@@ -80,12 +81,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	)
 	 </insert>
 	 <insert id="DEPT_customer_svc" parameterType="Map">
-	 	INSERT INTO CUSTOMER_SERVICE(CIDX,CTITLE,CCONTENT,CTYPE,CHIT,CSTATUS,UIDX,DIDX,CREG_DATE)
+	 	INSERT INTO CUSTOMER_SERVICE(
+	 	CIDX,
+	 	CTITLE,
+	 	CCONTENT,
+	 	CTYPE,
+	 	CHIT,
+	 	CSTATUS,
+	 	UIDX,
+	 	DIDX,
+	 	CREG_DATE
+	 	)
 	 	VALUES(
 	 		CUSTOMER_SERVICE_SEQ.NEXTVAL,
-	 		${cTitle},
-	 		${cContent},
-	 		'1',
+	 		'${cTitle}',
+	 		'${cContent}',
+	 		'${cType}',
 	 		0,
 	 		0,
 	 		0,
@@ -93,4 +104,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 		SYSDATE
 	 	)
 	 </insert>
+	 
+	 <select id="getService" parameterType="String" resultType="com.lkm.shoppingmall.dto.CustomerServiceDto">
+	 	SELECT * 
+	 	FROM CUSTOMER_SERVICE
+	 	WHERE CIDX =#{param1}
+	 </select>
+	 <update id="updateHit" parameterType="int">
+	 	UPDATE CUSTOMER_SERVICE
+	 	SET CHIT =${param1}
+	 	WHERE CIDX =${param2}
+	 </update>
+	 <update id="update_custeomr_svc" parameterType="Map">
+	 	UPDATE CUSTOMER_SERVICE
+	 	SET 
+	 		CTYPE ='${cType}',
+	 		CTITLE='${cTitle}',
+	 		CCONTENT ='${cContent}'
+	 	WHERE CIDX =${param1}
+	 	
+	 </update>
+	 <select id="getReview" parameterType="String" resultType="com.lkm.shoppingmall.dto.customer_service_reviewDto">
+	 	SELECT * 
+	 	FROM CUSTOMER_SERVICE_REVIEW
+	 	WHERE CIDX = #{cIdx}
+	 </select>
 </mapper>

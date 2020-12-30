@@ -233,13 +233,13 @@ table, th, td {
 	width: 1200px;
 }
 .custom_list .custom_svc thead tr th:first-child {
-	width: 250px;
+	width: 150px;
 }
-.custom_list .custom_svc thead tr th:nth-child(2) {
-	width: 450px;
+.custom_list .custom_svc thead tr th:nth-child(3) {
+	width: 600px;
 }
-.custom_list .custom_svc thead tr th:nth-child(3),th:nth-child(4),th:nth-child(5) {
-	width: 200px;
+.custom_list .custom_svc thead tr th:nth-child(2),th:nth-child(4),th:nth-child(5) {
+	width: 150px;
 }
 .custom_list .custom_svc tbody td{
 	height: 85px;
@@ -375,4 +375,7 @@ table, th, td {
 	margin-bottom: 20px;
 	background: red;
 	color: white;
+}
+.custom_svc tbody tr:hover{
+	background: yellow;
 }

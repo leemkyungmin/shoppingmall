@@ -61,7 +61,6 @@ public class CsutomerSvcCommand implements command {
 		}
 		
 		String pagemaker =PageMaker.getPageView("CustomerService", totalPage, recordPerPage, totalPage);
-		
 		model.addAttribute("pagemaker", pagemaker);
 		model.addAttribute("csdto", csdto);
 

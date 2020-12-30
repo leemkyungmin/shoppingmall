@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../Template/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/style/orderList.css">
-
 <script>
-	
+	$().ready(function(){
+		$('.cdto_list').click(function(){
+			var data =$(this).data('value');
+			
+			if(data !=null){
+				window.open("${pageContext.request.contextPath}/my/custom_svc/"+data,'상담글', "width = 1000, height = 1000, top = 50, left = 500, location = no");
+			}
+		});
+	});
 </script>
 
 
@@ -68,33 +77,37 @@
 					<tbody>
 						
 						<c:if test="${csdto.size() >0 }">		
-							<c:forEach var="csdto" items="${csdto}" varStatus="i">
-								<tr>
+							<c:forEach var="cdto" items="${csdto}" varStatus="i">
+								<tr class="cdto_list" data-value="${cdto.cIdx}">
+									
 									<td>
 										<div class="csdto-num">
-											${csdto.cIdx}
+											${cdto.cIdx}
 										</div>
 									</td>
 									<td>
 										<div class="csdto-type">
-											${cdto.cType }
+											<c:if test="${cdto.cType eq 1}">
+												[상품문의]
+											</c:if>
 										</div>
-									</td>
+									</td> 
 									<td>
 										<div class="csdto-title">
-											${csdto.cTitle}
+											${cdto.cTitle}
 										</div>
 									</td>
 									<td>
-										${csdto.cReg_date}
+										${cdto.cReg_date}
 									</td>
 									<td>
-										<c:if test="${csdto.cStatus eq 0 }">
+										<c:if test="${cdto.cStatus eq '0' }">
 											상담 대기중
 										</c:if>
-										<c:if test="${csdto.cStatus eq 1 }">
+										<c:if test="${cdto.cStatus eq '1' }">
 											상담 완료
 										</c:if>
+										
 									</td>
 								</tr>
 							</c:forEach>

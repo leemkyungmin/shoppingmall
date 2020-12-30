@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.lkm.shoppingmall.dto.CustomerServiceDto;
+import com.lkm.shoppingmall.dto.customer_service_reviewDto;
 import com.lkm.shoppingmall.dto.departmentDto;
 import com.lkm.shoppingmall.dto.userDto;
 
@@ -27,4 +28,13 @@ public interface myDAO {
 	
 	public int user_customer_svc(Map<String,Object> query);
 	public int dept_customer_svc(Map<String,Object> query);
+	
+	
+	public CustomerServiceDto getService(String cIdx);
+	public customer_service_reviewDto getReview(String cIdx);	
+	//조회수 증가
+	public int updateHit(int cHit,int cIdx);
+	
+	public int update_custeomr_svc(Map<String,Object> query);
+	
 }
