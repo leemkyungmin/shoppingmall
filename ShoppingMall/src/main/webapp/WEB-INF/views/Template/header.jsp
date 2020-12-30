@@ -96,6 +96,13 @@
 		$('.c_layer').addClass('active');
 	});
 	
+	
+	$('#test').click(function(){
+		location.href="${pageContext.request.contextPath}/order/OrderList";
+	});
+	$('#move_orderlist').click(function(){
+		location.href="${pageContext.request.contextPath}/order/OrderList";
+	});
 	/*$(document).on('mouseout','#test',function(){
 		setTimeout(() => {
 			$('.c_layer').removeClass('active');
@@ -189,7 +196,7 @@
 								</ul>
 							</div>
 						</li>
-						<li class="user-icon">
+						<li id="move_orderlist" class="user-icon">
 							<i class="fas fa-truck-moving fa-2x"></i>
 						</li>
 						<li class="user-icon">
