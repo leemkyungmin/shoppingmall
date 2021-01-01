@@ -30,7 +30,7 @@ public class searchCommand implements command {
 
 		indexDAO IDAO = sqlSession.getMapper(indexDAO.class);
 		ArrayList<searchDto> sdto = IDAO.searchResult(query);
-		
+		System.out.println(sdto.get(0).getpSumnail());
 		model.addAttribute("sdto",sdto);
 		model.addAttribute("query",query);
 		

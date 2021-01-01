@@ -25,10 +25,10 @@
 					url : '${pageContext.request.contextPath}/logout',
 					success :function(){
 						alert('로그아웃 성공');
-						location.href='index';
+						location.href='${pageContext.request.contextPath}/index';
 					},
 					error : function(){
-						alert('ajax 통신 실패 ');
+						location.href='${pageContext.request.contextPath}/login';
 					}
 				});
 			}
@@ -40,7 +40,11 @@
 		$('.myPage').click(function(){
 			location.href="${pageContext.request.contextPath}/my/confirmPassword";
 		});
-	
+		
+		$('.myproducts').click(function(){
+			location.href="${pageContext.request.contextPath}/product/myproduct";
+		});
+		
 	$('.header-search').click(function(){
 		
 	});
@@ -56,7 +60,7 @@
 	});	
 	//검색 쿠키 
 	
-	search_cookies();
+	search_cookies('${pageContext.request.contextPath}');
 	
 	//검색바 클릭시
 	
@@ -135,7 +139,7 @@
 				</a>
 					
 				<div class="header-search" id="header-search">
-					<form action="search" name="fm">
+					<form action="${pageContext.request.contextPath}/search" name="fm">
 						<fieldset>
 							<legend>검색</legend>
 							<div class="search-bar">
@@ -226,6 +230,9 @@
 							<a class="register">회원가입</a>				
 						</c:if>
 						<c:if test="${sessionScope.idx !=null }">
+							<c:if test="${sessionScope.buysell eq 'sell' }">
+								<a class="myproducts">판매 상품 보기 </a>
+							</c:if>
 							<a class="myPage">마이페이지</a>
 							<a class="logout">로그아웃</a>				
 						</c:if>

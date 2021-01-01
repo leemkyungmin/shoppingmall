@@ -4,67 +4,81 @@ public class searchDto {
 
 	int pIdx;
 	String pName;
-	double Rating;
-	int Rcount;
+	double rRating;
+	int rRcount;
 	int pRice;
 	String dName;
-	String pNimg;
+	String pSumnail;
 	
-	public String getpNimg() {
-		return pNimg;
-	}
+	public searchDto(){}
 
-	public void setpNimg(String pNimg) {
-		this.pNimg = pNimg;
-	}
-
-	public searchDto() {}
-	
 	public int getpIdx() {
 		return pIdx;
 	}
+
 	public void setpIdx(int pIdx) {
 		this.pIdx = pIdx;
 	}
+
 	public String getpName() {
 		return pName;
 	}
+
 	public void setpName(String pName) {
 		this.pName = pName;
 	}
-	public double getRating() {
-		return Rating;
+
+	public double getrRating() {
+		return rRating;
 	}
-	public void setRating(double rating) {
-		Rating = rating;
+
+	public void setrRating(double rRating) {
+		this.rRating = rRating;
 	}
-	public int getRcount() {
-		return Rcount;
+
+	public int getrRcount() {
+		return rRcount;
 	}
-	public void setRcount(int rcount) {
-		Rcount = rcount;
+
+	public void setrRcount(int rRcount) {
+		this.rRcount = rRcount;
 	}
+
 	public int getpRice() {
 		return pRice;
 	}
+
 	public void setpRice(int pRice) {
 		this.pRice = pRice;
 	}
+
 	public String getdName() {
 		return dName;
 	}
+
 	public void setdName(String dName) {
 		this.dName = dName;
 	}
-	public searchDto(int pIdx, String pName, double rating, int rcount, int pRice, String dName,String pNimg) {
+
+	
+
+	public String getpSumnail() {
+		return pSumnail;
+	}
+
+	public void setpSumnail(String pSumnail) {
+		this.pSumnail = pSumnail;
+	}
+
+	public searchDto(int pIdx, String pName, double rRating, int rRcount, int pRice, String dName, String pSumnail) {
 		super();
 		this.pIdx = pIdx;
 		this.pName = pName;
-		Rating = rating;
-		Rcount = rcount;
+		this.rRating = rRating;
+		this.rRcount = rRcount;
 		this.pRice = pRice;
 		this.dName = dName;
-		this.pNimg = pNimg;
+		this.pSumnail = pSumnail;
 	}
 	
 	

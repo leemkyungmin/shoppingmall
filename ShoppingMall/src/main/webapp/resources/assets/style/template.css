@@ -36,12 +36,13 @@ header{
 }
 .group_login{ 
 	position: absolute;
-	right: 20%;
-	height: 66px;
+    right: 15%;
+    height: 66px;
+    top: 11px;
 }
 .group_login a{
 	display:inline-block;
-	width: 100px;
+	width: 120px;
 	text-decoration: none;
 	border-right: 1px solid lightgray;
 	text-align: center;
@@ -201,3 +202,4 @@ header{
     color: #111;
     font-size: 15px;
 }
+

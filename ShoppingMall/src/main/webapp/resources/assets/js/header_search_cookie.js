@@ -1,7 +1,7 @@
 /**
  * 
  */
-	function search_cookies(){
+	function search_cookies(url){
 		$('.slist').html('');
 		var search_cookies = Cookies.getJSON('query');
 		if(search_cookies !=null){
@@ -11,7 +11,7 @@
 				for(keys in search_cookies[i]){
 					if(search_cookies[i][keys] !=''){
 						html +='<li>';
-						html +='<a class="'+search_cookies[i][keys]+'" href="search?search-item='+search_cookies[i][keys]+'">'+search_cookies[i][keys]+'</a>';
+						html +='<a class="'+search_cookies[i][keys]+'" href='+url+'/search?search-item='+search_cookies[i][keys]+'>'+search_cookies[i][keys]+'</a>';
 						html +='<input type="button" class="cookie-btn" id='+search_cookies[i][keys]+' value="X">';
 						html +='</li>';
 					}

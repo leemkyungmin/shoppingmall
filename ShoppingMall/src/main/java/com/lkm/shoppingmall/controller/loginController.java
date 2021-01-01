@@ -68,8 +68,7 @@ public class loginController {
 			deptDTO.setdPw(dPw);
 			
 			departmentDto resultDTO =ldao.deptloginchk(deptDTO);
-			System.out.println(resultDTO.getdId());
-			System.out.println(resultDTO.getdPw());
+			System.out.println(resultDTO.getdType());
 			if (resultDTO != null && !(resultDTO.getShow().toLowerCase().equals("n"))) {
 				request.getSession().setAttribute("idx", resultDTO.getdIdx());
 				request.getSession().setAttribute("id", resultDTO.getdId());
@@ -77,7 +76,7 @@ public class loginController {
 				request.getSession().setAttribute("name", resultDTO.getdName());
 				request.getSession().setAttribute("point", resultDTO.getdPoint());
 				request.getSession().setAttribute("type", type);
-				request.getSession().setAttribute("buySell",  resultDTO.getdType());
+				request.getSession().setAttribute("buysell",  resultDTO.getdType());
 				result = "1";
 			} else {
 				result ="-1";

@@ -13,7 +13,7 @@ public class productsDto {
 	
 	
 	//products_option : 옵션에 따른 데이터를 어떻게 처리해야할까 ... ?
-	//ex) 옵션번호 ,상품명,가격,상품번호,옵션번호 참조(default 0),상품번호(products 테이블 참조)
+	//ex) 옵션번호 ,상품명,가격,옵션번호 참조(default 0),상품번호(products 테이블 참조)
 	// 종류 옵션을 선택하면  ajax 를 이용해 종류 옵션의 옵션번호를 넘겨 옵션참조번호 = 옵션번호 일치 하는 데이터 가지고오기.
 	// 예상쿼리 select * from products_option  where 옵션참조번호 = ajax 를 통해 넘어온 옵션번호 값 ..
 	

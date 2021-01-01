@@ -9,11 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM BANNER
 	</select>
 	<select id="searchResult" parameterType="String" resultType="com.lkm.shoppingmall.dto.searchDto">
-		SELECT p.PIDX, p.PNAME,NVL(AVG(r.RATING),0),NVL(COUNT(r.PIDX),0),d.DNAME,TO_CHAR(no.PNIMG)
-		FROM PRODUCTS p, DEPT d,REVIEW R,PRODUCTS_NOTICE no
+		SELECT p.PIDX,p.PRICE,p.PNAME,NVL(AVG(r.RATING),0) AS rRATING,NVL(COUNT(r.PIDX),0) AS rRCOUNT,d.DNAME,TO_CHAR(p.pSumnail) as pSumnail 
+		FROM PRODUCTS p LEFT OUTER JOIN REVIEW R on p.PIDX = R.PIDX , DEPT d
 		WHERE p.PNAME LIKE '%' || #{param1} ||'%' 
-		and p.PIDX = R.PIDX and  p.DIDX = d.DIDX and p.PIDX =no.PIDX
-        group by p.PIDX, p.PNAME,d.DNAME,TO_CHAR(no.PNIMG)
+		and  p.DIDX = d.DIDX 
+        group by p.PIDX,p.PRICE, p.PNAME,d.DNAME,TO_CHAR(p.pSumnail)
 	</select>
  
 </mapper>

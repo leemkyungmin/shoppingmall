@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.lkm.shoppingmall.dao.productDAO">
+	
+	<select id="mylist" parameterType="String" resultType="com.lkm.shoppingmall.dto.myproduct">
+		SELECT p.PIDX,p.pNAME,p.PDATE,p.DIDX,p.Price,p.PORDER_PRICE,count(r.RIDX) as rCount, NVL(sum(r.RATING),0) as rTotal,TO_CHAR(p.pSumnail) as pSumnail
+		FROM PRODUCTS p LEFT OUTER JOIN REVIEW r on p.PIDX = r.PIDX
+		WHERE p.DIDX =#{param1}
+        group by p.PIDX,p.pNAME,p.PDATE,p.DIDX,p.Price,p.PORDER_PRICE,TO_CHAR(p.pSumnail)
+	</select>
+	
+</mapper>
