@@ -120,11 +120,42 @@
 								alert('통신 실패');
 							}
 						});
+					});	
+					$('#notice_img').change(function(){
+						var fm = new FormData();
+						var files = $('#notice_img')[0].files;
+						var i=0;
+						for(i=0; i<files.length; i++){
+							fm.append('files',files[i]);
+							console.log(files[i]);
+						}
 						
-						$('#notice_img').change(function(){
-							
-						});					
-					});
+						fm.append('files',$('#notice_img')[0].files);
+						$.ajax({
+							url:'${pageContext.request.contextPath}/product/productnoticeupload',
+							enctype: 'multipart/form-data',
+							data :fm,
+							processData: false,
+							contentType: false,
+							type :'post',
+							success :function(data){
+								var data_len = data.split(',');
+								console.log(data_len);
+								var i=0;
+								var html ='';
+								for( i=0; i<data_len.length; i++){
+									html +='<li>';
+									html +='<img src="${pageContext.request.contextPath}/resources/images/Department_notice/'+data_len[i]+'">'
+									html +='</li>';
+								}
+								$('.notice_imgs').append(html);
+								$('.product_notice_imgs').css({'display':'block'});
+								
+							}, error:function(){
+								alert('통신 실패');
+							}
+						});
+					});	
 				</script>
 				<div class="product_option">
 					<div class="add_option" >
