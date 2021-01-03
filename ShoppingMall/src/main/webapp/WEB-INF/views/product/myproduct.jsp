@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../Template/header.jsp" %>
-
+<% String path =application.getRealPath("/");
+%>
 <style>
 	.wrap{
 		width: 1200px;
@@ -83,7 +84,7 @@
 							</div>
 							
 							<div class="product_img">
-								<img  src="${pageContext.request.contextPath}/resources/assets/images/Department_sumnail/${list.pSumnail}">
+								<img src="${pageContext.request.contextPath }/resources/images/Department_sumnail/${list.pSumnail}">
 							</div>
 							<div class="product_info">
 								<div class="product_pname">

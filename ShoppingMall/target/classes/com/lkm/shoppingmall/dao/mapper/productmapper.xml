@@ -11,5 +11,50 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE p.DIDX =#{param1}
         group by p.PIDX,p.pNAME,p.PDATE,p.DIDX,p.Price,p.PORDER_PRICE,TO_CHAR(p.pSumnail)
 	</select>
-	
+	<insert id="insertproduct" parameterType="Map" >
+		<selectKey keyProperty="pidx" resultType="int" order="BEFORE">
+			SELECT PRODUCTS_SEQ.NEXTVAL as pidx FROM DUAL
+		</selectKey>
+		INSERT INTO PRODUCTS(PIDX,PNAME,PRICE,PRICE_PER,PDATE,PORDER_PRICE,DIDX,PSUMNAIL)
+		VALUES(
+			${pidx},
+			'${pName}',
+			${price},
+			'0',
+			SYSDATE,
+			${order_price},
+			${didx},
+			'${psumNail}'	
+		)
+	</insert>
+	<insert id="insertproductnotice" parameterType="Map">
+		INSERT INTO PRODUCTS_NOTICE(PNIDX,PNIMG,PIDX,PIMG)
+		VALUES (
+			PRODUCT_NOTICE_SEQ.NEXTVAL,
+			'${notice_img}',
+			${pidx},
+			'${pimg}'
+		)
+	</insert>
+	<insert id="insertproductOption1" parameterType="Map">
+		<selectKey keyProperty="poidx" resultType="int" order="BEFORE">
+			SELECT PRODUCT_NOTICE_SEQ.nextval as poidx FROM dual
+		</selectKey>
+		INSERT INTO PRODUCTS_OPTION(POIDX,PONAME,POPRICE)
+		VALUES (
+			#{poidx},
+			'${poname}',
+			${avg_price}
+		)
+	</insert>
+	<insert id="insertproductOption2" parameterType="Map">
+		INSERT INTO PRODUCTS_OPTION(POIDX,PONAME,POPRICE,PODEPT,POEND)
+		VALUES(
+			PRODUCT_NOTICE_SEQ.nextval,
+			'${op2_name}',
+			${op2_price},
+			${poidx},
+			'Y'
+		)
+	</insert>
 </mapper>

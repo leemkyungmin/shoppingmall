@@ -2,7 +2,9 @@ package com.lkm.shoppingmall.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.google.gson.JsonArray;
 import com.lkm.shoppingmall.command.product.myproductCommand;
 import com.lkm.shoppingmall.commom.command;
+import com.lkm.shoppingmall.dao.productDAO;
+import com.lkm.shoppingmall.dto.productsDto;
 
 @Controller
 public class productController {
@@ -81,7 +85,7 @@ public class productController {
 						"_" +
 						"sumnail" +
 						"." + extName;
-				String realPath = req.getSession().getServletContext().getRealPath("/resources/images/Department_sumnail");
+				String realPath = req.getSession().getServletContext().getRealPath("resources/images/Department_sumnail");
 				System.out.println(realPath);
 				File directory = new File(realPath);
 				System.out.println(directory);
@@ -181,5 +185,73 @@ public class productController {
 		
 		return filename;
 	}
-	
+	@RequestMapping(value="product/insertproduct",method =RequestMethod.POST)
+	public String insert_product(HttpServletRequest req,Model model) {
+		HttpSession session = req.getSession();
+		String idx = (Integer)session.getAttribute("idx")+"";
+		if(idx ==null) {
+			return "redirect:/login";
+		} else {
+			String pName = req.getParameter("pName");
+			String price = req.getParameter("price");
+			String order_price =req.getParameter("order_price");
+			String option1[] = req.getParameterValues("option1");
+			String sumNail =req.getParameter("sumNail");
+			String pnoticeimg =req.getParameter("pnoticeimg");
+			String pimg =req.getParameter("pimg");
+			
+			productDAO pdao = sqlsession.getMapper(productDAO.class);
+			int result =0;
+			Map<String,Object> query = new HashMap<String, Object>();
+			query.put("pName", pName);
+			query.put("price", price);
+			query.put("order_price",order_price);
+			query.put("psumNail",sumNail);
+			query.put("didx", idx);
+			result = pdao.insertproduct(query);
+			System.out.println("pidx : "+query.get("pidx"));
+			
+			if(result >0) {
+				String pidx = query.get("pidx")+"";
+				
+				//공지사항 추가 
+				Map<String,Object> notice = new HashMap<String, Object>();
+				notice.put("notice_img", pnoticeimg);
+				notice.put("pimg", pimg);
+				notice.put("pidx", pidx);
+				pdao.insertproductnotice(notice);
+				
+				for(int i=0; i<option1.length; i++) {
+					Map<String,Object> options =new HashMap<String, Object>();
+					String[] op2_names= req.getParameterValues("option2_name"+(i+1));
+					String[] op2_price = req.getParameterValues("option2_price"+(i+1));
+					System.out.println("op2_names :"+op2_names);
+					int option_avg = 0;
+					for(String p : op2_price) {
+						option_avg +=Integer.parseInt(p);
+					}
+					options.put("poname", option1[i]);
+					options.put("avg_price", option_avg);
+					int option1_result =pdao.insertproductOption1(options);
+									
+					if(option1_result >0) {
+						String poidx = options.get("poidx")+"";
+						System.out.println(op2_names.length);
+						for(int j=0; j<op2_names.length; j++) {
+							Map<String,Object> option2 = new HashMap<String, Object>();
+							option2.clear();
+							option2.put("poidx", poidx);
+							option2.put("op2_name",op2_names[j]);
+							option2.put("op2_price",op2_price[j]);
+							pdao.insertproductOption2(option2);
+						}
+					}
+					
+				}
+			}
+			
+			return "redirect:/product/myproduct";
+		}
+		
+	}
 }

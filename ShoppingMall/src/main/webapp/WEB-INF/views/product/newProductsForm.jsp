@@ -87,8 +87,8 @@
 					function add_option2(data){
 						var html ='';
 						html +='<tr>';
-						html +='<td><input type="text" id="option2_name'+data+'" placeholder="세부 옵션"></td>';
-						html +='<td><input type="text" id="option2_price'+data+'" placeholder="가격"></td>';
+						html +='<td><input type="text" id="option2_name'+data+'" name="option2_name'+data+'" placeholder="세부 옵션"></td>';
+						html +='<td><input type="text" id="option2_price'+data+'" name="option2_price'+data+'" placeholder="가격"></td>';
 						html +='</tr>';
 						
 						
