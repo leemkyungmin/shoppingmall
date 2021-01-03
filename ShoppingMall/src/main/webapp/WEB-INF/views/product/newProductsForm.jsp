@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/style/newProduct.css">
 	<div class="wrap">
 		<div class="wrap_content">
-			<form id="fm" action="${pageContext.request.contextPath }/product/insertproduct" enctype="multipart/form-data">
+			<form id="fm" method="post" action="${pageContext.request.contextPath }/product/insertproduct" enctype="multipart/form-data">
 			
 				<div class="product_pname">
 					<label for="pName"> 상품명</label>
@@ -30,7 +30,7 @@
 					<input type="file" id="info_img" multiple="multiple">
 				</div>
 				<div class="product_info_img">
-					<ul>
+					<ul class="product_img">
 					</ul>
 				</div>
 				<div class="product_info_table">
@@ -38,11 +38,11 @@
 						<tbody>
 							<tr>
 								<td><label for="price">상품 평균 가격</label></td>
-								<td><input type="text" id="price" placeholder="숫자만 입력해주세요"></td>
+								<td><input type="text" id="price" name="price" placeholder="숫자만 입력해주세요"></td>
 							</tr>
 							<tr>
 								<td><label for="order_price">배송비</label></td>
-								<td><input type="text" id="order_price" placeholder="숫자만 입력해주세요"></td>
+								<td><input type="text" id="order_price" name="order_price" placeholder="숫자만 입력해주세요"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -57,20 +57,20 @@
 						html +='<div class="option_list" data-value='+data+'>';
 						html +='<div class="left_option">';
 						html +='<label>옵션 1</label>';
-						html +='<input type="text" id="option1_'+data+'" placeholder="종류 옵션">';						
+						html +='<input type="text" id="option1" name="option1" placeholder="종류 옵션">';						
 						html +='</div>';
 						html +='<div class="right_option">';
 						html +='<div class="add_option2 op'+data+'">';
 						html +='<label>옵션 2</label>';
-						html +='<input type="button" id="add_option2_'+data+'"onclick="add_option2('+data+')" value="+">';
+						html +='<input type="button" id="add_option2_'+data+'" onclick="add_option2('+data+')" value="+">';
 						html +='<input type="button"  onclick="remove_option2('+data+')" value="-">';
 						html +='</div>';
 						html +='<div class="option_list_add">';
 						html +='<table class="this_option'+data+'"><thead><tr><td>옵션 명</td><td>가격</td></tr></thead>';
 						html +='<tbody>';
 						html +='<tr>';
-						html +='<td><input type="text" id="option2_name'+data+'" placeholder="세부 옵션"></td>';
-						html +='<td><input type="text" id="option2_price'+data+'" placeholder="가격"></td>';
+						html +='<td><input type="text" id="option2_name'+data+'" name="option2_name'+data+'" placeholder="세부 옵션"></td>';
+						html +='<td><input type="text" id="option2_price'+data+'" name="option2_price'+data+'" placeholder="가격"></td>';
 						html +='</tr>';
 						html +='</tbody></table>';
 						html +='</div></div></div>';
@@ -114,6 +114,7 @@
 							processData: false,
 							contentType: false,
 							success:function(data){
+								$('#sumNail').val(data);
 								$('.product_sumnail').css({'display':'block'});
 								$('#sumnail').attr('src','${pageContext.request.contextPath}/resources/images/Department_sumnail/'+data);
 							},error :function(){
@@ -130,7 +131,6 @@
 							console.log(files[i]);
 						}
 						
-						fm.append('files',$('#notice_img')[0].files);
 						$.ajax({
 							url:'${pageContext.request.contextPath}/product/productnoticeupload',
 							enctype: 'multipart/form-data',
@@ -139,6 +139,7 @@
 							contentType: false,
 							type :'post',
 							success :function(data){
+								$('#pnoticeimg').val(data);
 								var data_len = data.split(',');
 								console.log(data_len);
 								var i=0;
@@ -155,7 +156,42 @@
 								alert('통신 실패');
 							}
 						});
-					});	
+					});
+					$('#info_img').change(function(){
+						var fm = new FormData();
+						var images = $(this)[0].files;
+						var i = 0;
+						for (i=0; i<images.length; i++){
+							fm.append('files',images[i]);
+						}
+						
+						$.ajax({
+							url : '${pageContext.request.contextPath}/product/product_infoupload',
+							data : fm,
+							enctype :'multipart/form-data',
+							processData: false,
+							contentType: false,
+							type :'post',
+							success :function(data){
+								$('#pimg').val(data);
+								var image = data.split(',');
+								var j =0;
+								var html ='';
+								for(j=0; j<image.length; j++){
+									html +='<li>';
+									html +='<img src="${pageContext.request.contextPath}/resources/images/Department_product_img/'+image[j]+'">';
+									html +='</li>';
+								}
+								$('.product_img').append(html);
+								$('.product_info_img').css({'display':'block'})
+								
+								
+							},error:function(){
+								alert('통신 실패');
+							}
+					
+						});
+					});
 				</script>
 				<div class="product_option">
 					<div class="add_option" >
@@ -165,7 +201,7 @@
 					<div class="option_list" data-value=1>
 						<div class="left_option">
 							<label>옵션 1</label>
-							<input type="text" id="option1_1" placeholder="종류 옵션">
+							<input type="text" id="option1" name="option1" placeholder="종류 옵션">
 						</div>
 						<div class="right_option">
 							<div class="add_option2 op1">
@@ -183,8 +219,8 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td><input type="text" id="option2_name1" placeholder="세부 옵션"></td>
-											<td><input type="text" id="option2_price1" placeholder="가격"></td>
+											<td><input type="text" id="option2_name1" name="option2_name1" placeholder="세부 옵션"></td>
+											<td><input type="text" id="option2_price1" name="option2_price1" placeholder="가격"></td>
 										</tr>
 									</tbody>
 									
@@ -196,8 +232,47 @@
 					</div>
 					
 				</div>
+				<div class="btn-controll">
+					<input type="hidden" id="sumNail" name="sumNail">
+					<input type="hidden" id="pnoticeimg" name="pnoticeimg">
+					<input type="hidden" id="pimg" name="pimg">
+					<input type="button" value="등록" id="btn_submit">
+					<input type="button" value="취소" id="btn_cancel">
+				</div>
 			</form>
 		</div>
 	</div>
+	<script>
+		$().ready(function(){
+			$('#btn_submit').click(function(){
+				var title = $('#pName');
+				var pSumnail =$('#pSumnail')[0].files;
+				var notice_img =$('#notice_img')[0].files;
+				var info_img =$('#info_img')[0].files;
+				var price =$('#price');
+				var order_price =$('#order_price');
+				var form = $('#fm');
+				if(title.val() ==''){
+					alert('상품명을 입력해주세요');
+					title.focus();
+				} else if( pSumnail.length == 0){
+					alert('메인 사진 등록해주세요');
+				} else if(notice_img.length == 0){
+					alert('공지사항 이미지를 입력해주세요');
+				} else if(info_img.length == 0) {
+					alert('상품 이미지를 입력해주세요');
+				} else if(price.val() ==''){
+					alert('가격을 입력해주세요');
+					price.focus();
+				} else if(order_price ==''){
+					alert('배송비 를 입력해주세요');
+					order_price.focus();
+				} else {
+					form.submit();
+				}
+				
+			});
+		});
+	</script>
 
 <%@ include file="../Template/fotter.jsp" %>

@@ -3,6 +3,7 @@ package com.lkm.shoppingmall.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -117,8 +118,7 @@ public class productController {
 				String extName = originFilename.substring(originFilename.lastIndexOf(".")+1);
 				try {
 					saveFilename = originFilename.substring(0, originFilename.lastIndexOf(".")) +
-							"_" +
-							"notice_img" +
+							UUID.randomUUID()+
 							"." + extName;
 					String realPath = mr.getSession().getServletContext().getRealPath("/resources/images/Department_notice");
 					System.out.println(realPath);
@@ -145,4 +145,41 @@ public class productController {
 		
 		return files;
 	}
+	
+	@RequestMapping(value="product/product_infoupload",method=RequestMethod.POST,produces="text/html; charset=utf-8")
+	@ResponseBody
+	public String product_info(MultipartHttpServletRequest mr) {
+		List<MultipartFile> files = mr.getFiles("files");
+		String filename="";
+		int st_num = 0;
+		int end_num = files.size();
+		for(MultipartFile f : files) {
+			String origin = f.getOriginalFilename(); 
+			String ext = f.getOriginalFilename().substring(origin.lastIndexOf(".")+1);
+			
+			try {
+				String saveFile = origin.substring(0, origin.lastIndexOf(".")) +
+						UUID.randomUUID()+
+						"." + ext;
+				String path = mr.getSession().getServletContext().getRealPath("/resources/images/Department_product_img");
+				File dir = new File(path);
+				if( !dir.exists()) {
+					dir.mkdirs();
+				}
+				
+				File save =  new File(path,saveFile);
+				f.transferTo(save);
+				filename +=saveFile;
+				if(st_num <end_num) {
+					filename+=",";
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return filename;
+	}
+	
 }
