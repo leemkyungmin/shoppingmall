@@ -52,6 +52,11 @@
 		height: 200px;
 		padding-top: 47px;
 	}
+	a{
+		list-style: none;
+		text-decoration: none;
+		color: black;
+	}
 </style>
 <script>
 	$().ready(function(){
@@ -84,11 +89,11 @@
 							</div>
 							
 							<div class="product_img">
-								<img src="${pageContext.request.contextPath }/resources/images/Department_sumnail/${list.pSumnail}">
+								<a href="${pageContext.request.contextPath}/product/myproduct/${list.pidx}"><img src="${pageContext.request.contextPath }/resources/images/Department_sumnail/${list.pSumnail}"></a>
 							</div>
 							<div class="product_info">
 								<div class="product_pname">
-									${list.pname }
+									<a href="${pageContext.request.contextPath}/product/myproduct/${list.pidx}">${list.pname }</a>
 								</div>
 								<div class="product_rating">
 									총 별점:${list.rTotal}점

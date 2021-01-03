@@ -1,7 +1,7 @@
 package com.lkm.shoppingmall.controller;
 
+
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,19 +12,20 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.google.gson.JsonArray;
 import com.lkm.shoppingmall.command.product.myproductCommand;
+import com.lkm.shoppingmall.command.product.myproductinfoCommand;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.productDAO;
-import com.lkm.shoppingmall.dto.productsDto;
 
 @Controller
 public class productController {
@@ -253,5 +254,13 @@ public class productController {
 			return "redirect:/product/myproduct";
 		}
 		
+	}
+	@RequestMapping(value="product/myproduct/{pidx}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public String getmyProduct(@PathVariable("pidx") int pidx,Model model) {
+		System.out.println(pidx);
+		model.addAttribute("pidx", pidx);
+		command=new myproductinfoCommand();
+		command.execute(sqlsession, model);
+		return "product/UpdateMyproductForm";
 	}
 }

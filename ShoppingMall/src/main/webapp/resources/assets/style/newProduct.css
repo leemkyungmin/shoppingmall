@@ -12,6 +12,10 @@
 	font-size: 20px;
 	height: 40px;
 }
+.product_notice_imgs{
+	width: 1200px;
+    height: 300px;
+}
 .wrap .wrap_content label{
 	display:inline-block;
 	width:150px;	
@@ -24,14 +28,13 @@
 .wrap .wrap_content .product_sumnail {
 	width: 300px;
 	height: 300px;
-	border :1px solid black;
 	display:none;
 }
 .wrap .wrap_conent .product_notice_imgs,.product_info_img {
 	display:none;
 	width: 1200px;
 	height: 300px;
-	border :1px solid black;
+	margin-bottom: 20px;
 }
 .product_info_table table #price ,#order_price{
 	width: 300px;
@@ -79,6 +82,7 @@
 	list-style: none;
 	overflow-x:scroll;
 	white-space:nowrap;
+	
 }
 .notice_imgs li{
 	display:inline-block;

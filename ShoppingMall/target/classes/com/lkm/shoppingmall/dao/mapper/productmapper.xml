@@ -57,4 +57,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			'Y'
 		)
 	</insert>
+	
+	<select id="selectmyProduct" parameterType="com.lkm.shoppingmall.dto.productsDto" resultType="com.lkm.shoppingmall.dto.productsDto">
+		SELECT *
+		FROM PRODUCTS
+		WHERE PIDX = ${pIdx}
+	
+	</select>
+	<select id="selectmyProduct_notice" parameterType="com.lkm.shoppingmall.dto.product_notice" resultType="com.lkm.shoppingmall.dto.product_notice">
+		SELECT * 
+		FROM PRODUCTS_NOTICE
+		WHERE PIDX = ${pIdx}
+	</select>
+	<select id="selectproduct_options" parameterType="int" resultType="com.lkm.shoppingmall.dto.product_optionDto">
+		SELECT a.poname as top_option,b.*
+		FROM PRODUCTS_OPTION a inner join products_option b  on a.poidx =b.podept
+		where a.podept =0 AND a.pidx = b.pidx AND a.pidx = #{param1}
+	</select>
+	
 </mapper>

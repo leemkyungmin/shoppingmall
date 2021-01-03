@@ -24,7 +24,8 @@ public class productsDto {
 	int pRice_per;
 	Date pDate;
 	int dIdx;
-	int pNidx;
+	int pOrder_price;
+	String pSumnail;
 	
 	public productsDto() {}
 	
@@ -64,13 +65,25 @@ public class productsDto {
 	public void setdIdx(int dIdx) {
 		this.dIdx = dIdx;
 	}
-	public int getpNidx() {
-		return pNidx;
+
+	public int getpOrder_price() {
+		return pOrder_price;
 	}
-	public void setpNidx(int pNidx) {
-		this.pNidx = pNidx;
+
+	public void setpOrder_price(int pOrder_price) {
+		this.pOrder_price = pOrder_price;
 	}
-	public productsDto(int pIdx, String pName, int pRice, int pRice_per, Date pDate, int dIdx, int pNidx) {
+
+	public String getpSumnail() {
+		return pSumnail;
+	}
+
+	public void setpSumnail(String pSumnail) {
+		this.pSumnail = pSumnail;
+	}
+
+	public productsDto(int pIdx, String pName, int pRice, int pRice_per, Date pDate, int dIdx, int pOrder_price,
+			String pSumnail) {
 		super();
 		this.pIdx = pIdx;
 		this.pName = pName;
@@ -78,7 +91,8 @@ public class productsDto {
 		this.pRice_per = pRice_per;
 		this.pDate = pDate;
 		this.dIdx = dIdx;
-		this.pNidx = pNidx;
+		this.pOrder_price = pOrder_price;
+		this.pSumnail = pSumnail;
 	}
 	
 	

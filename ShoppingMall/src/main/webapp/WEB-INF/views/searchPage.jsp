@@ -95,6 +95,11 @@
 			color: black;
 			text-decoration: none;
 		}
+		.items-products-img img{
+			width: 230px;
+			height: 230px;
+		}
+		
 	</style>
 	<div class="wrap">
 		<div class="wrap-content">
@@ -120,7 +125,7 @@
 							<div class="style-controll">
 								<div class="items-products-img">
 									<a href="${pageContext.request.contextPath}/product/products/${items.pIdx}">
-										<img src="${pageContext.request.contextPath}/resources/assets/images/Department_sumnail/${items.pSumnail}">
+										<img src="${pageContext.request.contextPath}/resources/images/Department_sumnail/${items.pSumnail}">
 									</a>
 								</div>
 								<div class="item-content">
