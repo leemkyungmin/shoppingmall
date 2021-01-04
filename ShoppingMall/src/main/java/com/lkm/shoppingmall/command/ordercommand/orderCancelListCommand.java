@@ -81,7 +81,7 @@ public class orderCancelListCommand implements command {
 			uOrderList =ODAO.getOrderCancelUserList(result);
 			totalCount =ODAO.getOrderUserCount(result);
 		}else { 
-			result.put("uidx", idx);
+			result.put("didx", idx);
 			uOrderList =ODAO.getOrderCancelDeptList(result); 
 			totalCount =ODAO.getOrderDeptCount(result);
 		}

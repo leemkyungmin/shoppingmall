@@ -96,7 +96,7 @@ public class loginController {
 	
 		session.invalidate();
 						
-		return "redirect:${pageContext.request.contextPath}/index";
+		return "redirect:/index";
 	}
 	
 	

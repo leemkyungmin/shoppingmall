@@ -141,7 +141,6 @@
 							success :function(data){
 								$('#pnoticeimg').val(data);
 								var data_len = data.split(',');
-								console.log(data_len);
 								var i=0;
 								var html ='';
 								for( i=0; i<data_len.length; i++){

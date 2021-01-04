@@ -20,5 +20,13 @@ public interface productDAO {
 	public product_notice selectmyProduct_notice(product_notice pndto);
 	
 	public ArrayList<product_optionDto> selectproduct_options(int pidx);
+	public ArrayList<product_optionDto> selecttop_options(int pidx);
+	
+	public int selectDidx(int pidx);
+	
+	public int updateProducts(productsDto pdto);
+	public int updateNotice(product_notice pndto);
+	
+	public int deleteOptions(int pidx);
 	
 }

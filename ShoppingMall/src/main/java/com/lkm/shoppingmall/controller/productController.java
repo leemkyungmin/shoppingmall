@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.lkm.shoppingmall.command.product.Update_myproduct;
 import com.lkm.shoppingmall.command.product.myproductCommand;
 import com.lkm.shoppingmall.command.product.myproductinfoCommand;
+import com.lkm.shoppingmall.command.product.selectproduct;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.productDAO;
 
@@ -83,8 +85,7 @@ public class productController {
 			
 			try {
 				saveFilename = originFilename.substring(0, originFilename.lastIndexOf(".")) +
-						"_" +
-						"sumnail" +
+						UUID.randomUUID() +
 						"." + extName;
 				String realPath = req.getSession().getServletContext().getRealPath("resources/images/Department_sumnail");
 				System.out.println(realPath);
@@ -122,7 +123,7 @@ public class productController {
 				String originFilename  =f.getOriginalFilename();
 				String extName = originFilename.substring(originFilename.lastIndexOf(".")+1);
 				try {
-					saveFilename = originFilename.substring(0, originFilename.lastIndexOf(".")) +
+					saveFilename = originFilename.substring(0, originFilename.lastIndexOf("."))+
 							UUID.randomUUID()+
 							"." + extName;
 					String realPath = mr.getSession().getServletContext().getRealPath("/resources/images/Department_notice");
@@ -159,6 +160,7 @@ public class productController {
 		int st_num = 0;
 		int end_num = files.size();
 		for(MultipartFile f : files) {
+			st_num++;
 			String origin = f.getOriginalFilename(); 
 			String ext = f.getOriginalFilename().substring(origin.lastIndexOf(".")+1);
 			
@@ -233,6 +235,7 @@ public class productController {
 					}
 					options.put("poname", option1[i]);
 					options.put("avg_price", option_avg);
+					options.put("pidx", pidx);
 					int option1_result =pdao.insertproductOption1(options);
 									
 					if(option1_result >0) {
@@ -244,6 +247,7 @@ public class productController {
 							option2.put("poidx", poidx);
 							option2.put("op2_name",op2_names[j]);
 							option2.put("op2_price",op2_price[j]);
+							option2.put("pidx", pidx);
 							pdao.insertproductOption2(option2);
 						}
 					}
@@ -255,12 +259,39 @@ public class productController {
 		}
 		
 	}
-	@RequestMapping(value="product/myproduct/{pidx}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public String getmyProduct(@PathVariable("pidx") int pidx,Model model) {
-		System.out.println(pidx);
-		model.addAttribute("pidx", pidx);
-		command=new myproductinfoCommand();
+	@RequestMapping(value="product/myproduct/{didx}/{pidx}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public String getmyProduct(@PathVariable("pidx") int pidx,@PathVariable("didx") int didx,HttpServletRequest req,Model model) {
+		productDAO pdao = sqlsession.getMapper(productDAO.class);
+		int idx= pdao.selectDidx(pidx);
+		System.out.println(idx);
+		if(idx==didx) {
+			model.addAttribute("pidx", pidx);
+			command=new myproductinfoCommand();
+			command.execute(sqlsession, model);
+			return "product/UpdateMyproductForm";
+		} else {
+			return "redirect:/index";
+		}
+	}
+	
+	@RequestMapping(value="product/update_myproduct",method=RequestMethod.POST)
+	public String update_myproduct(HttpServletRequest req,Model model) {
+		model.addAttribute("req", req);
+		command= new Update_myproduct();
 		command.execute(sqlsession, model);
-		return "product/UpdateMyproductForm";
+		
+		String pidx = req.getParameter("pidx");
+		String didx= (Integer) req.getSession().getAttribute("idx")+"";
+		
+		return "redirect:/product/myproduct/"+didx+"/"+pidx;
+	}
+	
+	@RequestMapping(value="product/products/{pidx}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public String selectproduct(@PathVariable("pidx") int pidx,HttpServletRequest req,Model model) {
+		model.addAttribute("pidx", pidx);
+		model.addAttribute("req",req);
+		command=new selectproduct();
+		command.execute(sqlsession, model);
+		return "product/showproduct";
 	}
 }

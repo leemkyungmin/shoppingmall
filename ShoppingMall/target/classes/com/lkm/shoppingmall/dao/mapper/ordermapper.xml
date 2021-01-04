@@ -53,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		FROM(
  			SELECT COUNT(*) as co
  			FROM BUYS b,PRODUCTS p,PRODUCTS_NOTICE pn,DEPT d
-			WHERE b.UIDX =0 AND  b.PDIDX =#{didx} AND p.DIDX =b.DIDX  AND p.PIDX =pn.PIDX 
-			AND b.bdate BETWEEN '#{stDay}' and '#{endDay}') a
+			WHERE b.UIDX =0 AND  b.PDIDX =${didx} AND p.DIDX =b.DIDX  AND p.PIDX =pn.PIDX 
+			AND b.bdate BETWEEN '${stDay}' and '${endDay}') a
  	</select>
 </mapper>

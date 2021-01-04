@@ -40,21 +40,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey keyProperty="poidx" resultType="int" order="BEFORE">
 			SELECT PRODUCT_NOTICE_SEQ.nextval as poidx FROM dual
 		</selectKey>
-		INSERT INTO PRODUCTS_OPTION(POIDX,PONAME,POPRICE)
+		INSERT INTO PRODUCTS_OPTION(POIDX,PONAME,POPRICE,PIDX)
 		VALUES (
 			#{poidx},
 			'${poname}',
-			${avg_price}
+			${avg_price},
+			${pidx}
 		)
 	</insert>
 	<insert id="insertproductOption2" parameterType="Map">
-		INSERT INTO PRODUCTS_OPTION(POIDX,PONAME,POPRICE,PODEPT,POEND)
+		INSERT INTO PRODUCTS_OPTION(POIDX,PONAME,POPRICE,PODEPT,POEND,PIDX)
 		VALUES(
 			PRODUCT_NOTICE_SEQ.nextval,
 			'${op2_name}',
 			${op2_price},
 			${poidx},
-			'Y'
+			'Y',
+			${pidx}
 		)
 	</insert>
 	
@@ -70,9 +72,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE PIDX = ${pIdx}
 	</select>
 	<select id="selectproduct_options" parameterType="int" resultType="com.lkm.shoppingmall.dto.product_optionDto">
-		SELECT a.poname as top_option,b.*
+		SELECT b.*
 		FROM PRODUCTS_OPTION a inner join products_option b  on a.poidx =b.podept
 		where a.podept =0 AND a.pidx = b.pidx AND a.pidx = #{param1}
 	</select>
+	<select id="selecttop_options" parameterType="int" resultType="com.lkm.shoppingmall.dto.product_optionDto">
+		SELECT * 
+		FROM PRODUCTS_OPTION
+		WHERE PIDX=#{param1} AND PODEPT =0
+	</select>
 	
+	<select id="selectDidx" parameterType="int" resultType="int">
+		SELECT DIDX
+		FROM PRODUCTS
+		WHERE PIDX=#{param1}
+	</select>
+	<update id="updateProducts" parameterType="com.lkm.shoppingmall.dto.productsDto">
+		UPDATE PRODUCTS
+		SET PNAME = '${pName}',
+			PORDER_PRICE =${pOrder_price},
+			PRICE = ${pRice},
+			PSUMNAIL = '${pSumnail}'
+		WHERE PIDX = ${pIdx}
+	</update>
+	<update id="updateNotice" parameterType="com.lkm.shoppingmall.dto.product_notice">
+		UPDATE PRODUCTS_NOTICE
+		SET PNIMG = '${pNimg}',
+			PIMG = '${pImg}'
+		WHERE PIDX = ${pIdx}
+	</update>
+	<delete id="deleteOptions" parameterType="int">
+		DELETE FROM PRODUCTS_OPTION
+		WHERE PIDX = #{param1}
+	</delete>
 </mapper>

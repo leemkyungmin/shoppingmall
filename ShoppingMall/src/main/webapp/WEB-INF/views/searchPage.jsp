@@ -99,6 +99,9 @@
 			width: 230px;
 			height: 230px;
 		}
+		li{
+			display:inline-block;
+		}
 		
 	</style>
 	<div class="wrap">

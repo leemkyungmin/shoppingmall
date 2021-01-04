@@ -189,6 +189,59 @@
 							});
 						</script>
 					</c:if>
+					<c:if test="${deptdto ne null }" >
+						<form>
+							<table>
+								<tbody>
+									<tr>
+										<td>이름</td>
+										<td colspan="3">${deptdto.dName }</td>
+									</tr>
+									<tr class="id-rows">
+										<td>아이디</td>
+										<td>${deptdto.dId}</td>
+										<td>회원유형</td>
+										<td>
+											<c:if test="${deptdto.dType eq 'sell' }">
+												기업 회원 판매고객
+											</c:if>
+											<c:if test="${deptdto.dType eq 'buy' }">
+												기업 회원 구매
+											</c:if>
+										</td>
+									</tr>
+									<tr>
+										<td>비밀번호</td>
+										<td colspan="3"><input type="button" id="pwchange" value="비밀번호 변경하기"></td>
+									</tr>
+									
+									<tr>
+										<c:set var="uPhone" value="${deptdto.dPhone }"></c:set>
+									
+										<c:set var="first_num" value="${fn:substring(uPhone,0,3)}" ></c:set>
+										<c:set var="second_num" value="${fn:substring(uPhone,3,7) }"></c:set>
+										<c:set var="last_num" value="${fn:substring(uPhone,7,11) }"></c:set>
+										
+										<td>전화번호</td>
+										<td colspan="3">
+											<input type="text" name=first_num id="first_num" value=${first_num }> - 
+											<input type="text" name=second_num id="second_num" value=${second_num }> - 
+											<input type="text" name=last_num id="last_num" value=${last_num }>
+										</td>
+									</tr>
+								
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="4">
+											<input type="button" id="submit_btn" value="확인">
+											<input type="button" id="return_btn" value="취소">
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</form>
+					</c:if>
 				</div>
 			</div>
 			

@@ -89,11 +89,11 @@
 							</div>
 							
 							<div class="product_img">
-								<a href="${pageContext.request.contextPath}/product/myproduct/${list.pidx}"><img src="${pageContext.request.contextPath }/resources/images/Department_sumnail/${list.pSumnail}"></a>
+								<a href="${pageContext.request.contextPath}/product/myproduct/${list.dIdx}/${list.pidx}"><img src="${pageContext.request.contextPath }/resources/images/Department_sumnail/${list.pSumnail}"></a>
 							</div>
 							<div class="product_info">
 								<div class="product_pname">
-									<a href="${pageContext.request.contextPath}/product/myproduct/${list.pidx}">${list.pname }</a>
+									<a href="${pageContext.request.contextPath}/product/myproduct/${list.dIdx}/${list.pidx}">${list.pname }</a>
 								</div>
 								<div class="product_rating">
 									총 별점:${list.rTotal}점

@@ -32,11 +32,11 @@ public class updateuserCommand implements command {
 		idx =(Integer) session.getAttribute("idx")+"";
 		if(session.getAttribute("type").equals("user")) {
 			udto = mDAO.userInfo(idx);
+			model.addAttribute("udto", udto);
 		} else {
 			deptdto =mDAO.deptInfo(idx);
+			model.addAttribute("deptdto",deptdto);
 		}
-		model.addAttribute("udto", udto);
-		model.addAttribute("deptdto",deptdto);
 
 	}
 
