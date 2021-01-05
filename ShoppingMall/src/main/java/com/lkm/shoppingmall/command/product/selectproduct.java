@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.productDAO;
+import com.lkm.shoppingmall.dto.buyOptionDto;
 import com.lkm.shoppingmall.dto.departmentDto;
 import com.lkm.shoppingmall.dto.product_notice;
 import com.lkm.shoppingmall.dto.product_optionDto;
@@ -48,9 +49,14 @@ public class selectproduct implements command {
 		
 		deptdto = pdao.selectDept(pidx);
 		ArrayList<reviewDto> rdto = new ArrayList<reviewDto>();
+		rdto= pdao.getReviewList(pidx);
 		
+		ArrayList<buyOptionDto> bodto =  new ArrayList<buyOptionDto>();
+		bodto =  pdao.getbuysOption(pidx);
+				
+		
+		model.addAttribute("bodto", bodto);
 		model.addAttribute("rdto", rdto);
-		
 		model.addAttribute("pdto", pdto);
 		model.addAttribute("pndto", pndto);
 		model.addAttribute("podto", podto);

@@ -20,6 +20,7 @@
 	    left: 50%;
 	    z-index: 101;
 	    width: 300px;
+	    height:600PX;
 	    margin-left: 319px;
 	    background-color: #fff;
 	    border-left: 1px solid #eee;
@@ -111,5 +112,63 @@
 	}
 	.imgs img{
 		width: 80%;
-		
 	}
+	.review_content_list{
+		width: 1000px;
+	}
+	.review_content_list .review_list{
+		width: 100%;
+	}
+	.review_content_list .review_list li{
+		width: 900px;
+		min-height: 230px;
+		border: 1px solid black;
+		padding : 25px 0 25px 72px;
+	}
+	.review_writer{
+		display:block;
+		width: 800px;
+	}
+	.review_detail .review_writer .writer{
+		display:inline-block;
+		font-size: 25px;
+	}
+	.review_detail .review_writer .write_date{
+		display:inline-block;
+		float: right;
+		color: gray;
+	}
+	.option_font{
+		font-size: 12px;
+		color: #c40;
+	}
+	.option_font .option_font_blue{
+		color:#00B5E3;
+	}
+	.resend_title,.seller-title{
+		font-size: 20px;
+		font-weight: bold;
+		margin-bottom: 20px;	
+	}
+	
+	.seller-info{
+		margin-top: 30px;
+	}
+	.seller-info table {
+		width: 1000px;
+		border-collapse: collapse;
+		border-top: 2px solid gray;
+		font-size: 15px;
+	}
+	.seller-info table tr {
+		border-bottom:1px solid gray;	
+	}
+	.seller-info table tr td{
+		padding-left: 10px;
+		height: 60px;
+	}
+	.seller-info table tr td:first-child {
+		width :180px;
+		background-color: #c8c8c8;		
+	}
+	

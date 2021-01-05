@@ -3,6 +3,7 @@ package com.lkm.shoppingmall.dao;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.lkm.shoppingmall.dto.buyOptionDto;
 import com.lkm.shoppingmall.dto.departmentDto;
 import com.lkm.shoppingmall.dto.product_notice;
 import com.lkm.shoppingmall.dto.product_optionDto;
@@ -35,5 +36,7 @@ public interface productDAO {
 	public departmentDto selectDept(int pidx);
 	
 	public ArrayList<reviewDto> getReviewList(int pidx);
+	
+	public ArrayList<buyOptionDto> getbuysOption(int pidx);
 	
 }

@@ -108,13 +108,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectDept" parameterType="int" resultType="com.lkm.shoppingmall.dto.departmentDto">
 		SELECT d.*
-		FROM DEPT d,products p
-		WHERE p.pidx =#{param1} and d.didx = p.didx
+		FROM DEPT d,PRODUCTS p
+		WHERE p.PIDX =#{param1} and d.DIDX = p.DIDX
 	</select>
-	<select id="getReviewList" parameterType="com.lkm.shoppingmall.dto.reviewDto">
+	<select id="getReviewList" parameterType="int" resultType="com.lkm.shoppingmall.dto.reviewDto">
 		SELECT r.*,DECODE(b.UIDX,0,(SELECT DID FROM DEPT WHERE DIDX=b.pDIDX),(SELECT USERID FROM USERS  WHERE UIDX=b.UIDX)) as
 		FROM BUYS b,review r
-		WHERE r.bidx = b.bidx and r.pidx=#{param1} ;
+		WHERE r.BIDX = b.BIDX AND r.PIDX=#{param1}
+		ORDER BY r.BIDX
+	</select>
+	
+	<select id="getbuysOption" parameterType="int" resultType="com.lkm.shoppingmall.dto.buyOptionDto">
+		SELECT bo.* 
+		FROM BUYS_OPTIONS bo, buys b  
+		where b.pidx = #{param1} AND bo.bidx = b.bidx
+		ORDER BY BO.BIDX
 	</select>
 	
 </mapper>
