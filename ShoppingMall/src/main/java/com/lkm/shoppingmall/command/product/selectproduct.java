@@ -11,9 +11,11 @@ import org.springframework.ui.Model;
 
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.productDAO;
+import com.lkm.shoppingmall.dto.departmentDto;
 import com.lkm.shoppingmall.dto.product_notice;
 import com.lkm.shoppingmall.dto.product_optionDto;
 import com.lkm.shoppingmall.dto.productsDto;
+import com.lkm.shoppingmall.dto.reviewDto;
 
 public class selectproduct implements command {
 
@@ -42,9 +44,17 @@ public class selectproduct implements command {
 		
 		podto = pdao.selecttop_options(pidx);
 		
+		departmentDto deptdto =  new departmentDto();
+		
+		deptdto = pdao.selectDept(pidx);
+		ArrayList<reviewDto> rdto = new ArrayList<reviewDto>();
+		
+		model.addAttribute("rdto", rdto);
+		
 		model.addAttribute("pdto", pdto);
 		model.addAttribute("pndto", pndto);
 		model.addAttribute("podto", podto);
+		model.addAttribute("deptdto", deptdto);
 		
 	}
 
