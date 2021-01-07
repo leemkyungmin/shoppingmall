@@ -124,5 +124,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where b.pidx = #{param1} AND bo.bidx = b.bidx
 		ORDER BY BO.BIDX
 	</select>
-	
+	<select id="getOption2" parameterType="Map" resultType="com.lkm.shoppingmall.dto.product_optionDto">
+		SELECT * 
+		FROM PRODUCTS_OPTION 
+		WHERE PIDX=${pIdx} and PODEPT=${poidx}
+	</select>
 </mapper>

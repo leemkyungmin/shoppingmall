@@ -44,7 +44,6 @@ public class selectproduct implements command {
 		ArrayList<product_optionDto> podto =  new ArrayList<product_optionDto>();
 		
 		podto = pdao.selecttop_options(pidx);
-		
 		departmentDto deptdto =  new departmentDto();
 		
 		deptdto = pdao.selectDept(pidx);

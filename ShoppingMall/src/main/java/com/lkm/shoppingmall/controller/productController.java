@@ -2,6 +2,7 @@ package com.lkm.shoppingmall.controller;
 
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,7 @@ import com.lkm.shoppingmall.command.product.myproductinfoCommand;
 import com.lkm.shoppingmall.command.product.selectproduct;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.productDAO;
+import com.lkm.shoppingmall.dto.product_optionDto;
 
 @Controller
 public class productController {
@@ -294,4 +298,36 @@ public class productController {
 		command.execute(sqlsession, model);
 		return "product/showproduct";
 	}
+	
+	@RequestMapping(value="product/getOption2",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONArray getOption2(HttpServletRequest req,Model model) {
+		
+		String poidx = req.getParameter("poidx");
+		String pIdx = req.getParameter("pidx");
+		System.out.println(poidx);
+		System.out.println(pIdx);
+		Map<String,Object> keys = new HashMap<String, Object>();
+		keys.put("poidx", poidx);
+		keys.put("pIdx",pIdx);
+		
+		
+		JSONArray arr = new JSONArray();
+		ArrayList<product_optionDto> podto = new ArrayList<product_optionDto>();
+		productDAO pdao = sqlsession.getMapper(productDAO.class);
+		
+		podto = pdao.getOption2(keys);
+
+		for( product_optionDto po : podto) {
+			JSONObject obj =  new JSONObject();
+			obj.put("poidx",po.getPoidx());
+			obj.put("poname", po.getPoname());
+			obj.put("poprice",po.getPoprice());
+			arr.add(obj);
+		}
+		
+		return arr;
+		
+	}
+	
 }

@@ -179,6 +179,7 @@ header{
     box-sizing: border-box;
     background: white;
     margin-top: 20px;
+    z-index: 102;
     
 }
 .c_layer.active{

@@ -2,7 +2,7 @@ package com.lkm.shoppingmall.dto;
 
 public class product_optionDto {
 
-	int poidx;
+	String poidx;
 	String poname;
 	int poprice;
 	int podept;
@@ -10,12 +10,12 @@ public class product_optionDto {
 	public product_optionDto() {}
 	
 	
-	public int getPoidx() {
+	public String getPoidx() {
 		return poidx;
 	}
 
 
-	public void setPoidx(int poidx) {
+	public void setPoidx(String poidx) {
 		this.poidx = poidx;
 	}
 
@@ -44,7 +44,7 @@ public class product_optionDto {
 	}
 
 
-	public product_optionDto(int poidx, String poname, int poprice, int podept) {
+	public product_optionDto(String poidx, String poname, int poprice, int podept) {
 		super();
 		this.poidx = poidx;
 		this.poname = poname;

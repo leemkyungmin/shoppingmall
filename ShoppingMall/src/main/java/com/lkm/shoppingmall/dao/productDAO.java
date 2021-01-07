@@ -32,6 +32,7 @@ public interface productDAO {
 	
 	public int deleteOptions(int pidx);
 	
+	public ArrayList<product_optionDto> getOption2(Map<String,Object> keys);
 	
 	public departmentDto selectDept(int pidx);
 	

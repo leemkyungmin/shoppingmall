@@ -3,7 +3,35 @@
 <%@ include file="../Template/header.jsp"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/style/showproduct.css">
-
+<style>
+	.star{
+		background-image: url(${pageContext.request.contextPath}/resources/assets/images/images.png);
+	    background-position: -170px 0px;
+	    width: 178px;
+	    height: 32px;
+	    background-size: 439px 403px;
+	    position: relative;
+	    overflow: hidden;
+	    display: inline-block;
+	    vertical-align: top;
+	    color: transparent;
+	    line-height: 200px;
+	    font-size: 1px;
+	    content: '';
+	}
+	.star:after{
+		background-image: url(${pageContext.request.contextPath}/resources/assets/images/images.png);
+	    background-position: -170px -37px;
+	    width: 178px;
+	    height: 32px;
+	    background-size: 439px 403px;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    bottom: 0;
+	    content: '';
+	}
+</style>
 	<div class="wrap">
 		<div class="wrap-content">
 			<div class="product-content">
@@ -13,7 +41,8 @@
 					</div>
 					<div class="product_info">
 						<div class="product_review">
-							####별점
+							<span class="star">${pdto.pRating }</span>
+							<a href="#review">${rdto.size()}개 리뷰보기</a>
 						</div>
 						<div class="product_pname">
 							<strong>
@@ -39,21 +68,43 @@
 						$(window).scroll(function(){
 							var offsetY = $(document).scrollTop();
 							var targetY = $('#tabDetail').offset().top-180;
-							console.log('offsetY : '+offsetY);
-							console.log('tableheight : '+targetY);
 							if(offsetY >= $('#tabDetail').offset().top-180 ){
 								if($('.pDetail').data('value')=='none'){
 									$('.pDetail').addClass('fixed');
 									$('.pDetail').data('value','fixed');
 									$('.option-menu').addClass('fixed');
 								}
-							} else {
+							}else {
 								if($('.pDetail').data('value')=='fixed'){
 									$('.pDetail').removeClass('fixed');
 									$('.pDetail').data('value','none');
 									$('.option-menu').removeClass('fixed');
 								}
 							}
+							var sellerTargetY=$('.seller-info').offset().top;
+							if(offsetY >(sellerTargetY-500)){
+								$('.option-menu.fixed').addClass('op_fix');
+							}else if(offsetY <(sellerTargetY-500)){
+								$('.option-menu.fixed').removeClass('op_fix');
+							}
+							
+							var product_info =$('#products_info').offset().top;
+							var review =$('#review').offset().top;
+							var seller_info =$('.seller-info').offset().top;
+							console.log(product_info);
+							console.log(review);
+							console.log(seller_info);
+							if(offsetY <= (review-200)){
+								$('.pDetail_btn').css({'background':'lightgray','color':'black'});
+								$('.pDetail_btn.b1').css({'background':'red','color':'white'});
+							} else if(offsetY >= (review-200) && offsetY <(seller_info-200) ){
+								$('.pDetail_btn').css({'background':'lightgray','color':'black'});
+								$('.pDetail_btn.b2').css({'background':'red','color':'white'});
+							} else if(offsetY >=(seller_info-200)){
+								$('.pDetail_btn').css({'background':'lightgray','color':'black'});
+								$('.pDetail_btn.b3').css({'background':'red','color':'white'});
+							}
+							
 						});
 					});
 				
@@ -62,13 +113,13 @@
 				<div class="tabDetail" id="tabDetail">
 					<ul class="pDetail" data-value="none">
 						<li>
-							<button class="pDetail_btn" id="pDetail_btn" data-value="#products_info">상품 정보</button>
+							<button class="pDetail_btn b1" id="pDetail_btn" data-value="#products_info">상품 정보</button>
 						</li>
 						<li>
-							<button class="pDetail_btn" id="pDetail_btn" data-value="#review">상품 리뷰</button>
+							<button class="pDetail_btn b2" id="pDetail_btn" data-value="#review">상품 리뷰</button>
 						</li>
 						<li>
-							<button class="pDetail_btn" id="pDetail_btn" data-value="#dept_info">판매자 정보</button>
+							<button class="pDetail_btn b3" id="pDetail_btn" data-value=".seller-info">판매자 정보</button>
 						</li>
 
 					</ul>
@@ -126,7 +177,36 @@
 					<div class="review" id="review" >
 						<div class="review_title">
 							<div class="review_rating">
-								리뷰 평점 / 별  /리뷰 개수 
+								${pdto.pRating} / 
+								<span class="star">${pdto.pRating}</span>  /${rdto.size()}리뷰 개수
+								<script type="text/javascript">
+									$().ready(function(){
+										var length =0;
+										var data = ${pdto.pRating}*20;
+										if(data <20){
+											length =10;	
+										} else if (data <30){
+											length =20;
+										} else if (data <40){
+											length =30;
+										} else if (data <50){
+											length =40;
+										} else if (data <60){
+											length =50;
+										} else if (data <70){
+											length =60;
+										} else if (data <80){
+											length =70;
+										} else if (data <90){
+											length =80;
+										} else if (data <100){
+											length =90;
+										}
+										$('.star').addClass('count_'+length);
+										
+									});
+								</script>
+								
 							</div>
 							<div class="review_reating_persent">
 								리뷰 퍼센테이지 
@@ -137,7 +217,7 @@
 								<span class="span_bold">
 									전체리뷰
 								</span>
-								#### xxx건
+								${rdto.size() }건
 							</div>
 							<div class="review_content_list">
 								<ul class="review_list">
@@ -233,7 +313,20 @@
 							</div>
 							<table>
 								<tr>
-									
+									<td>판매자</td>
+									<td>${deptdto.dName}</td>
+									<td>대표번호</td>
+									<td>${deptdto.dPhone}</td>
+								</tr>
+								<tr>
+									<td>사업자등록번호</td>
+									<td>${deptdto.dSaup_no}</td>
+									<td>가입일</td>
+									<td>${deptdto.dReg_date }</td>
+								</tr>
+								<tr>
+									<td>영업 소재지</td>
+									<td colspan="3">${fn:replace(deptdto.dAddress,'/',' ') }
 								</tr>
 							</table>
 						</div>
@@ -244,18 +337,203 @@
 				<div class="option_menu_inner">
 					<ul class="product_buy_list" id="buyList">
 						<li>
-							<div class="option1">
-								<a href="">
-									<span class="span_bold">옵션명 1</span>
-									<!-- 
-										<i class="fas fa-chevron-up"></i> 접는 표시 
-										<i class="fas fa-chevron-down"></i> 펼치는 표시 
-									 -->
-									<button><i class="fas fa-chevron-down"></i></button>
-								</a>
+							<div class="option op1" data-value="disable">
+								<div class="first_option" >
+								
+									<a >
+										<span class="span_bold op1">옵션명 1</span>
+										<!-- 
+											<i class="fas fa-chevron-up"></i> 접는 표시 
+											<i class="fas fa-chevron-down"></i> 펼치는 표시 
+										 -->
+										<i class="fas fa-chevron-down fa-2x"></i>
+									</a>
+								</div>
+								<div class="first_option_list" >
+									<ul>
+										<c:forEach var="op1" items="${podto}" varStatus="i">
+											<li class="op1_li" data-value="${op1.poidx}" data-id="${i.count}">
+												<div class="op1_name">
+													상품명 :<span class="pName">${op1.poname}</span>
+												</div>
+												<div class="price">
+													평균가격 :
+													<span class="op1_price">
+														${op1.poprice}
+													</span>원
+												</div>
+											</li>
+										</c:forEach>
+									</ul>
+									
+								</div>
+							</div>
+							<script type="text/javascript">
+								$().ready(function(){
+									$('.option.op1').click(function(){
+										if(!$('.first_option_list').hasClass('active')){
+											$(this).addClass('active');
+											$('.first_option_list').addClass('active');
+											if($('.second_option_list').addClass('active')){
+												$('.second_option_list').removeClass('active');
+											}
+										} else {
+											$(this).removeClass('active');
+											$('.first_option_list').removeClass('active');
+																						
+										}
+									});
+									$('.op1_li').click(function(){
+										var data_num = $(this).data('id');
+										$('.span_bold.op1').text($('.op1_li:nth-child('+data_num+') .op1_name .pName').text());
+										
+										var poidx =$(this).data('value');
+										var pidx= ${pdto.pIdx};
+										console.log('poidx : '+poidx);
+										console.log('pidx : '+pidx);
+										$.ajax({
+											url:'${pageContext.request.contextPath}/product/getOption2',
+											data:'poidx='+poidx+'&pidx='+pidx,
+											type:'post',
+											success:function(data){
+												var json_data =  JSON.stringify(data);
+												console.log(json_data);
+												var html ='';
+												var obj = JSON.parse(json_data);
+												
+												for(var i =0; i<obj.length; i++){
+													html +='<li class="op2_li" data-value="'+obj[i].poidx+'" data-id="'+(i+1)+'">';
+													html +='<div class="op2_name">';
+													html +='상품명 :<span class="pName">'+obj[i].poname+'</span>';
+													html +='</div>';
+													html +='<div class="price">';
+													html +='가격 :<span class="op2_price">';
+													html +=obj[i].poprice;
+													html +='</span>원</div></li>';
+												}
+												$('.from_ajax_op2 li').remove();
+												$('.from_ajax_op2').append(html);
+												$('.second_option_list').addClass('active');
+												$('.option.op2').addClass('active');
+												if(!$('.second_option').hasClass('active')){
+													
+													$('.second_option').addClass('active');
+												}
+											},error:function(){
+												alert('통신 실패');
+											}
+										});
+										
+									});
+									 
+									
+								});
+							</script>
+							
+							
+							<div class="option op2" >
+								<div class="second_option" data-value="disable">
+									<a >
+										<span class="span_bold">옵션명 2</span>
+										<i class="fas fa-chevron-down fa-2x"></i>
+									</a>
+								</div>
+								<div class="second_option_list">
+									<ul class="from_ajax_op2">
+										
+									</ul>
+								</div>
+								<script type="text/javascript">
+									$().ready(function(){
+										var option_arr = new Array();
+										$(document).on('click','.option.op2.active .second_option',function(){
+											if($('.second_option_list').hasClass('active')){
+												$('.second_option_list').removeClass('active');
+												$('.second_option').removeClass('active');
+											} else {
+												$('.second_option_list').addClass('active');
+												$('.second_option').addClass('active');
+											}
+										});
+										$(document).on('click','.op2_li',function(){
+											var index = $(this).data('id');
+											var poidx =$(this).data('value');
+											var poname =$('.op2_li:nth-child('+index+') .op2_name .pName').text();
+											var poprice =$('.op2_li:nth-child('+index+') .op2_price').text();
+											var topponame=$('.span_bold.op1').text();
+											if(option_arr.length ==0){
+												var option_obj =new Object();
+												option_obj.poidx =poidx;
+												option_obj.topponame =topponame;
+												option_obj.poname =poname;
+												option_obj.poprice =poprice
+												option_obj.count =1;
+												option_arr.push(option_obj);
+											} else {
+												var cot =0;
+												for(var i=0; i<option_arr.length; i++){
+													if(option_arr[i].poidx ==poidx){
+														option_arr[i].count +=1;
+														cot++;
+														return ;
+													} 
+												}
+												if(cot ==0){
+													var option_obj =new Object();
+													option_obj.poidx =poidx;
+													option_obj.poname =poname;
+													option_obj.topponame =topponame;
+													option_obj.poprice =poprice
+													option_obj.count =1;
+													option_arr.push(option_obj);
+												}
+											}
+											$('.option_buy_list').remove('div');
+											var cart_list ='';
+											
+											for( var i=0; i<option_arr.length; i++){
+												
+											}
+											
+										});
+										
+									});
+									
+									
+									
+									
+								</script>
+								<div class="option_buy_list">
+									<ul>
+										<li>
+											<div class="cart">
+												<div class="option_name">
+													<div class="poname">
+													</div>
+													<div class="delete">
+													</div>
+												</div>
+												<div class="count">
+													
+													<input type="text" id="opcount" value=1>
+													<div class="count_btn">
+														
+													</div>
+												</div>
+												
+											</div>
+										</li>
+									</ul>
+									
+								</div>
+							</div>
+							<div class="buy-btn">
+								<input type="button" id="insertcart" value="장바구니">
+								<input type="button" id="buyItme" value="구매하기">
 							</div>
 						</li>
 					</ul>
+					
 				</div>
 			</div>
 		</div>

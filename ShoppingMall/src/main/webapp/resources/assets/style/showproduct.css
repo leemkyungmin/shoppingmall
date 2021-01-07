@@ -18,12 +18,13 @@
 	    top: 218px;
 	    bottom: 0;
 	    left: 50%;
-	    z-index: 101;
+	    padding-left:20px;
 	    width: 300px;
 	    height:600PX;
 	    margin-left: 319px;
 	    background-color: #fff;
 	    border-left: 1px solid #eee;
+	    z-index :2;
 	}
 	.sumnail_img{
 		float: left;
@@ -101,7 +102,7 @@
 	}
 	.option-menu.fixed{
 		position: fixed;
-	    top: 100px;
+	    top: 130px;
 	}
 	.notice_img{
 		width: 1000px;
@@ -170,5 +171,126 @@
 	.seller-info table tr td:first-child {
 		width :180px;
 		background-color: #c8c8c8;		
+	}
+	.seller{
+		margin-top: 40px;
+		width: 1000px;
+		height: 200px;
+	}
+	.seller table{
+		width: 100%;
+		border-collapse: collapse;
+	}
+	.seller table tr{
+		border-bottom: 1px solid lightgray;
+		height: 60px;
+	}
+	.seller table tr td{
+		padding-left: 10px;
+	}
+	.seller table tr td:nth-child(2n-1){
+		 background: lightgray;
+		 border-right: 1px solid gray;
+		 width: 160px;
+	}
+	.option-menu.fixed.op_fix{
+		position: absolute;
+		top: 
+	}
+	.buy-btn{
+		position: absolute;
+		left: 15px;
+		bottom: 0;
+	}
+	.star.count_10:after{
+		width: 10%
+	}
+	.star.count_20:after{
+		width: 20%
+	}
+	.star.count_30:after{
+		width: 30%
+	}
+	.star.count_40:after{
+		width: 40%
+	}
+	.star.count_50:after{
+		width: 50%
+	}
+	.star.count_60:after{
+		width: 60%
+	}
+	.star.count_70:after{
+		width: 70%
+	}
+	.star.count_80:after{
+		width: 80%
+	}
+	.star.count_90:after{
+		width: 90%
+	}
+	.product_review a{
+		text-decoration: none;
+		font-size: 15px;
+		vertical-align: bottom;
+	}
+	.option{
+		width: 91%;
+		margin: 20px 27px;
+		border :1px solid lightgray;
+		height: 50px;
+		font-size: 18px;
+	}
+	.option .first_option,.second_option{
+		padding: 5px 0 5px 8px;
+		cursor: pointer;
+		z-index: 10;
+	}
+	.option i{
+		float: right;
+		height: 100%;
+		background: none;
+		border :0;
+		margin-right: 3px;
+	}
+	.option a{
+		width: 100%;
+		text-decoration: none;
+	}
+	.option a span{
+		widht:80%;
+		display: inline-block;
+	}
+	.option.op2{
+		background :#fafafa;
+	}
+	.first_option_list,.second_option_list{
+		display:none;
+		width: 93%;
+		height: 500px;
+		overflow-x:hidden;
+		overflow-y:auto;
+		z-index: 11;
+		position: absolute;
+		background: white;
+	}
+	.first_option_list.active ,.second_option_list.active{
+		display: block;
+		border: 1px solid red;
+	}
+	.option.active .first_option,.second_option.active{
+		color: red;
+		border:1px solid red;
+	}
+	.first_option_list ul{
+		list-style: none;
+	}
+	.first_option_list ul .op1_li,.op2_li{
+		padding: 16px;
+		border-bottom: 1px solid lightgray;
+		cursor: pointer;
+	}
+	.first_Option_list ul .op_li div{
+		margin: 0 5px; 
 	}
 	

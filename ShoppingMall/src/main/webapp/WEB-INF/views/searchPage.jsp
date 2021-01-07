@@ -4,42 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-	<script>
-		$().ready(function(){
-			
-			var q ='${query}';
-			
-			if(Cookies.get('query') ===undefined || Cookies.get('query')=='[null]'){
-				Cookies.set('query',"[{\"name\":\""+q+"\"}]");
-				
-			}else{  
-				var json_list = Cookies.getJSON('query'); 
-				
-				for(var i=0; i<json_list.length; i++){
-					for(key in json_list[i]){
-						if(json_list[i][key]==q){
-							delete json_list[i];
-							json_list=JSON.parse(JSON.stringify(json_list).replace(/(,null|null,)/g,''));
-							break;
-						}
-					}
-				}
-				
-				json_list.push({
-					name: q,
-				});
-				console.log()
-				if(json_list.length > 10){
-					json_list.splice(0,(json_list.length-10)); 
-				}
-				Cookies.set('query', json_list);
-				console.log(json_list);
-				search_cookies('${pageContext.request.contextPath}');
-				
-			}
-			
-		});
-	</script>
+	
 	<style>
 		.wrap{
 			width: 1200px;
@@ -123,7 +88,44 @@
 			</div>
 			<section class="search_section">
 				<ul class="item-list">
-					<c:forEach var="items" items="${sdto}" >
+					<c:if test="${sdto.size() ne 0 }">
+						<script>
+							$().ready(function(){
+							
+							var q ='${query}';
+							
+							if(Cookies.get('query') ===undefined || Cookies.get('query')=='[null]'){
+								Cookies.set('query',"[{\"name\":\""+q+"\"}]");
+								
+							}else{  
+								var json_list = Cookies.getJSON('query'); 
+								
+								for(var i=0; i<json_list.length; i++){
+									for(key in json_list[i]){
+										if(json_list[i][key]==q){
+											delete json_list[i];
+											json_list=JSON.parse(JSON.stringify(json_list).replace(/(,null|null,)/g,''));
+											break;
+										}
+									}
+								}
+								
+								json_list.push({
+									name: q,
+								});
+								console.log(json_list.length);
+								if(json_list.length > 10){
+									json_list.splice(0,(json_list.length-10)); 
+								}
+								Cookies.set('query', json_list);
+								console.log(json_list);
+								search_cookies('${pageContext.request.contextPath}');
+								
+							}
+							
+						});
+					</script>
+						<c:forEach var="items" items="${sdto}" >
 						<li>
 							<div class="style-controll">
 								<div class="items-products-img">
@@ -150,6 +152,8 @@
 							</div>
 						</li>
 					</c:forEach>
+					</c:if>
+					
 				</ul>
 				
 			</section>

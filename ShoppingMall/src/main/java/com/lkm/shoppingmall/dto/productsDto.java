@@ -22,6 +22,7 @@ public class productsDto {
 	String pName;
 	int pRice;
 	int pRice_per;
+	float pRating;
 	Date pDate;
 	int dIdx;
 	int pOrder_price;
@@ -29,6 +30,14 @@ public class productsDto {
 	
 	public productsDto() {}
 	
+	public float getpRating() {
+		return pRating;
+	}
+
+	public void setpRating(float pRating) {
+		this.pRating = pRating;
+	}
+
 	public int getpIdx() {
 		return pIdx;
 	}
@@ -82,9 +91,10 @@ public class productsDto {
 		this.pSumnail = pSumnail;
 	}
 
-	public productsDto(int pIdx, String pName, int pRice, int pRice_per, Date pDate, int dIdx, int pOrder_price,
+	public productsDto(int pIdx,float pRating, String pName, int pRice, int pRice_per, Date pDate, int dIdx, int pOrder_price,
 			String pSumnail) {
 		super();
+		this.pRating =pRating;
 		this.pIdx = pIdx;
 		this.pName = pName;
 		this.pRice = pRice;
