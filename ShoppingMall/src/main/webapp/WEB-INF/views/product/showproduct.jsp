@@ -59,8 +59,6 @@
 						$('.pDetail_btn').click(function(){
 							var datas = $(this).data('value');
 							var height = $(document).scrollTop();
-							console.log('현재위치 : '+height);
-							console.log('태그 위치 : '+$(datas).offset().top);
 							$('html,body').animate({
 								scrollTop:$(datas).offset().top-180
 							},500);
@@ -91,9 +89,7 @@
 							var product_info =$('#products_info').offset().top;
 							var review =$('#review').offset().top;
 							var seller_info =$('.seller-info').offset().top;
-							console.log(product_info);
-							console.log(review);
-							console.log(seller_info);
+
 							if(offsetY <= (review-200)){
 								$('.pDetail_btn').css({'background':'lightgray','color':'black'});
 								$('.pDetail_btn.b1').css({'background':'red','color':'white'});
@@ -389,8 +385,6 @@
 										
 										var poidx =$(this).data('value');
 										var pidx= ${pdto.pIdx};
-										console.log('poidx : '+poidx);
-										console.log('pidx : '+pidx);
 										$.ajax({
 											url:'${pageContext.request.contextPath}/product/getOption2',
 											data:'poidx='+poidx+'&pidx='+pidx,
@@ -445,6 +439,7 @@
 								</div>
 								<script type="text/javascript">
 									$().ready(function(){
+										var reg= "oninput="+"this.value=this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1');";
 										var option_arr = new Array();
 										$(document).on('click','.option.op2.active .second_option',function(){
 											if($('.second_option_list').hasClass('active')){
@@ -473,9 +468,10 @@
 												var cot =0;
 												for(var i=0; i<option_arr.length; i++){
 													if(option_arr[i].poidx ==poidx){
-														option_arr[i].count +=1;
+														var option_obj =option_arr[i];
+														option_obj.count +=1;
 														cot++;
-														return ;
+														break;
 													} 
 												}
 												if(cot ==0){
@@ -488,45 +484,60 @@
 													option_arr.push(option_obj);
 												}
 											}
-											$('.option_buy_list').remove('div');
+											$('.option_buy_list ul li').remove();
 											var cart_list ='';
 											
 											for( var i=0; i<option_arr.length; i++){
-												
+												cart_list+='<li data-value="'+option_arr[i].poidx+'">';
+												cart_list+='<div class="cart">';
+												cart_list+='<div class="option_name">';
+												cart_list+='<div class="poname">';
+												cart_list+=option_arr[i].topponame+' / '+option_arr[i].poname+'</div>';
+												cart_list+='<div class="delete">';
+												cart_list +='<input type="button" class="delete_cart" value="X" data-value="'+option_arr[i].poidx+'" data-id='+i+'>';
+												cart_list+='</div></div>';
+												cart_list+='<div class="count">';
+												cart_list+='<input type="text" id="opcount" readonly value="'+option_arr[i].count+'"'+reg+'>';
+																								
+												cart_list+='<div class="count_btn">';
+												cart_list+='<input type="button" class="opcount_down" value="-" data-id="'+i+'">';
+												cart_list+='<input type="button" class="opcount_up" value="+" data-id="'+i+'">';
+												cart_list +='</div></div></div></li>';
 											}
+											$('.span_bold.op1').text('옵션명 1');
+											$('.option_buy_list ul').append(cart_list);
+											
+											$('.option-menu div').removeClass('active');
 											
 										});
-										
+										$(document).on('click','.delete_cart',function(){
+											var data =$(this).data('value');
+											var id =$(this).data('id');
+											option_arr.splice(id,1);
+											$('.option_buy_list ul li:nth-child('+(id+1)+')').remove();
+										});
+										$(document).on('click','.opcount_down',function(){
+											var id =$(this).data('id');
+											if( $('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val() >1 ){
+												$('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val($('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val()-1);
+											}
+										});
+										$(document).on('click','.opcount_up',function(){
+											var id =$(this).data('id');
+											$('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val(($('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val())*1+1);
+										});
 									});
 									
-									
-									
-									
 								</script>
-								<div class="option_buy_list">
-									<ul>
-										<li>
-											<div class="cart">
-												<div class="option_name">
-													<div class="poname">
-													</div>
-													<div class="delete">
-													</div>
-												</div>
-												<div class="count">
-													
-													<input type="text" id="opcount" value=1>
-													<div class="count_btn">
-														
-													</div>
-												</div>
-												
-											</div>
-										</li>
-									</ul>
-									
-								</div>
+								
 							</div>
+							<div class="option_buy_list">
+								<ul>
+										
+								</ul>
+									
+							</div>
+							
 							<div class="buy-btn">
 								<input type="button" id="insertcart" value="장바구니">
 								<input type="button" id="buyItme" value="구매하기">

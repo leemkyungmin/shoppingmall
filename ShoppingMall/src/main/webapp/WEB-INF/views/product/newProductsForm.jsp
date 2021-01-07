@@ -38,11 +38,11 @@
 						<tbody>
 							<tr>
 								<td><label for="price">상품 평균 가격</label></td>
-								<td><input type="text" id="price" name="price" placeholder="숫자만 입력해주세요"></td>
+								<td><input type="text" id="price" name="price" placeholder="숫자만 입력해주세요" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
 							</tr>
 							<tr>
 								<td><label for="order_price">배송비</label></td>
-								<td><input type="text" id="order_price" name="order_price" placeholder="숫자만 입력해주세요"></td>
+								<td><input type="text" id="order_price" name="order_price" placeholder="숫자만 입력해주세요" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -50,6 +50,15 @@
 				<!-- 마지막 div data-value 값으로  add_option을 처리 ??  $('.option_list:last').data('value');-->
 				
 				<script type="text/javascript">
+					function number_check(event){
+						if(event.key === '.' 
+						     || event.key === '-'
+						     || event.key >= 0 && event.key <= 9) {
+						    return true;
+						  }
+						return false;
+					}
+					var reg= "oninput="+"this.value=this.value.replace(/[^0-9.]/g,'').replace(/(\..*)\./g,'$1');";
 					function add_option(){
 						var data = $('.option_list:last').data('value')+1;
 						
@@ -69,8 +78,8 @@
 						html +='<table class="this_option'+data+'"><thead><tr><td>옵션 명</td><td>가격</td></tr></thead>';
 						html +='<tbody>';
 						html +='<tr>';
-						html +='<td><input type="text" id="option2_name'+data+'" name="option2_name'+data+'" placeholder="세부 옵션"></td>';
-						html +='<td><input type="text" id="option2_price'+data+'" name="option2_price'+data+'" placeholder="가격"></td>';
+						html +='<td><input type="text" id="option2_name'+data+'" name="option2_name'+data+'"  placeholder="세부 옵션"></td>';
+						html +='<td><input type="text" id="option2_price'+data+'" name="option2_price'+data+'" '+reg+'  placeholder="가격" ></td>';
 						html +='</tr>';
 						html +='</tbody></table>';
 						html +='</div></div></div>';
@@ -88,7 +97,7 @@
 						var html ='';
 						html +='<tr>';
 						html +='<td><input type="text" id="option2_name'+data+'" name="option2_name'+data+'" placeholder="세부 옵션"></td>';
-						html +='<td><input type="text" id="option2_price'+data+'" name="option2_price'+data+'" placeholder="가격"></td>';
+						html +='<td><input type="text" id="option2_price'+data+'" name="option2_price'+data+'" '+reg+' placeholder="가격" ></td>';
 						html +='</tr>';
 						
 						
@@ -219,7 +228,7 @@
 									<tbody>
 										<tr>
 											<td><input type="text" id="option2_name1" name="option2_name1" placeholder="세부 옵션"></td>
-											<td><input type="text" id="option2_price1" name="option2_price1" placeholder="가격"></td>
+											<td><input type="text" id="option2_price1" name="option2_price1" placeholder="가격" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
 										</tr>
 									</tbody>
 									
