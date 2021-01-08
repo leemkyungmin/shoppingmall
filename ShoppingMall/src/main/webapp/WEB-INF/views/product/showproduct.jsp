@@ -66,17 +66,24 @@
 						$(window).scroll(function(){
 							var offsetY = $(document).scrollTop();
 							var targetY = $('#tabDetail').offset().top-180;
+							
+							if(offsetY >= $('.product-content').offset().top-180){
+								$('.option-menu').addClass('fixed');
+							}else {
+								$('.option-menu').removeClass('fixed');
+							}
+							
 							if(offsetY >= $('#tabDetail').offset().top-180 ){
 								if($('.pDetail').data('value')=='none'){
 									$('.pDetail').addClass('fixed');
 									$('.pDetail').data('value','fixed');
-									$('.option-menu').addClass('fixed');
+									
 								}
 							}else {
 								if($('.pDetail').data('value')=='fixed'){
 									$('.pDetail').removeClass('fixed');
 									$('.pDetail').data('value','none');
-									$('.option-menu').removeClass('fixed');
+									
 								}
 							}
 							var sellerTargetY=$('.seller-info').offset().top;
@@ -487,7 +494,12 @@
 											$('.option_buy_list ul li').remove();
 											var cart_list ='';
 											
+											var total_count =option_arr.length;
+											var total_price =0;
 											for( var i=0; i<option_arr.length; i++){
+												
+												total_price += (option_arr[i].poprice) *option_arr[i].count; 
+												console.log(total_price);
 												cart_list+='<li data-value="'+option_arr[i].poidx+'">';
 												cart_list+='<div class="cart">';
 												cart_list+='<div class="option_name">';
@@ -502,11 +514,18 @@
 												cart_list+='<div class="count_btn">';
 												cart_list+='<input type="button" class="opcount_down" value="-" data-id="'+i+'">';
 												cart_list+='<input type="button" class="opcount_up" value="+" data-id="'+i+'">';
-												cart_list +='</div></div></div></li>';
+												cart_list +='</div>';
+												cart_list +='<div class="poprice">';
+												cart_list +='<span class="price">';
+												cart_list +=option_arr[i].poprice;
+												cart_list +='</span>원'
+												cart_list +='</div>';
+												cart_list+='</div></div></li>';
 											}
+											$('.totalcount').text(total_count);
+											$('.totalprice').text(total_price);
 											$('.span_bold.op1').text('옵션명 1');
 											$('.option_buy_list ul').append(cart_list);
-											
 											$('.option-menu div').removeClass('active');
 											
 										});
@@ -518,33 +537,82 @@
 										});
 										$(document).on('click','.opcount_down',function(){
 											var id =$(this).data('id');
+											var data_val =$(this).data('value');
 											if( $('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val() >1 ){
 												$('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val($('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val()-1);
+												
+												for(var i =0; i<option_arr.length; i++){
+													if(i ==id*1){
+														var option_obj =option_arr[i];
+														option_obj.count -=1;
+													}
+												}
+												var aa = option_arr[id];
+												var price = aa.poprice;
+												var count = aa.count;
+												var total = price *count
+												console.log('total ='+total);
+												$('.option_buy_list ul li:nth-child('+(id+1)+') .price').val(total);
+												$('.option_buy_list ul li:nth-child('+(id+1)+') .price').text(total);
+												var total_price =$('.totalprice').text()*1;
+												var return_price =total_price - (price*1);
+												$('.totalprice').text(return_price);
 											}
 										});
 										$(document).on('click','.opcount_up',function(){
 											var id =$(this).data('id');
+											var data_val =$(this).data('value');
 											$('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val(($('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val())*1+1);
+											for(var i =0; i<option_arr.length; i++){
+												if(i ==id*1){
+													var option_obj =option_arr[i];
+													option_obj.count +=1;
+													break;
+												}
+											}
+											var aa = option_arr[id];
+											var price = aa.poprice;
+											var count = aa.count;
+											var total =price * count;
+											console.log('price : ' + price);
+											console.log('count : ' + count);
+											console.log('total : ' + total);
+											$('.option_buy_list ul li:nth-child('+(id+1)+') .price').text(total);
+											var total_price =$('.totalprice').text()*1;
+											var return_price =total_price + (price*1);
+											$('.totalprice').text(return_price);
 										});
 									});
 									
 								</script>
 								
 							</div>
-							<div class="option_buy_list">
-								<ul>
-										
-								</ul>
-									
-							</div>
 							
-							<div class="buy-btn">
-								<input type="button" id="insertcart" value="장바구니">
-								<input type="button" id="buyItme" value="구매하기">
-							</div>
 						</li>
 					</ul>
 					
+				</div>
+				<div class="option_buy_list">
+					<ul></ul>					
+				</div>
+							
+				<div class="buy-btn">
+					<div class="total">
+						<div class="total_count">
+							<strong class="red_color">
+								 총 <span class="totalcount">0</span> 개
+							</strong>
+						</div>
+						<div class="total_price">
+							<strong class="red_color sizeup">
+									<span class="totalprice">0</span> 원
+							</strong>
+						</div>
+					</div>
+					<div class="btn_controll">	
+						<input type="button" id="insertcart" value="장바구니">
+						<input type="button" id="buyItme" value="구매하기">
+					</div>
 				</div>
 			</div>
 		</div>
