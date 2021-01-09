@@ -11,21 +11,77 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$().ready(function(){
-		var arr =${arr};
+		var arr = new Object();
+		arr= ${arr};
 		var obj_arr = new Array();
-		obj_arr.push(arr);
+		for(var i=0; i<arr.length; i++){
+			obj_arr.push(arr[i]);
+		}
 		console.log(obj_arr);
-		console.log(obj_arr.length);
+		   
 		var html ='';
 		/*  테스트용*/
 		
 		for(var i=0; i<obj_arr.length; i++){
 			var obj =new Object();
 			obj =obj_arr[i];
-			console.log(obj);
-			$('.producct_option').append('옵션:'+obj.toponame +'/'+obj.poname)
+			var price = obj.poprice * obj.count +"";
+			var point =price.length %3;
+			var str =price.substring(0,point);
+			
+			while(point <price.length){
+				if( str !=''){
+					str +=',';
+				}
+				str +=price.substring(point, point+3);
+			}
+			
+			
+			
+			html +='<li>';
+			html +='<div class="product_body">';
+			html +='<div class="product_img">';
+			html +='<img src="${pageContext.request.contextPath}/resources/images/Department_sumnail/${pdto.pSumnail}">';
+			html +='</div>';
+			html +='<div class="product_info_body">';
+			html +='<div class="pName">';
+			html +='${pdto.pName}';
+			html +='</div>';
+			html +='<div class="producct_option">';
+			html +='</div>';
+			html +='<div class="order_count">';
+			html += '옵션:'+obj.topponame +' / '+obj.poname;			
+			html +='</div>';
+			html +='</div>';
+			html +='<div class="option_count">';
+			html +=obj.count+'개';
+			html +='</div>';
+			html +='<div class="option_price">';
+			html +='<span class="span_bold">';
+			html += str+'원';
+			html +='</span>';
+			html +='</div>';
+			if( i ==0 || obj[i-1] != obj[i]){
+				html +='<div class="order_price">';
+				html +='${pdto.pOrder_price }원';
+				html +='</div>';
+			}else {
+				if( i ==obj_arr.length-1){
+					html +='<div class="empty-box" style="border-bottom:1px solid lightgray">';
+					html +='</div>';
+				} else {
+					html +='<div class="empty-box">';
+					html +='</div>';
+				}
+				
+			}
+			
+			
+			html +='</div>';
+			html +='</li>';
+			//$('.producct_option').append('옵션:'+obj.topponame +' / '+obj.poname)
 		}
-		
+		$('.order_list').append(html);
 	});
 </script>
 </head>
@@ -143,34 +199,30 @@
 									});
 								</script>
 							</div>
-							
-							<div class="order_product_info">
-								<div class="seller_name">${pdto.pName }</div>
+						</div>
+						<div class="order_product_info">
+							<div class="seller_name">
+								<h2>주문상품</h2>
+								<p class="text">상품수량 및 옵션변경은 상품상세 또는 장바구니에서 가능합니다.</p>
+							</div>
+							<div class="seller_pName">
+								${pdto.pName }
+							</div>
+							<div class="olist">
 								<ul class="order_list">
-									<li>
-										<div class="product_body">
-											<div class="product_img">
-												<img src="${pageContext.request.contextPath}/resources/images/Department_sumnail/${pdto.pSumnail}">
-											</div>
-											<div class="product_info_body">
-												<div class="pName">
-													${pName }
-												</div>
-												<div class="producct_option">
-													
-												</div>
-											</div>
-										</div>
-									</li>
+									
 								</ul>
 							</div>
-							
 						</div>
+							
+						
 					</div>
 					<div class="order_side">
 						1111111111111111111111111
 					</div>
+				</div>
+				
+				</form>
 			</div>
-		</form>
 	</div>
 <%@ include file="../Template/fotter.jsp"%>

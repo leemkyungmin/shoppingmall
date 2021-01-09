@@ -103,7 +103,7 @@ a{
 	min-height: 200px;
 	padding: 20px 0;
 }
-.order_addr_info  .user_info div{
+.order_addr_info  .user_info >div{
 	margin: 10px 0;
 }
 .order_addr_info .user_info .order_name{
@@ -145,4 +145,94 @@ a{
 	font-size: 19px;
 	color:black;
 	font-weight: bold;
+}
+.order_product_info{
+	margin-top: 40px;
+	width: 920px;
+	padding: 1px 40px 45px 0;
+}
+.order_product_info .seller_name{
+	display: inline-block;
+	width: 100%;
+	padding-bottom: 15px;
+	border-bottom: 1px solid gray;
+}
+.order_product_info .seller_name h2{
+	float: left;
+    font-size: 20px;
+    height: 24px;
+    line-height: 24px;
+    margin: 0;
+}
+.order_product_info .seller_name .text{
+	font-size: 14px;
+	float: left;
+	margin-top: 3px;
+	padding-left: 20px;
+	
+}
+.order_product_info .olist .order_list{
+	padding: 0;
+	list-style: none;
+}
+
+.product_img{
+	display:inline-block;
+	width: 120px;
+	height: 160px;
+}
+.product_img img{
+	width: 120px;
+	height: 120px;	
+	
+}
+.product_body{
+	width:100%;
+	height: 160px;
+}
+
+.product_info_body{
+	display:inline-block;
+	width: 380px;
+	height: 100%;
+	vertical-align: top;
+	padding: 22px 20px 25px 20px
+}
+.order_price{
+	display:inline-block;
+	vertical-align: top;
+	padding: 22px 20px 25px 20px;
+	height: 100%;
+	width: 130px;
+	border-left: 1px solid lightgray;
+	border-top: 1px solid lightgray;
+	border-right: 1px solid lightgray;
+}
+.option_price{
+	display:inline-block;
+	width: 148px;
+	vertical-align: top;
+	padding: 22px 20px 25px 20px;
+	height: 100%;
+	text-align: center;
+}
+.olist .order_list li .product_body .product_img,.product_info_body,.option_count,.option_price{
+	border: 1px solid lightgray;	
+}
+.option_count{
+	display: inline-block;
+	height: 100%;
+	width: 100px;
+	vertical-align: top;
+	padding:22px 20px 25px 20px;
+	text-align: center;
+}
+.empty-box{
+	display:inline-block;
+	width: 130px;
+	height: 100%;
+	border-right: 1px solid lightgray;
+}
+.product_body div{
+	border-collapse: collapse;
 }
