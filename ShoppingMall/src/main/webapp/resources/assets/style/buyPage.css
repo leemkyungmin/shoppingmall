@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+*{
+	box-sizing: border-box;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+
+.wrap{
+	min-width: 1240px;
+}
+.wrap .wrap_content{
+	position: relative;
+	
+}
+.wrap .wrap_content .wrap_header{
+	width: 1240px;
+	height: 70px;
+	vertical-align: middle;
+	margin: 0 auto;
+}
+.wrap .wrap_content .wrap_header a img{
+	width: 70px;
+	height: 40px;
+}
+.wrap .wrap_content .content{
+	position: relative;
+    width: 1240px;
+    margin: 0 auto;
+    zoom: 1;
+}
+.wrap .wrap_content .content .order_addr_info{
+	position: relative;
+    width: 920px;
+    padding: 1px 40px 45px 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+	
+}
+.order_side{
+	position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: 304px;
+    right: 0;
+    z-index: 1;
+    width: 300px;
+    padding-left: 20px;
+    background-color: #fff;
+	
+}
+.wrap_title{
+	margin: 0 auto;	
+	width: 1240px;
+	height: 70px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid lightgray;
+	margin-bottom: 20px;
+}
+.wrap_title .wtitle{
+	display: inline-block;	
+}
+.order_addr_info .title{
+	font-size: 20px;
+	height:40px;	
+	border-bottom: 1px solid lightgray;
+}
+
+.wrap_title .wtitle .span_bold_sizeup{
+	font-size: 32px;
+	font-weight: bold;
+}
+.wrap_title .buy_steps{
+	display: inline-block;
+	width: 321px;
+	float: right;
+}
+.wrap_title .buy_steps ul{
+	list-style: none;
+	border: 1px solid lightgray;
+	min-height: 45px;
+	border-radius: 25px;
+	padding:0;
+}
+.wrap_title .buy_steps ul li{
+	float: left;
+    min-width: 80px;
+    padding: 10px 15px 11px 15px;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333;
+    text-align: center;
+    letter-spacing: 0;
+}
+.wrap_title .buy_steps ul .this_step{
+	background: black;
+	color: white;
+	font-weight: bold;	
+}
+.order_addr_info .user_info{
+	min-height: 200px;
+	padding: 20px 0;
+}
+.order_addr_info  .user_info div{
+	margin: 10px 0;
+}
+.order_addr_info .user_info .order_name{
+	font-size: 20px;
+	font-weight: bold;	
+}
+.order_addr_info .user_info .order_require_ment{
+	width: 800px;
+}
+.order_addr_info .user_info .order_require_ment .require_option{
+	width: 640px;
+	height: 46px;
+}
+.order_addr_info .user_info .order_require_ment .require_option #req_option{
+	width: 640px;
+	height: 46px;
+	padding: 0 16px;
+	font-size: 16px;
+	line-height: 46px;
+}
+.self_require{
+	 display:none;
+	height: 46px;
+	line-height: 46px;
+	font-size: 18px;
+	color: gray;
+}
+.self_require.active{
+	display:block;
+}
+.self_require input[type=text]{
+	width: 640px;
+	height: 46px;
+	line-height: 46px;
+	color:black;
+}
+.self_require .self_require_count{
+	margin-left: 10px;
+	font-size: 19px;
+	color:black;
+	font-weight: bold;
+}

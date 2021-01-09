@@ -129,4 +129,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM PRODUCTS_OPTION 
 		WHERE PIDX=${pIdx} and PODEPT=${poidx}
 	</select>
+	
+	<select id="getUserInfo" parameterType="String" resultType="com.lkm.shoppingmall.dto.userDto">
+		SELECT * 
+		FROM USERS
+		WHERE UIDX =#{param1}
+	</select>
+	
+	<select id="getDeptInfo" parameterType="String" resultType="com.lkm.shoppingmall.dto.departmentDto">
+		SELECT * 
+		FROM DEPT
+		WHERE DIDX = #{param1}
+	</select>
+	
 </mapper>

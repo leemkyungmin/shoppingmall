@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -25,13 +27,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.gson.JsonArray;
 import com.lkm.shoppingmall.command.product.Update_myproduct;
 import com.lkm.shoppingmall.command.product.myproductCommand;
 import com.lkm.shoppingmall.command.product.myproductinfoCommand;
 import com.lkm.shoppingmall.command.product.selectproduct;
 import com.lkm.shoppingmall.commom.command;
+import com.lkm.shoppingmall.dao.loginDAO;
 import com.lkm.shoppingmall.dao.productDAO;
+import com.lkm.shoppingmall.dto.departmentDto;
 import com.lkm.shoppingmall.dto.product_optionDto;
+import com.lkm.shoppingmall.dto.productsDto;
+import com.lkm.shoppingmall.dto.userDto;
 
 @Controller
 public class productController {
@@ -328,6 +336,40 @@ public class productController {
 		
 		return arr;
 		
+	}
+	@RequestMapping(value="product/buy",method=RequestMethod.POST)
+	public String BuyPage(HttpServletRequest req,Model model) throws ParseException {
+		
+			String option_arr = req.getParameter("selected_option");
+			JSONParser parser = new JSONParser();
+			JSONArray arr= (JSONArray) parser.parse(option_arr);
+			productDAO pdao = sqlsession.getMapper(productDAO.class);
+			productsDto pdto =new productsDto();
+			int pIdx = Integer.parseInt(req.getParameter("pIdx"));
+			
+			pdto.setpIdx(pIdx);
+			pdto = pdao.selectmyProduct(pdto);
+			model.addAttribute("arr", arr);
+			model.addAttribute("pdto",pdto);
+			
+			HttpSession session =req.getSession();
+			
+			String idx = (Integer) session.getAttribute("idx")+"";
+			String type =(String) session.getAttribute("type");
+			
+			
+			
+			userDto udto =new userDto();
+			departmentDto deptdto = new departmentDto();
+			if(type.equals("user")) {
+				udto = pdao.getUserInfo(idx);
+				model.addAttribute("udto", udto);
+			} else {
+				deptdto =pdao.getDeptInfo(idx);
+				model.addAttribute("deptdto",deptdto);
+			}
+			
+		return "product/buyPage";
 	}
 	
 }

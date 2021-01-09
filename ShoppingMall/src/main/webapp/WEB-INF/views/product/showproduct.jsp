@@ -582,6 +582,31 @@
 											var return_price =total_price + (price*1);
 											$('.totalprice').text(return_price);
 										});
+										
+										$('.btn_controll input[type=button]').click(function(){
+											var data_remote = $(this).data('remote');
+											if(${not empty sessionScope}){
+												if(${sessionScope.buysell eq 'sell'} && ${sessionScope.idx eq pdto.dIdx} ){
+													alert('자기 물건은 구매하실수없습니다.');
+												} else {
+													if(option_arr.length >0){
+														var fm =$('#fm');
+														fm.attr('action','${pageContext.request.contextPath}/product/'+data_remote);
+														$('#selected_option').val(JSON.stringify(option_arr));
+														
+														fm.submit();
+														
+													} else {
+														alert('옵션을 선택해주세요');
+													}
+													
+												}
+											} else {
+												alert('로그인 정보없음');
+											}
+											
+										});
+										
 									});
 									
 								</script>
@@ -609,10 +634,22 @@
 							</strong>
 						</div>
 					</div>
-					<div class="btn_controll">	
-						<input type="button" id="insertcart" value="장바구니">
-						<input type="button" id="buyItme" value="구매하기">
+					<div class="btn_controll">
+						<form method="post" id="fm" >
+							<input type="hidden" id="selected_option" name="selected_option">
+							<input type="hidden" id="pIdx" name="pIdx" value="${pdto.pIdx }">
+							<input type="button" id="insertcart" value="장바구니" data-remote="insert_cart">
+							<input type="button" id="buyItme" value="구매하기" data-remote ="buy">
+						</form>
 					</div>
+					<script type="text/javascript">
+						$().ready(function(){
+							
+							
+							
+							
+						});
+					</script>
 				</div>
 			</div>
 		</div>

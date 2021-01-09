@@ -9,6 +9,7 @@ import com.lkm.shoppingmall.dto.product_notice;
 import com.lkm.shoppingmall.dto.product_optionDto;
 import com.lkm.shoppingmall.dto.productsDto;
 import com.lkm.shoppingmall.dto.reviewDto;
+import com.lkm.shoppingmall.dto.userDto;
 
 public interface productDAO {
 
@@ -39,5 +40,9 @@ public interface productDAO {
 	public ArrayList<reviewDto> getReviewList(int pidx);
 	
 	public ArrayList<buyOptionDto> getbuysOption(int pidx);
+	
+	public userDto getUserInfo(String idx);
+	
+	public departmentDto getDeptInfo(String idx);
 	
 }
