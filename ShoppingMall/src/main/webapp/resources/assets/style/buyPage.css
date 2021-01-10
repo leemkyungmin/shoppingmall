@@ -180,6 +180,7 @@ a{
 	display:inline-block;
 	width: 120px;
 	height: 160px;
+	vertical-align: top;
 }
 .product_img img{
 	width: 120px;
@@ -207,6 +208,7 @@ a{
 	border-left: 1px solid lightgray;
 	border-top: 1px solid lightgray;
 	border-right: 1px solid lightgray;
+	text-align: center;
 }
 .option_price{
 	display:inline-block;

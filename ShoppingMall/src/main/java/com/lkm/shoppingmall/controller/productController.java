@@ -23,18 +23,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.google.gson.JsonArray;
 import com.lkm.shoppingmall.command.product.Update_myproduct;
 import com.lkm.shoppingmall.command.product.myproductCommand;
 import com.lkm.shoppingmall.command.product.myproductinfoCommand;
 import com.lkm.shoppingmall.command.product.selectproduct;
 import com.lkm.shoppingmall.commom.command;
-import com.lkm.shoppingmall.dao.loginDAO;
 import com.lkm.shoppingmall.dao.productDAO;
 import com.lkm.shoppingmall.dto.departmentDto;
 import com.lkm.shoppingmall.dto.product_optionDto;
@@ -339,7 +337,8 @@ public class productController {
 	}
 	@RequestMapping(value="product/buy",method=RequestMethod.POST)
 	public String BuyPage(HttpServletRequest req,Model model) throws ParseException {
-		
+			HttpSession session =req.getSession();
+			
 			String option_arr = req.getParameter("selected_option");
 			JSONParser parser = new JSONParser();
 			JSONArray arr= (JSONArray) parser.parse(option_arr);
@@ -352,7 +351,7 @@ public class productController {
 			model.addAttribute("arr", arr);
 			model.addAttribute("pdto",pdto);
 			
-			HttpSession session =req.getSession();
+			
 			
 			String idx = (Integer) session.getAttribute("idx")+"";
 			String type =(String) session.getAttribute("type");
@@ -371,5 +370,32 @@ public class productController {
 			
 		return "product/buyPage";
 	}
+	
+	
+	
+	@RequestMapping(value="product/buy/kakaopay",method=RequestMethod.POST)
+	public String kakaopay(HttpServletRequest req) throws Exception {
+		
+		String name = req.getParameter("Name");
+		String seller = req.getParameter("seller");
+		String options =req.getParameter("options");
+		String total_price =req.getParameter("total_price");
+		String req_option =req.getParameter("req_option");
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("name",name);
+		map.put("seller",seller);
+		map.put("options",options);
+		map.put("total_price",total_price);
+		map.put("req_option",req_option);
+		
+		
+		return "redirect:"+com.lkm.shoppingmall.commom.kakaopay.kakaoPayReady(map);
+	}
+	@RequestMapping(value="product/buy/kakaoPaySuccess",method=RequestMethod.GET)
+    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+       System.out.println("pg토큰:"+pg_token);
+        
+    }
 	
 }

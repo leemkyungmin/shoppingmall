@@ -17,23 +17,28 @@
 		for(var i=0; i<arr.length; i++){
 			obj_arr.push(arr[i]);
 		}
-		console.log(obj_arr);
+		$('#buy_btn').val('총 '+obj_arr.length +'개 결제하기');
 		   
 		var html ='';
 		/*  테스트용*/
 		
+		var option_total_price =0;
 		for(var i=0; i<obj_arr.length; i++){
 			var obj =new Object();
 			obj =obj_arr[i];
-			var price = obj.poprice * obj.count +"";
+			var price = obj.poprice * obj.count+"";
+			console.log(price);
 			var point =price.length %3;
 			var str =price.substring(0,point);
+			
+			option_total_price += obj.poprice * obj.count;
 			
 			while(point <price.length){
 				if( str !=''){
 					str +=',';
 				}
 				str +=price.substring(point, point+3);
+				point+=3;
 			}
 			
 			
@@ -63,7 +68,8 @@
 			html +='</div>';
 			if( i ==0 || obj[i-1] != obj[i]){
 				html +='<div class="order_price">';
-				html +='${pdto.pOrder_price }원';
+				html +='${pdto.pOrder_price }원<br/>';
+				html +='<span class="porder">배송비</span>';
 				html +='</div>';
 			}else {
 				if( i ==obj_arr.length-1){
@@ -81,6 +87,19 @@
 			html +='</li>';
 			//$('.producct_option').append('옵션:'+obj.topponame +' / '+obj.poname)
 		}
+		option_total_price +=${pdto.pOrder_price};
+		option_total_price +='';
+		var point =option_total_price.length %3;
+		var str =option_total_price.substring(0,point);
+		while(point <option_total_price.length){
+			if( str !=''){
+				str +=',';
+			}
+			str +=option_total_price.substring(point, point+3);
+			point+=3;
+		}
+		$('.tot_price').append(str); 
+		$('#total_price').val(option_total_price*1);
 		$('.order_list').append(html);
 	});
 </script>
@@ -120,7 +139,7 @@
 					</ul>
 				</div>
 			</div>
-			<form action="">
+			<form action="${pageContext.request.contextPath }/product/buy/kakaopay" id="fm" method="post">
 				<div class="content">
 					
 					<div class="order_addr_info">
@@ -218,10 +237,58 @@
 						
 					</div>
 					<div class="order_side">
-						1111111111111111111111111
+						<div class="total_order">
+							<div class="total_title">
+								<h2>결제 예정금액</h2>
+							</div>
+							<div class="total_content">
+								<div class="product_total_price">
+									<div class="ptotal_title">
+										상품 금액
+									</div>
+									<div class="ptotal_price">
+										..~금액 부분
+									</div>
+								</div>
+								<div class="total_order_Price">
+									${pdto.pOrder_price };
+								</div>
+								<div class="total">
+									<div class="total_title">
+										합계
+									</div>
+									<div class="tot_price">
+										~~.합계 부분 
+									</div>
+								</div>
+							</div>
+							<div class="btn_control">
+								<input type="hidden" id="Name" name="Name" value="${udto eq null ? deptdto.dName :udto.uName }">
+								<input type="hidden" id="seller" name="seller" value="${pdto.pName }">
+								<input type="hidden" id="options" name="options" value=${arr}>
+								<input type="hidden" id="total_price" name="total_price">
+								<input type="button"  id="buy_btn" name="buy_btn">
+							</div>
+						</div>
 					</div>
 				</div>
-				
+				<script type="text/javascript">
+					$().ready(function(){
+						$('#buy_btn').click(function(){
+							var req_option = $('#req_option');
+							
+							if(req_option.val() ==''){
+								alert('배송 오쳥사항을 입력해주세요');
+								req_option.focus();
+								return ;
+							} else {
+								var fm = $('#fm');
+								fm.submit();
+							}
+							
+						});
+					});
+				</script>
 				</form>
 			</div>
 	</div>
