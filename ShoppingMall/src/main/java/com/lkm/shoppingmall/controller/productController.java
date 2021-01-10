@@ -20,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +34,7 @@ import com.lkm.shoppingmall.command.product.Update_myproduct;
 import com.lkm.shoppingmall.command.product.myproductCommand;
 import com.lkm.shoppingmall.command.product.myproductinfoCommand;
 import com.lkm.shoppingmall.command.product.selectproduct;
+import com.lkm.shoppingmall.commom.Kakaopay;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.productDAO;
 import com.lkm.shoppingmall.dto.departmentDto;
@@ -39,13 +42,15 @@ import com.lkm.shoppingmall.dto.product_optionDto;
 import com.lkm.shoppingmall.dto.productsDto;
 import com.lkm.shoppingmall.dto.userDto;
 
+import lombok.Setter;
+
 @Controller
 public class productController {
 
 	@Autowired
 	private SqlSession sqlsession;
 	private command command;
-	
+		
 	@RequestMapping("product/myproduct")
 	public String myproducts(HttpServletRequest req,Model model) {
 		HttpSession session =req.getSession();
@@ -161,6 +166,8 @@ public class productController {
 		
 		return files;
 	}
+	
+	
 	
 	@RequestMapping(value="product/product_infoupload",method=RequestMethod.POST,produces="text/html; charset=utf-8")
 	@ResponseBody
@@ -371,9 +378,11 @@ public class productController {
 		return "product/buyPage";
 	}
 	
+	@Setter(onMethod_ = @Autowired)
+    private Kakaopay kakaopay;
 	
-	
-	@RequestMapping(value="product/buy/kakaopay",method=RequestMethod.POST)
+		
+	@PostMapping("product/buy/kakaopay")
 	public String kakaopay(HttpServletRequest req) throws Exception {
 		
 		String name = req.getParameter("Name");
@@ -390,12 +399,12 @@ public class productController {
 		map.put("req_option",req_option);
 		
 		
-		return "redirect:"+com.lkm.shoppingmall.commom.kakaopay.kakaoPayReady(map);
+		return "redirect:"+kakaopay.kakaoPayReady(map);
 	}
-	@RequestMapping(value="product/buy/kakaoPaySuccess",method=RequestMethod.GET)
+	@GetMapping("product/buy/kakaoPaySuccess")
     public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
        System.out.println("pg토큰:"+pg_token);
-        
+        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
     }
 	
 }

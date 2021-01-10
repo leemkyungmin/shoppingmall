@@ -586,7 +586,7 @@
 										$('.btn_controll input[type=button]').click(function(){
 											var data_remote = $(this).data('remote');
 											if(${not empty sessionScope}){
-												if(${sessionScope.buysell eq 'sell'} && ${sessionScope.idx eq pdto.dIdx} ){
+												if(${sessionScope.buysell eq 'sell'} &&  ${sessionScope.idx eq pdto.dIdx} ){
 													alert('자기 물건은 구매하실수없습니다.');
 												} else {
 													if(option_arr.length >0){
