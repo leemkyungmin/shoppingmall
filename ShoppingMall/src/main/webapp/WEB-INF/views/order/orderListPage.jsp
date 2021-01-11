@@ -256,7 +256,7 @@
 										</c:if>
 										<c:if test="${orderlist.bOrder_status eq 2 }">
 											<div class="o-status">
-												상품 준비
+												입금확인 / 상품 준비
 											</div>
 											
 										</c:if>
@@ -272,7 +272,7 @@
 										</c:if>
 										<c:if test="${orderlist.bOrder_status eq 4 }">
 											<div class="o-status">
-												상품
+												배송완료
 											</div>
 											<div class="order-location">
 													<input type="button" id="olocation" name="olocation">

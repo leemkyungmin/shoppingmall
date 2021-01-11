@@ -142,4 +142,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE DIDX = #{param1}
 	</select>
 	
+	
+	<insert id="buy_insert" parameterType="Map">
+		<selectKey keyProperty="bidx" resultType="int" order="BEFORE">
+			SELECT BUYS_SEQ.NEXTVAL as bidx FROM DUAL
+		</selectKey>
+		
+		INSERT INTO BUYS(
+			BIDX,
+			TOTAL_PRICE,
+			BDATE,
+			PIDX,
+			BORDER_NUM,
+			BORDER_STATUS,
+			UIDX,
+			DIDX,
+			PDIDX,
+			BORDER_MENT
+		) VALUES(
+			${bidx},
+			${total_price},
+			sysdate,
+			${pidx},
+			'${border_num}',
+			${border_status},
+			${uidx},
+			${didx},
+			${pdidx},
+			'${border_ment}'	
+		)
+	</insert>
+	<insert id="buy_option" parameterType="Map">
+		INSERT INTO BUYS_OPTIONS(
+			BOIDX,
+			BONAME,
+			BOPRICE,
+			BOCOUNT,
+			BIDX
+		) VALUES(
+			BUYS_OPTIONS_SEQ.NEXTVAL,
+			'${boname}',
+			${boprice},
+			${count},
+			${bidx}
+		)
+		
+	</insert>
+	
 </mapper>

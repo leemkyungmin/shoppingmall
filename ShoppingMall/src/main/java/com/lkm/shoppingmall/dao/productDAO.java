@@ -45,4 +45,8 @@ public interface productDAO {
 	
 	public departmentDto getDeptInfo(String idx);
 	
+	public int buy_insert(Map<String,Object> data);
+	
+	public int buy_option(Map<String,Object> option);
+	
 }

@@ -9,6 +9,7 @@
 <title>주문/결제</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/style/buyPage.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
 <script type="text/javascript">
 	$().ready(function(){
 		var arr = new Object();
@@ -139,7 +140,7 @@
 					</ul>
 				</div>
 			</div>
-			<form action="${pageContext.request.contextPath }/product/buy/kakaopay" id="fm" method="post">
+			<form  name="form" id="form">
 				<div class="content">
 					
 					<div class="order_addr_info">
@@ -267,27 +268,80 @@
 								<input type="hidden" id="seller" name="seller" value="${pdto.pName }">
 								<input type="hidden" id="options" name="options" value=${arr}>
 								<input type="hidden" id="total_price" name="total_price">
-								<input type="button"  id="buy_btn" name="buy_btn">
+								<input type="hidden" id="pidx" name="pidx" value="${pdto.pIdx }">
+								<input type="hidden" id="didx" name="didx" value="${pdto.dIdx }">
+								<input type="button"  id="buy_btn" name="buy_btn"  > 
 							</div>
 						</div>
 					</div>
 				</div>
+				
+				
+				
 				<script type="text/javascript">
+					
 					$().ready(function(){
-						$('#buy_btn').click(function(){
+						$(document).on('click','#buy_btn',function(){
 							var req_option = $('#req_option');
-							
 							if(req_option.val() ==''){
 								alert('배송 오쳥사항을 입력해주세요');
 								req_option.focus();
 								return ;
 							} else {
-								var fm = $('#fm');
-								fm.submit();
+								
+								var Name =$('#Name').val();				
+								var seller =$('#seller').val();				
+								var options =$('#options').val();			
+								var total_price =$('#total_price').val();
+								
+								console.log('###########'); 
+								$.ajax({
+									url:'${pageContext.request.contextPath}/product/buy/kakaopay',
+									method:'post',
+									data :'Name='+Name+'&seller=' + seller + '&options=' + options + '&total_price=' + total_price + '&req_option=' + req_option.val(),
+									success:function(data){
+										
+										var status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width=700, height=700, top=0,left=20"; 
+										popup =window.open(data,'테스트결제',status); 							
+									}, error:function(){
+										alert('통신실패'); 
+									}
+								});
+								
 							}
-							
 						});
-					});
+					})    
+					
+					function popup(frm){
+						var req_option = $('#req_option');
+						
+						if(req_option.val() ==''){
+							alert('배송 오쳥사항을 입력해주세요');
+							req_option.focus();
+							return ;
+						} else {
+							 
+							var Name =frm.Name.value;				
+							var seller =frm.seller.value;				
+							var options =frm.options.value;				
+							var total_price =frm.total_price.value;	
+							
+							
+							
+							/* var url    ="${pageContext.request.contextPath}/product/buy/kakaopay";
+							var title  = "testpop";
+							var status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width=700, height=700, top=0,left=20"; 
+							popup =window.open("", title,status); 
+							                                
+							frm.target = title;       
+							frm.action = url;         
+							frm.method = "post";
+							frm.submit();      */
+							
+						}
+					}
+				
+				
 				</script>
 				</form>
 			</div>

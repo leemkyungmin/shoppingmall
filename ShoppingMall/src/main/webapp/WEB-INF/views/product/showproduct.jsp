@@ -397,11 +397,11 @@
 											data:'poidx='+poidx+'&pidx='+pidx,
 											type:'post',
 											success:function(data){
+
 												var json_data =  JSON.stringify(data);
 												console.log(json_data);
 												var html ='';
-												var obj = JSON.parse(json_data);
-												
+												var obj = JSON.parse(json_data);												
 												for(var i =0; i<obj.length; i++){
 													html +='<li class="op2_li" data-value="'+obj[i].poidx+'" data-id="'+(i+1)+'">';
 													html +='<div class="op2_name">';
@@ -642,14 +642,7 @@
 							<input type="button" id="buyItme" value="구매하기" data-remote ="buy">
 						</form>
 					</div>
-					<script type="text/javascript">
-						$().ready(function(){
-							
-							
-							
-							
-						});
-					</script>
+					
 				</div>
 			</div>
 		</div>

@@ -32,6 +32,7 @@ public class Kakaopay {
     private String oid = System.currentTimeMillis()+"";
     private String name  =null;
     String total_price =null;
+    JSONArray arr =new JSONArray();
     public  String kakaoPayReady(Map<String,Object> map) throws ParseException {
  
         RestTemplate restTemplate = new RestTemplate();
@@ -43,7 +44,8 @@ public class Kakaopay {
         JSONObject obj = (JSONObject) arr.get(0);
         System.out.println(obj);
         
-        String pname =obj.get("topponame")+" / "+obj.get("poname")+"외"+(arr.size()-1)+"건";
+        String pname =obj.get("topponame")+" / "+obj.get("poname")+ (arr.size()>1 ? "외"+(arr.size()-1)+"건" : "");
+        
         name =(String) map.get("name");
         total_price =(String) map.get("total_price");
         // 서버로 요청할 Header
@@ -106,7 +108,7 @@ public class Kakaopay {
  
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "KakaoAK " + "admin key를 넣어주세요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~!");
+        headers.add("Authorization", "KakaoAK " + "7633158fc86932e842faef8307930ea5");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
  
@@ -123,7 +125,7 @@ public class Kakaopay {
         
         try {
             kakaoPayApproval = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApproval.class);
-
+            log.info(kakaoPayApproval+"");
             return kakaoPayApproval;
         
         } catch (RestClientException e) {

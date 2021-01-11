@@ -43,6 +43,7 @@ import com.lkm.shoppingmall.dto.productsDto;
 import com.lkm.shoppingmall.dto.userDto;
 
 import lombok.Setter;
+import lombok.extern.java.Log;
 
 @Controller
 public class productController {
@@ -332,7 +333,7 @@ public class productController {
 		podto = pdao.getOption2(keys);
 
 		for( product_optionDto po : podto) {
-			JSONObject obj =  new JSONObject();
+			JSONObject obj =  new JSONObject(); 
 			obj.put("poidx",po.getPoidx());
 			obj.put("poname", po.getPoname());
 			obj.put("poprice",po.getPoprice());
@@ -383,6 +384,7 @@ public class productController {
 	
 		
 	@PostMapping("product/buy/kakaopay")
+	@ResponseBody
 	public String kakaopay(HttpServletRequest req) throws Exception {
 		
 		String name = req.getParameter("Name");
@@ -391,20 +393,79 @@ public class productController {
 		String total_price =req.getParameter("total_price");
 		String req_option =req.getParameter("req_option");
 		
-		Map<String,Object> map = new HashMap<>();
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("name",name);
 		map.put("seller",seller);
 		map.put("options",options);
 		map.put("total_price",total_price);
 		map.put("req_option",req_option);
-		
-		
-		return "redirect:"+kakaopay.kakaoPayReady(map);
+		System.out.println(kakaopay.kakaoPayReady(map));
+		return kakaopay.kakaoPayReady(map);
+		//return "redirect:"+kakaopay.kakaoPayReady(map);
 	}
 	@GetMapping("product/buy/kakaoPaySuccess")
-    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) { 
        System.out.println("pg토큰:"+pg_token);
         model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
     }
+	@PostMapping("product/buy/insert")
+	@ResponseBody
+	
+	public String buy_insert(HttpServletRequest req) throws ParseException {
+		HttpSession session = req.getSession();
+		String total_price =req.getParameter("total_price");
+		String pidx =req.getParameter("pidx");
+		String border_num =req.getParameter("border_num");
+		String options =req.getParameter("options");
+		String border_status =req.getParameter("border_status");
+		String border_ment =req.getParameter("border_status");
+		String didx=  req.getParameter("didx");
+		
+		
+		
+		productDAO pdao = sqlsession.getMapper(productDAO.class);
+		int bidx =0;
+		try {
+			
+			Map<String,Object> data =new HashMap<String, Object>();
+			data.put("total_price",total_price);
+			data.put("pidx", pidx);
+			data.put("border_num", border_num);
+			data.put("border_status", border_status);
+			data.put("border_ment",border_ment);
+			data.put("didx", didx); 
+			
+			String idx = (Integer) session.getAttribute("idx")+"";
+			if(session.getAttribute("type").equals("user")) {
+				data.put("uidx",idx);
+				data.put("pdidx", 0);
+			} else {
+				data.put("uidx",0);
+				data.put("pdidx", idx);
+			}
+			System.out.println(data);
+			int result =0;
+			result =pdao.buy_insert(data);
+			bidx= (Integer) data.get("bidx");
+			JSONParser parser =new JSONParser();
+			
+			JSONArray arr =(JSONArray) parser.parse(options);
+			Map<String,Object> option = new HashMap<String, Object>();
+			for(int i=0; i<arr.size(); i++) {
+				JSONObject obj = (JSONObject) arr.get(i);
+				option.clear();
+				option.put("boname",obj.get("topponame") +" / "+obj.get("poname") );
+				option.put("boprice", obj.get("poprice"));
+				option.put("count", obj.get("count"));
+				option.put("bidx", bidx);
+				result =pdao.buy_option(option);
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return bidx+"";
+	}
 	
 }
