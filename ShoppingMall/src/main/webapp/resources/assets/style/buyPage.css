@@ -238,3 +238,37 @@ a{
 .product_body div{
 	border-collapse: collapse;
 }
+.total_content{
+	width: 100%;
+	font-size: 17px;
+}
+.ptotal_title , .ptotal_price,.pOrder_price,.total_title ,tot_price{
+	display:inline-block;
+	margin: 10px 0;
+
+}
+.ptotal_title{
+	margin-right: 100px;
+}
+.pOrder_price,.ptotal_price,.tot_price{
+	float:right;
+}
+.btn_control {
+	margin-top: 10px;
+}
+#buy_btn{
+	width: 100%;
+	height: 64px;
+	background: red;
+	color:white;
+	font-size: 20px;
+	border:0;
+}
+.total{
+	color:red;
+	margin: 20px 0;
+}
+.total .tot_price{
+	font-size: 25px;
+	font-weight: bold;
+}

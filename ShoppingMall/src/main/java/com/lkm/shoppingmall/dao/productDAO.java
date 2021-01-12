@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.lkm.shoppingmall.dto.buyOptionDto;
+import com.lkm.shoppingmall.dto.buys_optionDto;
 import com.lkm.shoppingmall.dto.departmentDto;
+import com.lkm.shoppingmall.dto.orderListDto;
 import com.lkm.shoppingmall.dto.product_notice;
 import com.lkm.shoppingmall.dto.product_optionDto;
 import com.lkm.shoppingmall.dto.productsDto;
@@ -49,4 +51,8 @@ public interface productDAO {
 	
 	public int buy_option(Map<String,Object> option);
 	
+	public orderListDto orderList(Map<String,Object> data);
+	
+	public Map<String,Integer> buy_total_price(String bidx);
+	public ArrayList<buys_optionDto> getBuy_options(String bidx);
 }

@@ -229,7 +229,7 @@
 									<td>
 										<div class="products_info">
 											<div class="products_img">
-												<img alt="상품이미지" src="${pageContext.request.contextPath}/resource/products_img/${orderlist.pNimg}">
+												<img alt="상품이미지" src="${pageContext.request.contextPath}/resources/images/Department_sumnail/${orderlist.pSumnail}">
 											</div>
 											<div class="products_name">
 												${orderlist.pName }

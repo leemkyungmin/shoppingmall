@@ -188,5 +188,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 		
 	</insert>
+	<select id="orderList" parameterType="Map" resultType="com.lkm.shoppingmall.dto.orderListDto">
+		SELECT *
+		FROM BUYS
+		WHERE BIDX =${bidx} AND UIDX=${uidx} AND PDIDX=${pdidx}
+	</select>
+	<select id="buy_total_price" parameterType="String" resultType="Map">
+		SELECT SUM(BOPRICE *BOCOUNT) as total_price ,sum(BOCOUNT) as bocount
+		FROM BUYS_OPTIONS
+		WHERE BIDX =#{bidx}
+	</select>
+	<select id="getBuy_options" parameterType="String" resultType="com.lkm.shoppingmall.dto.buys_optionDto">
+		SELECT *
+		FROM BUYS_OPTIONS
+		WHERE BIDX =#{bidx}
+	</select>
 	
 </mapper>

@@ -37,13 +37,14 @@ import com.lkm.shoppingmall.command.product.selectproduct;
 import com.lkm.shoppingmall.commom.Kakaopay;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.productDAO;
+import com.lkm.shoppingmall.dto.buys_optionDto;
 import com.lkm.shoppingmall.dto.departmentDto;
+import com.lkm.shoppingmall.dto.orderListDto;
 import com.lkm.shoppingmall.dto.product_optionDto;
 import com.lkm.shoppingmall.dto.productsDto;
 import com.lkm.shoppingmall.dto.userDto;
 
 import lombok.Setter;
-import lombok.extern.java.Log;
 
 @Controller
 public class productController {
@@ -418,7 +419,7 @@ public class productController {
 		String border_num =req.getParameter("border_num");
 		String options =req.getParameter("options");
 		String border_status =req.getParameter("border_status");
-		String border_ment =req.getParameter("border_status");
+		String border_ment =req.getParameter("border_ment");
 		String didx=  req.getParameter("didx");
 		
 		
@@ -466,6 +467,64 @@ public class productController {
 			e.printStackTrace();
 		}
 		return bidx+"";
+	}
+	@RequestMapping(value="product/buy/buySuccess",method=RequestMethod.GET)
+	public String buysuccess(@RequestParam("bidx") String bidx,HttpServletRequest req,Model model) {
+		
+		HttpSession session =req.getSession();
+		
+		if(session.getAttribute("idx") ==null) {
+			return "redirect:/login";
+		}
+		else {
+			String idx = (Integer) session.getAttribute("idx")+"";
+			System.out.println(bidx);
+			Map<String,Object> data = new HashMap<String, Object>();
+			
+			data.put("bidx",bidx);
+			
+			userDto udto = new userDto();
+			departmentDto deptdto =new departmentDto();
+			productDAO pdao = sqlsession.getMapper(productDAO.class);
+			
+			if(session.getAttribute("type").equals("user")) {
+				data.put("uidx",idx);
+				data.put("pdidx",0);
+				udto =  pdao.getUserInfo(idx);
+			} else {
+				data.put("uidx",0);
+				data.put("pdidx",idx);
+				deptdto = pdao.getDeptInfo(idx);
+			}
+					
+			
+			orderListDto odto = pdao.orderList(data);
+			Map<String, Integer> op = pdao.buy_total_price(bidx);
+			System.out.println(op);
+			String total_price =op.get("TOTAL_PRICE")+"";
+			
+			int point = total_price.length()%3;
+			String str= total_price.substring(0,point);
+			
+			while(point <total_price.length()){ 
+				if( str !=""){
+					str +=",";
+				}
+				str +=total_price.substring(point, point+3);
+				point+=3;
+			}
+			
+			ArrayList<buys_optionDto> options = pdao.getBuy_options(bidx);
+			
+			model.addAttribute("udto", udto);
+			model.addAttribute("deptdto", deptdto);
+			model.addAttribute("odto", odto);
+			model.addAttribute("total_price", str);
+			model.addAttribute("total_count", op.get("BOCOUNT"));
+			model.addAttribute("options", options);
+			return "product/buy/buysuccess";
+		}
+		
 	}
 	
 }

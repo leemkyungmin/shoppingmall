@@ -522,8 +522,22 @@
 												cart_list +='</div>';
 												cart_list+='</div></div></li>';
 											}
+											
+											var tot_price= total_price+'';
+											var point =tot_price.length %3;
+											var str =tot_price.substring(0,point);
+																					
+											while(point <tot_price.length){
+												if( str !=''){
+													str +=',';
+												}
+												str +=tot_price.substring(point, point+3);
+												point+=3;
+											}
+											
+											
 											$('.totalcount').text(total_count);
-											$('.totalprice').text(total_price);
+											$('.totalprice').text(str);
 											$('.span_bold.op1').text('옵션명 1');
 											$('.option_buy_list ul').append(cart_list);
 											$('.option-menu div').removeClass('active');

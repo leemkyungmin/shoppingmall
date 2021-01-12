@@ -11,7 +11,14 @@
 	width: 1200px;
 	float:left;
 }
-
+.products_img,.products_name{
+	display:inline-block;
+	vertical-align: middle;
+}
+.products_img img{
+	width: 120px;
+	height: 120px;
+}
 .my_mall_list h2{
 	float: left;
     width: 185px;

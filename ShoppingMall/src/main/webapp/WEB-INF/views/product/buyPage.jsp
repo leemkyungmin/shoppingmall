@@ -24,14 +24,14 @@
 		/*  테스트용*/
 		
 		var option_total_price =0;
+		var hap_price=0;
 		for(var i=0; i<obj_arr.length; i++){
 			var obj =new Object();
 			obj =obj_arr[i];
 			var price = obj.poprice * obj.count+"";
-			console.log(price);
 			var point =price.length %3;
 			var str =price.substring(0,point);
-			
+			hap_price+=obj.poprice * obj.count;
 			option_total_price += obj.poprice * obj.count;
 			
 			while(point <price.length){
@@ -68,8 +68,22 @@
 			html +='</span>';
 			html +='</div>';
 			if( i ==0 || obj[i-1] != obj[i]){
+				
+				var oprice =${pdto.pOrder_price}+"";
+				
+				var p = oprice.length%3;
+				var s =oprice.substring(0,p);
+				
+				while(p < oprice.length){
+					if( s !=''){
+						s +=',';
+					}
+					s +=oprice.substring(p,p+3);
+					p+=3;
+				}
+				$('.pOrder_price').text(s+'원');
 				html +='<div class="order_price">';
-				html +='${pdto.pOrder_price }원<br/>';
+				html +=s+'원<br/>';
 				html +='<span class="porder">배송비</span>';
 				html +='</div>';
 			}else {
@@ -86,8 +100,23 @@
 			
 			html +='</div>';
 			html +='</li>';
+			
 			//$('.producct_option').append('옵션:'+obj.topponame +' / '+obj.poname)
 		}
+		var pr = hap_price+"";
+		var po =pr.length %3;
+		var strs =pr.substring(0,po);
+	
+		while(po <pr.length){
+			if( strs !=''){
+				strs +=',';
+			}
+			strs +=pr.substring(po,po+3);
+			po+=3;
+		}
+		console.log(str);
+		$('.ptotal_price').text(strs+"원");
+		
 		option_total_price +=${pdto.pOrder_price};
 		option_total_price +='';
 		var point =option_total_price.length %3;
@@ -99,7 +128,8 @@
 			str +=option_total_price.substring(point, point+3);
 			point+=3;
 		}
-		$('.tot_price').append(str); 
+		
+		$('.tot_price').append(str+'원'); 
 		$('#total_price').val(option_total_price*1);
 		$('.order_list').append(html);
 	});
@@ -252,14 +282,18 @@
 									</div>
 								</div>
 								<div class="total_order_Price">
-									${pdto.pOrder_price };
+									<div class="ptotal_title">
+										배송료
+									</div>
+									<div class="pOrder_price">
+										
+									</div>
 								</div>
 								<div class="total">
 									<div class="total_title">
 										합계
 									</div>
 									<div class="tot_price">
-										~~.합계 부분 
 									</div>
 								</div>
 							</div>

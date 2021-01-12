@@ -2,6 +2,9 @@ package com.lkm.shoppingmall.dto;
 
 import java.sql.Date;
 
+import lombok.Data;
+
+@Data
 public class orderListDto {
 	
 	int bIdx;
@@ -12,52 +15,23 @@ public class orderListDto {
 	int pOrder_price;
 	int bOrder_status;
 	int count;
-	String pNimg;
+	String pSumnail;
 	Date bDate;
 	
 	public orderListDto() {}
 	
-	
-	public Date getbDate() {
-		return bDate;
-	}
-	
-
-	public int getPrice() {
-		return price;
-	}
-
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-
-	public void setbDate(Date bDate) {
-		this.bDate = bDate;
-	}
-
-
-	public int getpIdx() {
-		return pIdx;
-	}
-
-
-	public void setpIdx(int pIdx) {
-		this.pIdx = pIdx;
-	}
-
-
 	public int getbIdx() {
 		return bIdx;
 	}
-
-
 	public void setbIdx(int bIdx) {
 		this.bIdx = bIdx;
 	}
-
-
+	public int getpIdx() {
+		return pIdx;
+	}
+	public void setpIdx(int pIdx) {
+		this.pIdx = pIdx;
+	}
 	public String getbOrder_num() {
 		return bOrder_num;
 	}
@@ -70,7 +44,6 @@ public class orderListDto {
 	public void setpName(String pName) {
 		this.pName = pName;
 	}
-	
 	public int getpOrder_price() {
 		return pOrder_price;
 	}
@@ -83,29 +56,22 @@ public class orderListDto {
 	public void setbOrder_status(int bOrder_status) {
 		this.bOrder_status = bOrder_status;
 	}
-
-	public String getpNimg() {
-		return pNimg;
+	public String getpSumnail() {
+		return pSumnail;
 	}
-	public void setpNimg(String pNimg) {
-		this.pNimg = pNimg;
+	public void setpSumnail(String pSumnail) {
+		this.pSumnail = pSumnail;
 	}
-
-
-	public int getCount() {
-		return count;
+	public Date getbDate() {
+		return bDate;
 	}
-
-
-	public void setCount(int count) {
-		this.count = count;
+	public void setbDate(Date bDate) {
+		this.bDate = bDate;
 	}
-
-
-	public orderListDto(int bIdx,int pIdx, String bOrder_num, String pName, int price, int pOrder_price,
-			int bOrder_status, int count, String pNimg,Date bDate) {
+	public orderListDto(int bIdx, int pIdx, String bOrder_num, String pName, int price, int pOrder_price,
+			int bOrder_status, int count, String pSumnail, Date bDate) {
 		super();
-		this.bIdx = bIdx; 
+		this.bIdx = bIdx;
 		this.pIdx = pIdx;
 		this.bOrder_num = bOrder_num;
 		this.pName = pName;
@@ -113,9 +79,12 @@ public class orderListDto {
 		this.pOrder_price = pOrder_price;
 		this.bOrder_status = bOrder_status;
 		this.count = count;
-		this.pNimg = pNimg;
+		this.pSumnail = pSumnail;
 		this.bDate = bDate;
 	}
+	
+	
+	
 	
 	
 }
