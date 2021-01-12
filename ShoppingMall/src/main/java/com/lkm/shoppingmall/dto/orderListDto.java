@@ -17,6 +17,9 @@ public class orderListDto {
 	int count;
 	String pSumnail;
 	Date bDate;
+	String post_dept;
+	String post_num;
+	
 	
 	public orderListDto() {}
 	

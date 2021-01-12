@@ -7,11 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getOrderUserList" parameterType="Map" resultType="com.lkm.shoppingmall.dto.orderListDto">
 		SELECT ROWNUM,a.*
 		FROM(
-				SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,sum(bo.boprice * bo.bocount) as price,count(bo.bidx) as count,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL) as psumnail,b.BDATE
+				SELECT p.POST_DEPT,b.POST_NUM,b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,sum(bo.boprice * bo.bocount) as price,count(bo.bidx) as count,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL) as psumnail,b.BDATE
 			FROM BUYS b left outer join PRODUCTS p  on p.DIDX =b.DIDX left outer join buys_options bo on bo.bidx=b.bidx
 			WHERE b.UIDX =${uidx} AND  b.PDIDX =0 AND  P.PIDX = b.PIDX 
 			AND b.bdate BETWEEN '${stDay}' and '${endDay}'
-            group by b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL),b.BDATE
+            group by b.POST_NUM,p.POST_DEPT,b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL),b.BDATE
             ORDER BY BDATE DESC
             ) a
 		WHERE ROWNUM BETWEEN ${beginRecord} AND ${endRecord}
@@ -19,23 +19,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getOrderDeptList" parameterType="Map" resultType="com.lkm.shoppingmall.dto.orderListDto">
 		SELECT ROWNUM,a.*
 		FROM(
-				SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,sum(bo.boprice * bo.bocount) as price,count(bo.bidx) as count,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL) as psumnail,b.BDATE
+				SELECT p.POST_DEPT,b.POST_NUM,b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,sum(bo.boprice * bo.bocount) as price,count(bo.bidx) as count,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL) as psumnail,b.BDATE
 			FROM BUYS b left outer join PRODUCTS p  on p.DIDX =b.DIDX left outer join buys_options bo on bo.bidx=b.bidx
 			WHERE b.UIDX =0 AND  b.PDIDX =${didx} AND  P.PIDX = b.PIDX 
 			AND b.bdate BETWEEN '${stDay}' and '${endDay}'
-            group by b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL),b.BDATE
+            group by p.POST_DEPT,b.POST_NUM,b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL),b.BDATE
             ORDER BY BDATE DESC
             ) a
-		WHERE ROWNUM BETWEEN ${beginRecord} AND ${endRecord}
+		WHERE ROWNUM BETWEEN ${beginRecord} AND ${endRecord}	
 	</select>
 	<select id="getOrderCancelUserList" parameterType="HashMap" resultType="com.lkm.shoppingmall.dto.orderListDto">
 		SELECT ROWNUM,a.*
 		FROM(
-				SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,sum(bo.boprice * bo.bocount) as price,count(bo.bidx) as count,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL) as psumnail,b.BDATE
+				SELECT p.POST_DEPT,b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,sum(bo.boprice * bo.bocount) as price,count(bo.bidx) as count,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL) as psumnail,b.BDATE
 			FROM BUYS b left outer join PRODUCTS p  on p.DIDX =b.DIDX left outer join buys_options bo on bo.bidx=b.bidx
 			WHERE b.UIDX =${uidx} AND  b.PDIDX =0 AND  P.PIDX = b.PIDX 
 			AND b.bdate BETWEEN '${stDay}' and '${endDay}' and b.BORDER_STATUS >7
-            group by b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL),b.BDATE
+            group by p.POST_DEPT,b.POST_NUM,b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL),b.BDATE
             ORDER BY BDATE DESC 
             ) a
 		WHERE ROWNUM BETWEEN ${beginRecord} AND ${endRecord}
@@ -43,11 +43,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getOrderCancelDeptList" parameterType="HashMap" resultType="com.lkm.shoppingmall.dto.orderListDto">
 		SELECT ROWNUM,a.*
 		FROM(
-				SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,sum(bo.boprice * bo.bocount) as price,count(bo.bidx) as count,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL) as psumnail,b.BDATE
+				SELECT p.POST_DEPT,b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,sum(bo.boprice * bo.bocount) as price,count(bo.bidx) as count,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL) as psumnail,b.BDATE
 			FROM BUYS b left outer join PRODUCTS p  on p.DIDX =b.DIDX left outer join buys_options bo on bo.bidx=b.bidx
 			WHERE b.UIDX =0 AND  b.PDIDX =${didx} AND  P.PIDX = b.PIDX 
 			AND b.bdate BETWEEN '${stDay}' and '${endDay}' and b.BORDER_STATUS >7
-            group by b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL),b.BDATE
+            group by p.POST_DEPT,b.POST_NUM,b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,P.PRICE,p.PORDER_PRICE,b.BORDER_STATUS,TO_CHAR(p.PSUMNAIL),b.BDATE
             ORDER BY BDATE DESC 
             ) a
 		WHERE ROWNUM BETWEEN ${beginRecord} AND ${endRecord}

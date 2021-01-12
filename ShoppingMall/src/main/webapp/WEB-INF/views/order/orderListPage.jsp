@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import ="com.lkm.shoppingmall.dto.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../Template/header.jsp" %>
@@ -214,7 +216,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						
+						<% int count =0; %>
 						<c:if test="${OrderList.size() >0 }">
 							<c:forEach var="orderlist" items="${OrderList}" varStatus="i">
 								<tr>
@@ -238,14 +240,47 @@
 									</td>
 									<td>
 										<div class="price">
-											${orderlist.price }원
+											<%
+												
+												ArrayList<orderListDto> olist = (ArrayList<orderListDto>)request.getAttribute("OrderList");
+												
+												
+												String price = olist.get(count).getPrice()+"";
+												
+												int point =  price.length()%3;
+												String str = price.substring(0,point);
+												
+												while(point < price.length()){
+													if(str !=""){
+														str +=",";
+													}
+													str +=price.substring(point,point+3);
+													point +=3;
+												}
+												
+												String order_price =  olist.get(count).getpOrder_price()+"";
+												int pointer = order_price.length()%3;
+												String st = order_price.substring(0,pointer);
+												
+												while(pointer < order_price.length()){
+													if(st !=""){
+														st +=",";
+													}
+													st +=order_price.subSequence(pointer, pointer+3);
+													pointer +=3;
+													
+												}
+												
+												count ++;
+											%>
+											<%=str %>원
 										</div>
 										<div class="count">
 											(${orderlist.count }개)
 										</div>
 									</td>
 									<td>
-										${orderlist.pOrder_price}원
+										<%=st %>원
 									</td>
 									<td>
 										
@@ -265,8 +300,7 @@
 												상품 배송중
 											</div>
 											<div class="order-location">
-												<input type="button" id="olocation" name="olocation">
-												<input type="button" id="Reviewrite" name="Reviewrite">
+												<input type="button" id="olocation" name="olocation" value="배송조회" data-value="${orderlist.post_num }" data-id="${orderlist.post_dept }" } >
 											</div>
 											
 										</c:if>
@@ -282,6 +316,36 @@
 									</td>
 								</tr>
 							</c:forEach>
+							
+							
+							<script>
+								$().ready(function(){
+									$(document).on('click','#olocation',function(){
+										var data =$(this).data('value');
+										var id = $(this).data('id');
+										$('#t_code').val(id);
+										$('#t_invoice').val(data);
+										
+										var popupTitle = "택배추적 조회";
+										var status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width=1000, height=700, top=50,left=500"; 
+										window.open('',popupTitle,status);
+										
+										var form = document.post_api;
+										console.log(form.t_code);
+										console.log(form.t_invoice);
+										form.target =popupTitle;
+										form.method="post";
+										form.action="http://info.sweettracker.co.kr/tracking/5";
+										console.log(form);
+										console.log(form.method);
+										console.log(form.action);
+										form.submit();
+										
+										
+									});
+								});
+							</script>
+							
 						</c:if> 
 						<c:if test="${OrderList.size() eq 0 }">
 							<tr>
@@ -298,7 +362,11 @@
 					</tfoot>
 				</table>
 			</div>
-			
+			<form id="post_api" name="post_api" >
+				<input type="hidden" value="44mhOM53eq2GHI2vtXT4fg" name="t_key" id="t_key">
+				<input type="hidden" name="t_code" id="t_code"> <!-- 택배사 코드 -->
+				<input type="hidden" name="t_invoice" id="t_invoice"> <!-- 송장번호 --> 
+			</form>
 			<script type="text/javascript">
 				function tab_ch(num){
 					var i;
