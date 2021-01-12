@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import ="com.lkm.shoppingmall.dto.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../Template/header.jsp" %>
@@ -213,7 +215,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						
+						<% int count =0; %>
 						<c:if test="${OrderList.size() >0 }">		
 							<c:forEach var="orderlist" items="${OrderList}" varStatus="i">
 								<tr>
@@ -237,7 +239,40 @@
 									</td>
 									<td>
 										<div class="price">
-											${orderlist.price }원
+											<%
+												
+												ArrayList<orderListDto> olist = (ArrayList<orderListDto>)request.getAttribute("OrderList");
+												
+												
+												String price = olist.get(count).getPrice()+"";
+												
+												int point =  price.length()%3;
+												String str = price.substring(0,point);
+												
+												while(point < price.length()){
+													if(str !=""){
+														str +=",";
+													}
+													str +=price.substring(point,point+3);
+													point +=3;
+												}
+												
+												String order_price =  olist.get(count).getpOrder_price()+"";
+												int pointer = order_price.length()%3;
+												String st = order_price.substring(0,pointer);
+												
+												while(pointer < order_price.length()){
+													if(st !=""){
+														st +=",";
+													}
+													st +=order_price.subSequence(pointer, pointer+3);
+													pointer +=3;
+													
+												}
+												
+												count ++;
+											%>
+											<%=str %>원
 										</div>
 										<div class="count">
 											(${orderlist.count }개)

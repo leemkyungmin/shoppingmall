@@ -3,71 +3,37 @@
 <%@ include file="Template/header.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-	
+	<link rel="styleSheet" href="${pageContext.request.contextPath }/resources/assets/style/searchPage.css">
 	<style>
-		.wrap{
-			width: 1200px;
-			min-height: 1500px;
-		    z-index: 20;
-		    margin: 0 auto;
-		    padding: 10px 0 50px;
-		    outline: none; 
-		}
-		.result{
-			margin-top:20px;
-			font-size: 20px;
-			padding-right: 100px;
-			height: 30px;
-		}
-		.result .search_Count{
-			display:inline-block;
-			height: 20px;
-			float: left;
-		}
-		.result .design-controll{
-			display:inline-block;
-			height: 20px;
-			float: right;
-		}
-		.style-controll{
-			width: 100%;
-			height: 250px;
-			border: 1px solid black;
-		}
-		.style-controll .items-products-img{
-			width: 220px;
-			height: 220px;
-			float: left;
-		}
-		.style-controll .item-content{
-			float: left;
-			width:700px;
-			height:200px;
-			margin: 30px 20px;
-			border-right: 1px solid lightgray;
-			font-size: 17px;
-		}
-		.item-seller{
-			float: left;
-		    width: 200px;
-		    height: 220px;
-		    text-align: center;
-		    line-height: 220px;
-		}
-		.style-controll a{
-			list-style: none;
-			color: black;
-			text-decoration: none;
-		}
-		.items-products-img img{
-			width: 230px;
-			height: 230px;
-		}
-		li{
-			display:inline-block;
-		}
-		
+		.star{
+		background-image: url(${pageContext.request.contextPath}/resources/assets/images/images.png);
+	    background-position: -170px 0px;
+	    width: 178px;
+	    height: 32px;
+	    background-size: 439px 403px;
+	    position: relative;
+	    overflow: hidden;
+	    display: inline-block;
+	    vertical-align: top;
+	    color: transparent;
+	    line-height: 200px;
+	    font-size: 1px;
+	    content: '';
+	}
+	.star::after{
+		content :'after';
+	}
+	.star:after{
+		background-image: url(${pageContext.request.contextPath}/resources/assets/images/images.png);
+	    background-position: -170px -37px;
+	    width: 178px;
+	    height: 32px;
+	    background-size: 439px 403px;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    bottom: 0;
+	}
 	</style>
 	<div class="wrap">
 		<div class="wrap-content">
@@ -139,8 +105,15 @@
 											${items.pName}
 										</a>
 									</div>
+									
 									<div class="items-products-rating">
-										<span class="review_count">평점 :${items.rRcount}점  리뷰갯수:${items.rRcount }개</span>
+										
+											<span class="star count_${items.rRating }">
+												${items.rRating}
+												
+											</span>
+										  	리뷰갯수:${items.rRcount }개
+										
 									</div>
 									<div class="items-products-price">
 										가격 :${items.pRice}원 ~
@@ -161,6 +134,6 @@
 		</div>
 		
 	</div>
-
+	
 </body>
 </html>

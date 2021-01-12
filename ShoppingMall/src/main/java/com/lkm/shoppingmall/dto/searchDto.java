@@ -28,8 +28,8 @@ public class searchDto {
 		this.pName = pName;
 	}
 
-	public double getrRating() {
-		return rRating;
+	public int getrRating() {
+		return (int) rRating;
 	}
 
 	public void setrRating(double rRating) {
