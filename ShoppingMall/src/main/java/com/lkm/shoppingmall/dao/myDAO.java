@@ -3,6 +3,7 @@ package com.lkm.shoppingmall.dao;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.lkm.shoppingmall.dto.CartListDto;
 import com.lkm.shoppingmall.dto.CustomerServiceDto;
 import com.lkm.shoppingmall.dto.customer_service_reviewDto;
 import com.lkm.shoppingmall.dto.departmentDto;
@@ -37,4 +38,5 @@ public interface myDAO {
 	
 	public int update_custeomr_svc(Map<String,Object> query);
 	
+	public ArrayList<CartListDto> get_myCart(Map<String,Object> data);
 }

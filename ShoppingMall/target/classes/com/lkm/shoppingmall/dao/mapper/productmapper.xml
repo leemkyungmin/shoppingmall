@@ -209,29 +209,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</selectKey>
 		INSERT INTO CART(
 			CIDX,
+			CNAME,
+			CPRICE,
+			CTOTAL_COUNT,
 			UIDX,
 			DIDX,
 			PIDX
 		) VALUES(
 			${cidx},
+			'${cname}',
+			${cprice},
+			${ctotal_count},
 			${uidx},
 			${didx},
 			${pidx}
 		)
 	</insert>
-	<insert id="insert_cart_option" parameterType="Map">
-		INSERT INTO CART_OPTION(
-			COIDX,
-			CONAME,
-			COPRICE,
-			COCOUNT,
-			CIDX
-		) VALUES(
-			CART_OPTION_SEQ.NEXTVAL,
-			'${coname}',
-			${coprice},
-			${cocount},
-			${cidx}
-		)
-	</insert>
+	
 </mapper>

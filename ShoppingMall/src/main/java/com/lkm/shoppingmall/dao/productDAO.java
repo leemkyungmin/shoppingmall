@@ -58,5 +58,5 @@ public interface productDAO {
 	
 	public int insert_cart(Map<String, Object> cart);
 	
-	public void insert_cart_option(Map<String, Object> cart_op);
+
 }

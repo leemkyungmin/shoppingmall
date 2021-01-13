@@ -40,6 +40,7 @@ import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.loginDAO;
 import com.lkm.shoppingmall.dao.myDAO;
 import com.lkm.shoppingmall.dao.productDAO;
+import com.lkm.shoppingmall.dto.CartListDto;
 import com.lkm.shoppingmall.dto.buys_optionDto;
 import com.lkm.shoppingmall.dto.departmentDto;
 import com.lkm.shoppingmall.dto.orderListDto;
@@ -608,28 +609,23 @@ public class productController {
 			cart.put("uidx", 0);
 			cart.put("didx", idx);
 		}
-		
-		System.out.println("pidx:"+pIdx); 
-		
-		int result =pdao.insert_cart(cart);
-		
-		if(result >0) {
-			for(int i=0; i<arr.size(); i++) {
-				JSONObject obj = (JSONObject) arr.get(i);
-				Map<String,Object> cart_op =new HashMap<String, Object>();
-				String coname = (String) obj.get("poname");
-				String coprice =(String) obj.get("poprice");
-				Long cocount = (Long) obj.get("count");
-				cart_op.put("coname",coname);
-				cart_op.put("coprice",coprice);
-				cart_op.put("cocount",cocount);
-				cart_op.put("cidx",cart.get("cidx"));
-				pdao.insert_cart_option(cart_op);
-			}
+		for(int i=0; i<arr.size(); i++) {
+			JSONObject obj = (JSONObject) arr.get(i);
+			Map<String,Object> cart_op =new HashMap<String, Object>();
+			
+			cart_op.put("pidx", pIdx);
+			cart_op.put("uidx",cart.get("uidx"));
+			cart_op.put("didx",cart.get("didx"));
+			cart_op.put("cname",(String) obj.get("poname"));
+			cart_op.put("cprice",(String) obj.get("poprice"));
+			cart_op.put("ctotal_count",(Long) obj.get("count"));
+			
+			int result =pdao.insert_cart(cart_op);
+			
 		}
+				
 		
+		return "redirect:/my/myCartList";
 		
-		
-		return "my/myCartList";
 	}
 }

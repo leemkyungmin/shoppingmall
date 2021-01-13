@@ -1,6 +1,7 @@
 package com.lkm.shoppingmall.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ import com.lkm.shoppingmall.command.my.customer_svc_write;
 import com.lkm.shoppingmall.command.my.updateuserCommand;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.myDAO;
+import com.lkm.shoppingmall.dto.CartListDto;
 import com.lkm.shoppingmall.dto.CustomerServiceDto;
 
 @Controller
@@ -276,5 +278,27 @@ public class myController {
 		
 		return result+"";
 		
+	}
+	@RequestMapping("my/myCartList")
+	public String myCartList(HttpServletRequest req,Model model) {
+		
+		HttpSession session = req.getSession();
+		
+		Map<String,Object> cart = new HashMap<String, Object>();
+		String idx = (Integer) session.getAttribute("idx")+"";
+		if(session.getAttribute("type").equals("user")) {
+			cart.put("uidx",idx);
+			cart.put("didx",0);
+		} else {
+			cart.put("uidx",0);
+			cart.put("didx",idx);
+		}
+		
+		myDAO mdao = sqlsession.getMapper(myDAO.class);
+		ArrayList<CartListDto> cdto =mdao.get_myCart(cart);
+		System.out.println(cdto.size());
+		model.addAttribute("cdto", cdto);
+		
+		return "my/myCartList";
 	}
 }
