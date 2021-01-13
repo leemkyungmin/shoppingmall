@@ -30,12 +30,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.gson.JsonObject;
 import com.lkm.shoppingmall.command.product.Update_myproduct;
 import com.lkm.shoppingmall.command.product.myproductCommand;
 import com.lkm.shoppingmall.command.product.myproductinfoCommand;
 import com.lkm.shoppingmall.command.product.selectproduct;
 import com.lkm.shoppingmall.commom.Kakaopay;
 import com.lkm.shoppingmall.commom.command;
+import com.lkm.shoppingmall.dao.loginDAO;
+import com.lkm.shoppingmall.dao.myDAO;
 import com.lkm.shoppingmall.dao.productDAO;
 import com.lkm.shoppingmall.dto.buys_optionDto;
 import com.lkm.shoppingmall.dto.departmentDto;
@@ -526,5 +529,107 @@ public class productController {
 		}
 		
 	}
-	
+	@GetMapping("product/buy/login")
+	public String login(HttpServletRequest req,Model model) {
+		model.addAttribute("type", req.getParameter("type"));
+		return "login/PopupLogin";
+	}
+	@PostMapping("product/buy/loginchk")
+	@ResponseBody
+	public String loginchk(HttpServletRequest req) {
+		
+		String id= req.getParameter("id");
+		String pw= req.getParameter("pw");
+		String type =req.getParameter("type");
+		
+		loginDAO ldao = sqlsession.getMapper(loginDAO.class);
+		String result =null;
+		if(type.equals("user")) {
+			userDto udto =new userDto();
+			udto = ldao.userloginchk(id, pw);
+			System.out.println(udto);
+			if (udto != null && !(udto.getShow().toLowerCase().equals("n"))) {
+				req.getSession().setAttribute("idx", udto.getuIdx());
+				req.getSession().setAttribute("id", udto.getuSerid());
+				req.getSession().setAttribute("pw", udto.getuPw());
+				req.getSession().setAttribute("name", udto.getuName());
+				req.getSession().setAttribute("point", udto.getuPoint());
+				req.getSession().setAttribute("type", type);
+				result = "1";
+			} else {
+				result ="0";
+			}
+		} else {
+			departmentDto deptDTO =new departmentDto();
+			deptDTO.setdId(id);
+			deptDTO.setdPw(pw);
+			
+			departmentDto resultDTO =ldao.deptloginchk(deptDTO);
+			if (resultDTO != null && !(resultDTO.getShow().toLowerCase().equals("n"))) {
+				req.getSession().setAttribute("idx", resultDTO.getdIdx());
+				req.getSession().setAttribute("id", resultDTO.getdId());
+				req.getSession().setAttribute("pw", resultDTO.getdPw());
+				req.getSession().setAttribute("name", resultDTO.getdName());
+				req.getSession().setAttribute("point", resultDTO.getdPoint());
+				req.getSession().setAttribute("type", type);
+				req.getSession().setAttribute("buysell",  resultDTO.getdType());
+				result = "1";
+			} else {
+				result ="0";
+			}
+		}
+		System.out.println(req.getSession().getAttribute("idx"));
+		System.out.println(req.getSession().getAttribute("buysell"));
+		
+		return result;
+	}
+	@PostMapping("product/insert_cart")
+	public String insert_cart(HttpServletRequest req,Model model) throws ParseException {
+		
+		HttpSession session =req.getSession();
+		int pIdx = Integer.parseInt(req.getParameter("pIdx"));
+		
+		String option_arr = req.getParameter("selected_option");
+		JSONParser parser = new JSONParser();
+		JSONArray arr= (JSONArray) parser.parse(option_arr);
+		
+		String idx = (Integer) session.getAttribute("idx")+"";
+		String type =(String) session.getAttribute("type");
+		
+		productDAO pdao = sqlsession.getMapper(productDAO.class);
+		
+		Map<String, Object> cart =  new HashMap<String, Object>();
+		cart.put("pidx",pIdx);
+		
+		if(type.equals("user")) {
+			cart.put("uidx", idx);
+			cart.put("didx", 0);
+		} else {
+			cart.put("uidx", 0);
+			cart.put("didx", idx);
+		}
+		
+		System.out.println("pidx:"+pIdx); 
+		
+		int result =pdao.insert_cart(cart);
+		
+		if(result >0) {
+			for(int i=0; i<arr.size(); i++) {
+				JSONObject obj = (JSONObject) arr.get(i);
+				Map<String,Object> cart_op =new HashMap<String, Object>();
+				String coname = (String) obj.get("poname");
+				String coprice =(String) obj.get("poprice");
+				Long cocount = (Long) obj.get("count");
+				cart_op.put("coname",coname);
+				cart_op.put("coprice",coprice);
+				cart_op.put("cocount",cocount);
+				cart_op.put("cidx",cart.get("cidx"));
+				pdao.insert_cart_option(cart_op);
+			}
+		}
+		
+		
+		
+		return "my/myCartList";
+	}
 }

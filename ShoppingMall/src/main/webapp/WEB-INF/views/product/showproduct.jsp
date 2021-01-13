@@ -534,8 +534,7 @@
 												str +=tot_price.substring(point, point+3);
 												point+=3;
 											}
-											
-											
+																						
 											$('.totalcount').text(total_count);
 											$('.totalprice').text(str);
 											$('.span_bold.op1').text('옵션명 1');
@@ -554,69 +553,118 @@
 											var data_val =$(this).data('value');
 											if( $('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val() >1 ){
 												$('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val($('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val()-1);
-												
+												var total_price =0;
 												for(var i =0; i<option_arr.length; i++){
+													var option_obj =option_arr[i];
 													if(i ==id*1){
-														var option_obj =option_arr[i];
 														option_obj.count -=1;
 													}
+													total_price  += option_obj.poprice * option_obj.count;
 												}
+												console.log(option_arr);
+												var tot_price= total_price+'';
+												var point =tot_price.length %3;
+												var str =tot_price.substring(0,point);
+																						
+												while(point <tot_price.length){
+													if( str !=''){
+														str +=',';
+													}
+													str +=tot_price.substring(point, point+3);
+													point+=3;
+												}
+												
+												$('.totalprice').text(str);
+												
 												var aa = option_arr[id];
 												var price = aa.poprice;
 												var count = aa.count;
 												var total = price *count
-												console.log('total ='+total);
-												$('.option_buy_list ul li:nth-child('+(id+1)+') .price').val(total);
-												$('.option_buy_list ul li:nth-child('+(id+1)+') .price').text(total);
-												var total_price =$('.totalprice').text()*1;
-												var return_price =total_price - (price*1);
-												$('.totalprice').text(return_price);
+												
+												tot_price= total+'';
+												point =tot_price.length %3;
+												str =tot_price.substring(0,point);
+												while(point <tot_price.length){
+													if( str !=''){
+														str +=',';
+													}
+													str +=tot_price.substring(point, point+3);
+													point+=3;
+												}
+												
+												$('.option_buy_list ul li:nth-child('+(id+1)+') .price').text(str);
+												
 											}
 										});
 										$(document).on('click','.opcount_up',function(){
 											var id =$(this).data('id');
 											var data_val =$(this).data('value');
 											$('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val(($('.option_buy_list ul li:nth-child('+(id+1)+') #opcount').val())*1+1);
+											var total_price =0;
 											for(var i =0; i<option_arr.length; i++){
+												var option_obj =option_arr[i];
 												if(i ==id*1){
-													var option_obj =option_arr[i];
 													option_obj.count +=1;
-													break;
 												}
+												total_price += option_obj.poprice *option_obj.count;
 											}
+											var tot_price= total_price+'';
+											var point =tot_price.length %3;
+											var str =tot_price.substring(0,point);
+																					
+											while(point <tot_price.length){
+												if( str !=''){
+													str +=',';
+												}
+												str +=tot_price.substring(point, point+3);
+												point+=3;
+											}
+											
+											$('.totalprice').text(str);
 											var aa = option_arr[id];
 											var price = aa.poprice;
 											var count = aa.count;
 											var total =price * count;
-											console.log('price : ' + price);
-											console.log('count : ' + count);
-											console.log('total : ' + total);
-											$('.option_buy_list ul li:nth-child('+(id+1)+') .price').text(total);
-											var total_price =$('.totalprice').text()*1;
-											var return_price =total_price + (price*1);
-											$('.totalprice').text(return_price);
+											
+											tot_price= total+'';
+											point =tot_price.length %3;
+											str =tot_price.substring(0,point);
+											while(point <tot_price.length){
+												if( str !=''){
+													str +=',';
+												}
+												str +=tot_price.substring(point, point+3);
+												point+=3;
+											}
+											
+											$('.option_buy_list ul li:nth-child('+(id+1)+') .price').text(str);
+
+											
 										});
 										
 										$('.btn_controll input[type=button]').click(function(){
 											var data_remote = $(this).data('remote');
+											
+											var fm =$('#fm');
+											fm.attr('action','${pageContext.request.contextPath}/product/'+data_remote);
+											$('#selected_option').val(JSON.stringify(option_arr)); 
+											
 											if(${not empty sessionScope}){
-												if(${sessionScope.buysell eq 'sell'} &&  ${sessionScope.idx eq pdto.dIdx} ){
+												if(${sessionScope.buysell eq 'sell'} && ${sessionScope.idx eq pdto.dIdx} ){ 
 													alert('자기 물건은 구매하실수없습니다.');
 												} else {
 													if(option_arr.length >0){
-														var fm =$('#fm');
-														fm.attr('action','${pageContext.request.contextPath}/product/'+data_remote);
-														$('#selected_option').val(JSON.stringify(option_arr));
-														
+
 														fm.submit();
 														
 													} else {
 														alert('옵션을 선택해주세요');
 													}
-													
 												}
 											} else {
-												alert('로그인 정보없음');
+												var status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width=750, height=700, top=0,left=20"; 
+												window.open('${pageContext.request.contextPath}/product/buy/login?type='+data_remote,'로그인',status);
+												
 											}
 											
 										});
@@ -653,6 +701,7 @@
 							<input type="hidden" id="selected_option" name="selected_option">
 							<input type="hidden" id="pIdx" name="pIdx" value="${pdto.pIdx }">
 							<input type="button" id="insertcart" value="장바구니" data-remote="insert_cart">
+							<input type="hidden" id="dIdx" value=${pdto.dIdx }>
 							<input type="button" id="buyItme" value="구매하기" data-remote ="buy">
 						</form>
 					</div>

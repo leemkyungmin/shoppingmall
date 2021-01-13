@@ -203,5 +203,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM BUYS_OPTIONS
 		WHERE BIDX =#{bidx}
 	</select>
-	
+	<insert id="insert_cart" parameterType="Map">
+		<selectKey keyProperty="cidx" resultType="int" order="BEFORE">
+			SELECT CART_SEQ.NEXTVAL as cidx FROM DUAL
+		</selectKey>
+		INSERT INTO CART(
+			CIDX,
+			UIDX,
+			DIDX,
+			PIDX
+		) VALUES(
+			${cidx},
+			${uidx},
+			${didx},
+			${pidx}
+		)
+	</insert>
+	<insert id="insert_cart_option" parameterType="Map">
+		INSERT INTO CART_OPTION(
+			COIDX,
+			CONAME,
+			COPRICE,
+			COCOUNT,
+			CIDX
+		) VALUES(
+			CART_OPTION_SEQ.NEXTVAL,
+			'${coname}',
+			${coprice},
+			${cocount},
+			${cidx}
+		)
+	</insert>
 </mapper>

@@ -57,7 +57,7 @@ public class loginController {
 				request.getSession().setAttribute("type", type);
 				result = "1";
 			} else {
-				result ="-1";
+				result ="0";
 			}
 		}else {
 			String dId = request.getParameter("uSerid");
@@ -79,7 +79,7 @@ public class loginController {
 				request.getSession().setAttribute("buysell",  resultDTO.getdType());
 				result = "1";
 			} else {
-				result ="-1";
+				result ="0";
 			}
 						
 		}

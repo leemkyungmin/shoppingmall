@@ -1,0 +1,81 @@
+@charset "UTF-8";
+.wrap{
+	width: 700px;
+	margin-top: 85px;
+}
+.content .content_logo{
+	width: 100px;
+	margin: 0 auto;
+}
+.content .content_logo img{
+	width: 100px;
+	height: 46px;
+}
+.content .lcontent{
+	width: 100%;
+	margin:0 auto;
+	position: relative;
+}
+.content .lcontent .login_type{
+	width: 310px;
+	height:40px;
+    margin: 30px auto 20px;	
+    text-align: center;
+    font-size: 15px;
+}
+.content .lcontent .login_type .user{
+	width: 153px;
+	height: 40px;
+	border :1px solid black;
+	display:inline-block;
+	border-collapse: collapse;
+	line-height: 40px;
+	float:left;
+}
+.content .lcontent .login_type .user.selected {
+	background: red;
+	color:white;
+
+}
+.content .lcontent .login_type .dept{
+	width: 153px;
+	height: 40px;
+	border :1px solid black;
+	display:inline-block;
+	border-collapse: collapse;
+	line-height: 40px;
+	float:left;
+}
+.content .lcontent .login_type .dept.selected {
+	background: red;
+	color:white;
+}
+.content .lcontent .login_form {
+	width: 100%;
+	margin: 0 auto;
+}
+.content .lcontent .login_form .id_form,.pw_form,.login_btn,.find_info{
+	width: 304px;
+	margin: 0 auto;
+}
+
+.content .lcontent .login_form input[type=text],input[type=password]{
+	display:block;
+	width: 304px;
+	height: 40px;
+	border-collapse:collapse; 
+}
+.login_btn{
+	margin-top: 10px;
+}
+.login_btn input[type=button]{
+	width: 311px;
+	height: 40px;
+	background: red;
+	color:white;
+}
+.find_info{
+	margin-top:10px;
+	text-align: right;
+}
+	

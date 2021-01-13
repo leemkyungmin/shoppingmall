@@ -75,7 +75,7 @@
 		    LayerPopup.removeClass("show");
 		  }
 		});
-	$('.cookie-btn').click(function(){
+	$(document).on('click','.cookie-btn',function(){
 		var cookie_id = $(this).attr('id');
 		var del_cookie =Cookies.getJSON('query');
 		for(i = 0; i<del_cookie.length ; i++){

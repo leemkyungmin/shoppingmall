@@ -55,4 +55,8 @@ public interface productDAO {
 	
 	public Map<String,Integer> buy_total_price(String bidx);
 	public ArrayList<buys_optionDto> getBuy_options(String bidx);
+	
+	public int insert_cart(Map<String, Object> cart);
+	
+	public void insert_cart_option(Map<String, Object> cart_op);
 }
