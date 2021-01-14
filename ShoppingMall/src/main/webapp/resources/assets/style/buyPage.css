@@ -350,3 +350,14 @@ input[type=checkbox]{
 	color:red;
 	font-weight: bold;
 }
+#option_count{
+	width: 84px;
+	height: 30px;
+	text-align: right;
+	font-size: 15px;
+}
+.order_side.fixed{
+	position:fixed;
+	top:100px;
+	right: 200px;
+}

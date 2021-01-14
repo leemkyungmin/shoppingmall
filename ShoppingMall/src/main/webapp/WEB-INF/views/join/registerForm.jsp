@@ -5,7 +5,7 @@
 <style>
 	.register_wrap .register_img .join_person{
 		position:relative;
-		margin : 10px 300px 50px;
+		margin : 10px 200px 50px;
 		background: url("../resources/assets/images/register_img.gif") no-repeat 0 0;
 		background-size : 100%;
 		height: 500px;
@@ -34,7 +34,7 @@
 		
 	}
 	hr,.join_department{
-		margin: 0px 300px;
+		margin: 0px 200px;
 	}
 	.join_person .uResiter_btn .uResiter a{
 		font-size : 40px;
@@ -56,7 +56,7 @@
 		text-decoration: underline;
 	}
 	.register_wrap .user,.customer{
-		margin: 20px 300px 0px;
+		margin: 20px 200px 0px;
 	}
 	.join_department .department_choice li{
 		display:inline-block;
@@ -70,9 +70,6 @@
 	.join_department .department_choice li em span{
 		font-weight: bold;
 		color: red;
-	}
-	.department_choice{
-		padding-left: 200px;
 	}
 	.join_department .department_choice li a{
 		padding :10px 20px;

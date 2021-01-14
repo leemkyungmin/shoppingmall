@@ -232,7 +232,7 @@
 								<span id="guide" style="color:#999;display:none"></span><br/>
 								<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" >
 								</div>
-								<input type="hidden" id="dType" name="dType" value="${dType}=='buy' ? 1 : 0 ">
+								<input type="hidden" id="dType" name="dType" value="${dType}">   
 							</div>
 							<div class="btn-controll">
 								<input type="button" id="cancel" value="취소">
