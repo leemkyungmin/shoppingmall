@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -284,21 +285,44 @@ public class myController {
 		
 		HttpSession session = req.getSession();
 		
-		Map<String,Object> cart = new HashMap<String, Object>();
-		String idx = (Integer) session.getAttribute("idx")+"";
-		if(session.getAttribute("type").equals("user")) {
-			cart.put("uidx",idx);
-			cart.put("didx",0);
-		} else {
-			cart.put("uidx",0);
-			cart.put("didx",idx);
+		if(session.getAttribute("idx") ==null) {
+			return "redirect:/login";
+		}
+		else {
+			Map<String,Object> cart = new HashMap<String, Object>();
+			String idx = (Integer) session.getAttribute("idx")+"";
+			if(session.getAttribute("type").equals("user")) {
+				cart.put("uidx",idx);
+				cart.put("didx",0);
+			} else {
+				cart.put("uidx",0);
+				cart.put("didx",idx);
+			}
+			
+			myDAO mdao = sqlsession.getMapper(myDAO.class);
+			ArrayList<CartListDto> cdto =mdao.get_myCart(cart);
+			System.out.println(cdto.size());
+			model.addAttribute("cdto", cdto);
+			
+			return "my/myCartList";
 		}
 		
-		myDAO mdao = sqlsession.getMapper(myDAO.class);
-		ArrayList<CartListDto> cdto =mdao.get_myCart(cart);
-		System.out.println(cdto.size());
-		model.addAttribute("cdto", cdto);
+	}
+	@PostMapping("my/update_cart_count")
+	@ResponseBody
+	public String update_cart_count(HttpServletRequest req) {
 		
-		return "my/myCartList";
+		String cIdx= req.getParameter("cIdx");
+		String count =req.getParameter("count");
+		
+		Map<String, Object> cart = new HashMap<String, Object>();
+		cart.put("cidx",cIdx);
+		cart.put("count",count);
+		
+		myDAO mdao = sqlsession.getMapper(myDAO.class);
+		
+		int result = mdao.update_cart_count(cart);
+		
+		return result+"";
 	}
 }

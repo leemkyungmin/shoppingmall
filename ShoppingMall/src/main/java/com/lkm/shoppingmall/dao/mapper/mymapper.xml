@@ -130,8 +130,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	WHERE CIDX = #{cIdx}
 	 </select>
 	 <select id="get_myCart" parameterType="Map" resultType="com.lkm.shoppingmall.dto.CartListDto">
-	 	SELECT p.PNAME,p.PORDER_PRICE,p.PIDX,c.*
-		FROM PRODUCTS p,CART c
-		WHERE c.pidx = p.pidx and c.uidx=${uidx} AND c.didx =${didx}
+	 	SELECT d.dName,p.PSUMNAIL,p.PNAME,p.PORDER_PRICE,p.PIDX,c.*
+		FROM PRODUCTS p,CART c,DEPT d
+		WHERE c.pidx = p.pidx and c.uidx=${uidx} AND c.didx =${didx} and d.DIDX = p.DIDX
+		ORDER BY c.PIDX ASC , c.CIDX ASC
 	 </select>
+	 <update id="update_cart_count" parameterType="Map">
+	 	UPDATE CART 
+	 	SET CTOTAL_COUNT =${count}
+	 	WHERE CIDX =${cidx}
+	 </update>
 </mapper>

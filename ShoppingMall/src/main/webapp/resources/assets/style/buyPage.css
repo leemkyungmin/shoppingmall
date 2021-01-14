@@ -95,9 +95,15 @@ a{
     letter-spacing: 0;
 }
 .wrap_title .buy_steps ul .this_step{
-	background: black;
-	color: white;
+	background: red;
 	font-weight: bold;	
+	border-radius: 25px;
+}
+.wrap_title .buy_steps ul .this_step >a{
+	color: white;
+}
+.wrap_title .buy_steps ul .this_step >span{
+	color: white;
 }
 .order_addr_info .user_info{
 	min-height: 200px;
@@ -270,5 +276,77 @@ a{
 }
 .total .tot_price{
 	font-size: 25px;
+	font-weight: bold;
+}
+.cart_content{
+	width: 100%;
+}
+.cart_content ul li{
+	height: 150px;
+	width: 100%;
+}
+.check_box{
+	vertical-align: top;
+}
+.cart_pSumnail,.check_box,.cart_procut_content,.cart_select_optrion,.cart_option_count,.cart_option_total_price,.post_price{
+	display:inline-block;
+}
+.cart_pSumnail{
+	height: 150px;
+}
+.cart_pSumnail img{
+	width: 120px;
+	height: 120px;
+}
+.cart_content ul{
+	list-style: none;
+	padding:0;
+}
+.cart_option_total_price ,.post_price,.cart_procut_content{
+	vertical-align: top;
+	height: 150px;
+	padding: 20px 10px;
+	
+}
+.cart_option_total_price ,.post_price{
+	width: 148px;
+	border-left: 1px solid lightgray;
+	text-align: center;
+}
+.cart_procut_content{
+	width: 380px;
+}
+input[type=checkbox]{
+	border-radius: 10px;
+}
+.contents >div{
+	border: 1px solid lightgray;
+	border-collapse: collapse;
+	float: left;
+}
+.store_hap{
+	display:block;
+	width: 100%;
+	padding: 10px 40px 30px 40px;
+	border-bottom: 1px solid gray;
+}
+.store_hap >div{
+	display:inline-block;
+	
+}
+.store_hap .store_title .st_title,.st_product_title,.stoe_post_title,.total{
+	font-size: 20px;
+}
+.st_product_title,.stoe_post_title{
+	color:gray;
+	font-size: 17px;
+}
+.store_product_price,.store_post_price,.st_title{
+	color:black;
+	font-weight: bold;
+	font-size: 20px;
+}
+.store_total_price{
+	color:red;
 	font-weight: bold;
 }

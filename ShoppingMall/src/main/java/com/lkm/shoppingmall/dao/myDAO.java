@@ -39,4 +39,6 @@ public interface myDAO {
 	public int update_custeomr_svc(Map<String,Object> query);
 	
 	public ArrayList<CartListDto> get_myCart(Map<String,Object> data);
+	
+	public int update_cart_count(Map<String, Object> cart);
 }

@@ -2,138 +2,117 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <!DOCTYPE html >
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주문/결제</title>
+<title>카트내역</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/style/buyPage.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
+
 <script type="text/javascript">
+
 	$().ready(function(){
-		var arr = new Object();
-		arr= ${arr};
-		var obj_arr = new Array();
-		for(var i=0; i<arr.length; i++){
-			obj_arr.push(arr[i]);
-		}
-		$('#buy_btn').val('총 '+obj_arr.length +'개 결제하기');
-		   
-		var html ='';
-		/*  테스트용*/
-		
-		var option_total_price =0;
-		var hap_price=0;
-		for(var i=0; i<obj_arr.length; i++){
-			var obj =new Object();
-			obj =obj_arr[i];
-			var price = obj.poprice * obj.count+"";
-			var point =price.length %3;
-			var str =price.substring(0,point);
-			hap_price+=obj.poprice * obj.count;
-			option_total_price += obj.poprice * obj.count;
-			
-			while(point <price.length){
-				if( str !=''){
-					str +=',';
-				}
-				str +=price.substring(point, point+3);
-				point+=3;
-			}
-			
-			
-			
-			html +='<li>';
-			html +='<div class="product_body">';
-			html +='<div class="product_img">';
-			html +='<img src="${pageContext.request.contextPath}/resources/images/Department_sumnail/${pdto.pSumnail}">';
-			html +='</div>';
-			html +='<div class="product_info_body">';
-			html +='<div class="pName">';
-			html +='${pdto.pName}';
-			html +='</div>';
-			html +='<div class="producct_option">';
-			html +='</div>';
-			html +='<div class="order_count">';
-			html += '옵션:'+obj.topponame +' / '+obj.poname;			
-			html +='</div>';
-			html +='</div>';
-			html +='<div class="option_count">';
-			html +=obj.count+'개';
-			html +='</div>';
-			html +='<div class="option_price">';
-			html +='<span class="span_bold">';
-			html += str+'원';
-			html +='</span>';
-			html +='</div>';
-			if( i ==0 || obj[i-1] != obj[i]){
-				
-				var oprice =${pdto.pOrder_price}+"";
-				
-				var p = oprice.length%3;
-				var s =oprice.substring(0,p);
-				
-				while(p < oprice.length){
-					if( s !=''){
-						s +=',';
-					}
-					s +=oprice.substring(p,p+3);
-					p+=3;
-				}
-				$('.pOrder_price').text(s+'원');
-				html +='<div class="order_price">';
-				html +=s+'원<br/>';
-				html +='<span class="porder">배송비</span>';
-				html +='</div>';
-			}else {
-				if( i ==obj_arr.length-1){
-					html +='<div class="empty-box" style="border-bottom:1px solid lightgray">';
-					html +='</div>';
-				} else {
-					html +='<div class="empty-box">';
-					html +='</div>';
-				}
-				
-			}
-			
-			
-			html +='</div>';
-			html +='</li>';
-			
-			//$('.producct_option').append('옵션:'+obj.topponame +' / '+obj.poname)
-		}
-		var pr = hap_price+"";
-		var po =pr.length %3;
-		var strs =pr.substring(0,po);
+		checkboxChange();
+		store_hap();
+	});
 	
-		while(po <pr.length){
-			if( strs !=''){
-				strs +=',';
-			}
-			strs +=pr.substring(po,po+3);
-			po+=3;
-		}
-		console.log(str);
-		$('.ptotal_price').text(strs+"원");
+	
+	function commna(price){
+		console.log(price);
+		var point = price.length%3;
+		var str = price.substring(0,point);
 		
-		option_total_price +=${pdto.pOrder_price};
-		option_total_price +='';
-		var point =option_total_price.length %3;
-		var str =option_total_price.substring(0,point);
-		while(point <option_total_price.length){
-			if( str !=''){
+		while(point <price.length){
+			if(str !=''){
 				str +=',';
 			}
-			str +=option_total_price.substring(point, point+3);
-			point+=3;
+			str += price.substring(point,point+3);
+			point  +=3;
 		}
+		console.log(str);
+		return str;
+	}
+	
+	function checkboxChange(){
+		var count = $('.order_addr_info ul li').length;
+		var product_total =0;
+		var post_total=0;
+		var total_count =0;
+		for(var i=0; i<count; i++){
+			
+			if($('.order_addr_info ul li:nth-child('+(i+1)+') input[type=checkbox]').prop('checked')){
+				product_total += $('.order_addr_info ul li:nth-child('+(i+1)+') .cart_option_total_price .span_bold').text().replace(/,/g, "")*1;
+				if( $('.order_addr_info ul li:nth-child('+(i+1)+')' ).data('value') != $('.order_addr_info ul li:nth-child('+(i+2)+')' ).data('value') || i==count-1){
+					post_total += $('.order_addr_info ul li:nth-child('+(i+1)+') .post_price .span_bold' ).text().replace(/,/g, "")*1;
+				}	
+				total_count++;
+			}
+			
+			
+		}
+		var total = product_total*1 +post_total*1;
+		var ptotal =commna(product_total+'');	
+		$('.pro_price').text(ptotal);
 		
-		$('.tot_price').append(str+'원'); 
-		$('#total_price').val(option_total_price*1);
-		$('.order_list').append(html);
+		var posttotal= commna(post_total+'');	
+		
+		$('.post_total_price').text(posttotal)
+		
+		var ptotal= commna(total+''); 
+		$('.totalprice').text(ptotal)
+		
+		$('#buy_btn').val('총 '+total_count+'개 주문하기');
+	}
+	
+	function store_hap(){
+		var count =$('.border_cart').length;
+		
+		for(var i=1; i<count+1; i++){
+			var li_count =$('.border_cart:nth-child('+i+') .cart_content ul li').length;
+			var product_price = 0;
+			var post_price =0;
+			var total_price =0;
+			for(var j=1; j <li_count+1; j++){
+				if($('.border_cart:nth-child('+i+') .cart_content ul li:nth-child('+j+') input[type=checkbox]').prop('checked')){
+					product_price += $('.border_cart:nth-child('+i+') .cart_content ul li:nth-child('+j+') .cart_option_total_price .span_bold').text().replace(/,/g, "")*1;
+					post_price +=$('.border_cart:nth-child('+i+') .cart_content ul li:nth-child('+j+') .post_price .span_bold').text().replace(/,/g, "")*1;
+					console.log('product_price : '+product_price);
+					console.log('post_price : '+post_price);
+				}
+			}
+			total_price = product_price + total_price;
+			$('.border_cart:nth-child('+i+') .store_hap .store_product_price').text(commna(product_price+''));
+			$('.border_cart:nth-child('+i+') .store_hap .store_post_price').text(commna(post_price+''));
+			$('.border_cart:nth-child('+i+') .store_hap .store_total_price').text(commna(total_price+''));
+		}
+	}
+	
+	$(document).on('change','#cidx',function(){
+		
+		checkboxChange();
+		store_hap();
+		
 	});
-</script>
+	$(document).on('change','#option_count',function(){
+		var data_id = $(this).data('id');
+		var count =$(this).val();
+		$.ajax({
+			url:'${pageContext.request.contextPath}/my/update_cart_count',
+			type:'post',
+			data:'cIdx='+data_id+'&count='+count,
+			success:function(data){
+				history.go(0);
+			},error:function(){
+				alert('통신실패');
+			}
+		});
+	});
+	
+</script>  
+
 </head>
 <body>
 	
@@ -146,18 +125,18 @@
 			</div>
 			<div class="wrap_title">
 				<div class="wtitle">
-					<span class="span_bold_sizeup">주문결제</span>
+					<span class="span_bold_sizeup">카트리스트</span>
 				</div>
 				<div class="buy_steps">
 					<ul>
-						<li>
+						<li class="this_step">
 							<a href="${pageContext.request.contextPath }/product/myCart">
 								<span class="myCart">
 									01.장바구니
 								</span>
 							</a>
 						</li>
-						<li class="this_step">
+						<li >
 							<span class="order_buy">
 								02.주문결제
 							</span>
@@ -172,11 +151,91 @@
 			</div>
 			<form  name="form" id="form">
 				<div class="content">
-					
+														
 					<div class="order_addr_info">
-						###########################################
-						####### db에서 업체별 데이터 구분해서  묶어서 보여주기 ..
-						###########################################
+						<c:forEach var="cart" items="${cdto }" varStatus="i">
+							
+							<c:if test="${i.count eq 1 or cart.dName  ne cdto[i.count-2].dName }">
+								<div class="border_cart">
+									<div class="cart_dName">
+											<h1>${cart.dName}</h1>
+									</div>
+									<div class="cart_content">
+										<ul data-value="${cart.pIdx}">
+							</c:if>
+										<li data-id="${cart.cIdx }" data-value="${cart.pIdx}">
+											<div class="contents">
+												<div class="check_box">
+													<input type="checkbox" id="cidx" checked>
+												</div>
+												<div class="cart_pSumnail">
+													<img  src="${pageContext.request.contextPath }/resources/images/Department_sumnail/${cart.pSumnail}">
+												</div>
+												<div class="cart_procut_content">
+													<div class="pName">
+														${cart.pName}
+													</div>
+													<div class="cart_select_option">
+														${cart.cName}
+													</div>
+													<div class="cart_option_count">
+
+														<input type="number" id="option_count" value="${cart.cTotal_Count}" data-id="${cart.cIdx }">
+													</div>
+												</div>
+												<div class="cart_option_total_price">
+													<span class="span_bold"><fmt:formatNumber value="${cart.cPrice * cart.cTotal_Count}" pattern="#,###" /></span>원
+												</div>
+												
+												<div class="post_price">
+													<span class="span_bold">
+														<fmt:formatNumber value="${cart.pOrder_price}" pattern="#,###" />
+													</span>
+													원
+												</div>
+											</div>
+										</li>
+							<c:if test="${i.count eq cdto.size() or cart.dName ne cdto[i.count].dName }">
+										</ul>
+									</div>
+									<div class="store_hap" data-id='${cart.dName}'> 
+										<div class="store_title">
+											<span class="st_title">
+												스토어 주문 합계
+											</span>
+										</div>
+										<div class="store_product">
+											<span class="st_product_title">
+												상품금액
+												<span class="store_product_price">
+													0
+												</span>원+
+											</span>
+										</div>
+										<div class="store_post">
+											<span class="stoe_post_title">
+												배송비
+												<span class="store_post_price">
+													0
+												</span>원 =
+											</span>
+										</div>
+										<div class="store_total">
+											<span class="total">
+											
+												<span class="store_total_price">
+													0
+												</span>원
+											</span>
+										</div>
+										
+									</div>
+								</div>
+							</c:if>
+							
+							
+							
+						</c:forEach>
 					</div>
 					<div class="order_side">
 						<div class="total_order">
@@ -189,7 +248,7 @@
 										상품 금액
 									</div>
 									<div class="ptotal_price">
-										..~금액 부분
+										<span class="pro_price">0</span>원
 									</div>
 								</div>
 								<div class="total_order_Price">
@@ -197,7 +256,7 @@
 										배송료
 									</div>
 									<div class="pOrder_price">
-										
+										<span class="post_total_price">0</span>원
 									</div>
 								</div>
 								<div class="total">
@@ -205,6 +264,8 @@
 										합계
 									</div>
 									<div class="tot_price">
+										<span class="totalprice">0</span>원
+										
 									</div>
 								</div>
 							</div>
