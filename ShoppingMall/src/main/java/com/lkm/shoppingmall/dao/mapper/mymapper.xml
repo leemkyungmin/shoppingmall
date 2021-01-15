@@ -130,7 +130,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	WHERE CIDX = #{cIdx}
 	 </select>
 	 <select id="get_myCart" parameterType="Map" resultType="com.lkm.shoppingmall.dto.CartListDto">
-	 	SELECT d.dName,p.PSUMNAIL,p.PNAME,p.PORDER_PRICE,p.PIDX,c.*
+	 	SELECT d.dName,p.DIDX,p.PSUMNAIL,p.PNAME,p.PORDER_PRICE,p.PIDX,c.*
 		FROM PRODUCTS p,CART c,DEPT d
 		WHERE c.pidx = p.pidx and c.uidx=${uidx} AND c.didx =${didx} and d.DIDX = p.DIDX
 		ORDER BY c.PIDX ASC , c.CIDX ASC
@@ -140,4 +140,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	SET CTOTAL_COUNT =${count}
 	 	WHERE CIDX =${cidx}
 	 </update>
+	 
+	 <insert id="insert_buy" parameterType="Map">
+		<selectKey keyProperty="bidx" resultType="int" order="BEFORE">
+			SELECT BUYS_SEQ.NEXTVAL as bidx FROM DUAL
+		</selectKey>
+		
+		INSERT INTO BUYS(
+			BIDX,
+			TOTAL_PRICE,
+			BDATE,
+			PIDX,
+			BORDER_NUM,
+			BORDER_STATUS,
+			UIDX,
+			DIDX,
+			PDIDX,
+			BORDER_MENT
+		) VALUES(
+			${bidx},
+			${total_price},
+			sysdate,
+			${pidx},
+			'${border_num}',
+			${border_status},
+			${uidx},
+			(SELECT DIDX FROM PRODUCTS WHERE PIDX=${pidx}),
+			${pdidx},
+			'${border_ment}'	
+		)
+	</insert>
+	 <insert id="buy_option" parameterType="Map">
+		INSERT INTO BUYS_OPTIONS(
+			BOIDX,
+			BONAME,
+			BOPRICE,
+			BOCOUNT,
+			BIDX
+		) VALUES(
+			BUYS_OPTIONS_SEQ.NEXTVAL,
+			'${boname}',
+			${boprice},
+			${count},
+			${bidx}
+		)
+		
+	</insert>
+	<delete id="delete_cart" parameterType="String">
+		DELETE FROM CART
+		WHERE CIDX=#{cidx}
+	</delete>
+	 
 </mapper>

@@ -107,15 +107,9 @@
 	$('#move_orderlist').click(function(){
 		location.href="${pageContext.request.contextPath}/order/OrderList";
 	});
-	/*$(document).on('mouseout','#test',function(){
-		setTimeout(() => {
-			$('.c_layer').removeClass('active');
-			$(document).on('mouseover','.c_layer',function(){
-				$('.c_layer').addClass('active');
-			});
-		}, 500);
-		
-	});*/
+	$('.user-icon').click(function(){
+		location.href="${pageContext.request.contextPath}/my/myCartList";
+	});
 	$(document).mouseup(function (e){
 		  var LayerPopup = $(".c_layer");
 		  if(LayerPopup.has(e.target).length === 0){

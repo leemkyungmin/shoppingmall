@@ -41,4 +41,10 @@ public interface myDAO {
 	public ArrayList<CartListDto> get_myCart(Map<String,Object> data);
 	
 	public int update_cart_count(Map<String, Object> cart);
+	
+	public int insert_buy(Map<String,Object> buy);
+	
+	public void buy_option(Map<String,Object> buys_option);
+	
+	public void delete_cart(String cidx);
 }

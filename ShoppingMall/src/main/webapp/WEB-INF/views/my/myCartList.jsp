@@ -17,6 +17,7 @@
 	$().ready(function(){
 		checkboxChange();
 		store_hap();
+		options();
 		
 		$(window).scroll(function(){
 			var offsetY = $(document).scrollTop();
@@ -27,9 +28,6 @@
 			}else {
 				$('.order_side').removeClass('fixed');
 			}
-			
-			
-			
 		});
 		
 	});
@@ -56,6 +54,8 @@
 		var product_total =0;
 		var post_total=0;
 		var total_count =0;
+		
+		var dName_list =new Array();
 		for(var i=0; i<count; i++){
 			var li_count =$('.border_cart:nth-child('+(i+1)+') .cart_content ul li').length;
 			for(var j=0; j<li_count; j++){
@@ -67,17 +67,23 @@
 						console.log("["+ j+"]post_total : "+post_total);
 					}	
 					total_count++;
-					
-					
 				}
+				dName_list.push($('.border_cart:nth-child('+(i+1)+') .cart_dName').text().trim());
 			}
-			
-			
-			
 		}
 		
+		
+		for(var k=dName_list.length-1; k>=0; k--){
+			
+			if(dName_list[k] == dName_list[k-1]){
+				dName_list.splice(i,1);
+			} 
+		}
+		var dName=dName_list[0]+'외'+(dName_list.length-1) +'개업체';
+		$('#seller').val(dName);
 		var total = product_total*1 +post_total*1;
-		var ptotal =commna(product_total+'');
+		$('#total_price').val(total);
+		var ptotal =commna(product_total+''); 
 		
 		$('.pro_price').text(ptotal);
 		
@@ -86,8 +92,7 @@
 		$('.post_total_price').text(posttotal)
 		
 		var ptotal= commna(total+''); 
-		$('.totalprice').text(ptotal)
-		
+		$('.totalprice').text(ptotal);
 		$('#buy_btn').val('총 '+total_count+'개 주문하기');
 	}
 	
@@ -109,20 +114,38 @@
 					
 				}
 			}
-			console.log(product_price);
-			console.log(post_price);
-			
 			total_price = product_price + post_price;
 			$('.border_cart:nth-child('+i+') .store_hap .store_product_price').text(commna(product_price+''));
 			$('.border_cart:nth-child('+i+') .store_hap .store_post_price').text(commna(post_price+''));
 			$('.border_cart:nth-child('+i+') .store_hap .store_total_price').text(commna(total_price+''));
 		}
 	}
+	function options(){
+		var count = $('.cart_content').length;
+		var arr =new Array();
+		for(var i=0; i<count; i++){
+			var li_count =$('.border_cart:nth-child('+(i+1)+') .cart_content ul li').length;
+			for(var j=0; j<li_count; j++){
+				if($('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') input[type=checkbox]').prop('checked')){
+					var obj = new Object();
+					obj.poidx=$('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+')').data('value');
+					obj.topponame ='';
+					obj.poname = $('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') .cart_select_option').text().trim();
+					obj.poprice =  ($('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') .cart_option_total_price .span_bold').text().replace(/,/g, "")*1)/$('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') #option_count').val();
+					obj.count = $('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') #option_count').val();
+					arr.push(obj);
+				}
+			}
+
+		}
+		$('#options').val(JSON.stringify(arr));
+	}
 	
 	$(document).on('change','#cidx',function(){
 		
 		checkboxChange();
 		store_hap();
+		options();
 		
 	});
 	$(document).on('change','#option_count',function(){
@@ -299,12 +322,10 @@
 								</div>
 							</div>
 							<div class="btn_control">
-								<input type="hidden" id="Name" name="Name" value="${udto eq null ? deptdto.dName :udto.uName }">
-								<input type="hidden" id="seller" name="seller" value="${pdto.pName }">
-								<input type="hidden" id="options" name="options" value=${arr}>
+								<input type="hidden" id="Name" name="Name" value="${sessionScope.name }">
+								<input type="hidden" id="seller" name="seller">
+								<input type="hidden" id="options" name="options">
 								<input type="hidden" id="total_price" name="total_price">
-								<input type="hidden" id="pidx" name="pidx" value="${pdto.pIdx }">
-								<input type="hidden" id="didx" name="didx" value="${pdto.dIdx }">
 								<input type="button"  id="buy_btn" name="buy_btn"  > 
 							</div>
 						</div>
@@ -317,13 +338,7 @@
 					
 					$().ready(function(){
 						$(document).on('click','#buy_btn',function(){
-							var req_option = $('#req_option');
-							if(req_option.val() ==''){
-								alert('배송 오쳥사항을 입력해주세요');
-								req_option.focus();
-								return ;
-							} else {
-								
+							
 								var Name =$('#Name').val();				
 								var seller =$('#seller').val();				
 								var options =$('#options').val();			
@@ -331,9 +346,9 @@
 								
 								console.log('###########'); 
 								$.ajax({
-									url:'${pageContext.request.contextPath}/product/buy/kakaopay',
+									url:'${pageContext.request.contextPath}/my/cart/kakaopay',
 									method:'post',
-									data :'Name='+Name+'&seller=' + seller + '&options=' + options + '&total_price=' + total_price + '&req_option=' + req_option.val(),
+									data :'Name='+Name+'&seller=' + seller + '&options=' + options + '&total_price=' + total_price,
 									success:function(data){
 										
 										var status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width=700, height=700, top=0,left=20"; 
@@ -343,7 +358,7 @@
 									}
 								});
 								
-							}
+							
 						});
 					})    
 					

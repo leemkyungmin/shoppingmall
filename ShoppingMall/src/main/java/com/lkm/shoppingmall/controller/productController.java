@@ -425,9 +425,7 @@ public class productController {
 		String border_status =req.getParameter("border_status");
 		String border_ment =req.getParameter("border_ment");
 		String didx=  req.getParameter("didx");
-		
-		
-		
+
 		productDAO pdao = sqlsession.getMapper(productDAO.class);
 		int bidx =0;
 		try {
