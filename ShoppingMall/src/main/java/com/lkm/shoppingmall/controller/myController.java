@@ -361,7 +361,8 @@ public class myController {
 	
 	
 	@PostMapping("my/cart/insert")
-	public String insert_cart(HttpServletRequest req) throws ParseException {
+	@ResponseBody
+	public void insert_cart(HttpServletRequest req) throws ParseException {
 		
 		HttpSession session = req.getSession();
 		String total_price =req.getParameter("total_price");
@@ -400,7 +401,7 @@ public class myController {
 				buys.put("pdidx",idx);
 			}
 			
-			int price =0;
+			int price =0; 
 			Map<String, Object> buys_options = new HashMap<String, Object>();
 			for(int j=0; j<arr.size(); j++) {
 				JSONObject obj = (JSONObject) arr.get(j);
@@ -429,8 +430,6 @@ public class myController {
 				}
 			}
 		}
-		
-		
-		return "true";
+
 	}
 }

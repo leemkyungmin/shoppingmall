@@ -107,7 +107,7 @@
 	$('#move_orderlist').click(function(){
 		location.href="${pageContext.request.contextPath}/order/OrderList";
 	});
-	$('.user-icon').click(function(){
+	$('#move_myCartList').click(function(){
 		location.href="${pageContext.request.contextPath}/my/myCartList";
 	});
 	$(document).mouseup(function (e){
@@ -197,7 +197,7 @@
 						<li id="move_orderlist" class="user-icon">
 							<i class="fas fa-truck-moving fa-2x"></i>
 						</li>
-						<li class="user-icon">
+						<li class="user-icon" id="move_myCartList">
 							<i class="fas fa-shopping-cart fa-2x"></i>
 						</li>
 					</ul>

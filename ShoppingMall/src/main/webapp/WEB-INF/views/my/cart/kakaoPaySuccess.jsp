@@ -20,7 +20,7 @@
 				url:'${pageContext.request.contextPath}/my/cart/insert',
 				method:'post',
 				data:'total_price='+total_price+'&border_num='+border_num+'&options='+options+'&border_status='+border_status,
-				success:function(data){
+				success:function(){
 					
 					opener.location.href="${pageContext.request.contextPath}/order/OrderList";
 					window.close();

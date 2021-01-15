@@ -121,7 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 		CTYPE ='${cType}',
 	 		CTITLE='${cTitle}',
 	 		CCONTENT ='${cContent}'
-	 	WHERE CIDX =${param1}
+	 	WHERE CIDX =${cIdx}
 	 	
 	 </update>
 	 <select id="getReview" parameterType="String" resultType="com.lkm.shoppingmall.dto.customer_service_reviewDto">

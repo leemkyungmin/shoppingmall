@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../Template/header.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
-<!DOCTYPE html >
-<html>
-<head>
-<meta charset="UTF-8">
-<title>카트내역</title>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/style/buyPage.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
@@ -133,7 +130,8 @@
 					obj.poname = $('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') .cart_select_option').text().trim();
 					obj.poprice =  ($('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') .cart_option_total_price .span_bold').text().replace(/,/g, "")*1)/$('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') #option_count').val();
 					obj.count = $('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') #option_count').val();
-					arr.push(obj);
+					obj.cidx =$('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+')').data('id');
+					arr.push(obj); 
 				}
 			}
 
@@ -165,16 +163,10 @@
 	
 </script>  
 
-</head>
-<body>
 	
 	<div class="wrap">
 		<div class="wrap_content">
-			<div class="wrap_header">
-				<a href="${pageContext.request.contextPath }/index">
-					<img  src="${pageContext.request.contextPath}/resources/images/쇼핑몰_로고.PNG"> 
-				</a>
-			</div>
+			
 			<div class="wrap_title">
 				<div class="wtitle">
 					<span class="span_bold_sizeup">카트리스트</span>

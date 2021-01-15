@@ -50,7 +50,7 @@
 					/<a href="${pageContext.request.contextPath }/my/deleteuser">탈퇴</a>
 				</div>
 				<div class="side-item">
-					<a href="">나의 배송지 관리</a>
+					<a href="${pageContext.request.contextPath }/my/myCartList">카트</a>
 				</div>
 			</div>
 		</div>
