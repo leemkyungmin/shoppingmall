@@ -27,84 +27,148 @@ public class productsDto {
 	int dIdx;
 	int pOrder_price;
 	String pSumnail;
+	String pTag;
+	
+	
 	
 	public productsDto() {}
-	
+
+
+
+	public int getpIdx() {
+		return pIdx;
+	}
+
+
+
+	public void setpIdx(int pIdx) {
+		this.pIdx = pIdx;
+	}
+
+
+
+	public String getpName() {
+		return pName;
+	}
+
+
+
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+
+
+
+	public int getpRice() {
+		return pRice;
+	}
+
+
+
+	public void setpRice(int pRice) {
+		this.pRice = pRice;
+	}
+
+
+
+	public int getpRice_per() {
+		return pRice_per;
+	}
+
+
+
+	public void setpRice_per(int pRice_per) {
+		this.pRice_per = pRice_per;
+	}
+
+
+
 	public float getpRating() {
 		return pRating;
 	}
+
+
 
 	public void setpRating(float pRating) {
 		this.pRating = pRating;
 	}
 
-	public int getpIdx() {
-		return pIdx;
-	}
-	public void setpIdx(int pIdx) {
-		this.pIdx = pIdx;
-	}
-	public String getpName() {
-		return pName;
-	}
-	public void setpName(String pName) {
-		this.pName = pName;
-	}
-	public int getpRice() {
-		return pRice;
-	}
-	public void setpRice(int pRice) {
-		this.pRice = pRice;
-	}
-	public int getpRice_per() {
-		return pRice_per;
-	}
-	public void setpRice_per(int pRice_per) {
-		this.pRice_per = pRice_per;
-	}
+
+
 	public Date getpDate() {
 		return pDate;
 	}
+
+
+
 	public void setpDate(Date pDate) {
 		this.pDate = pDate;
 	}
+
+
+
 	public int getdIdx() {
 		return dIdx;
 	}
+
+
+
 	public void setdIdx(int dIdx) {
 		this.dIdx = dIdx;
 	}
+
+
 
 	public int getpOrder_price() {
 		return pOrder_price;
 	}
 
+
+
 	public void setpOrder_price(int pOrder_price) {
 		this.pOrder_price = pOrder_price;
 	}
+
+
 
 	public String getpSumnail() {
 		return pSumnail;
 	}
 
+
+
 	public void setpSumnail(String pSumnail) {
 		this.pSumnail = pSumnail;
 	}
 
-	public productsDto(int pIdx,float pRating, String pName, int pRice, int pRice_per, Date pDate, int dIdx, int pOrder_price,
-			String pSumnail) {
+
+
+	public String getpTag() {
+		return pTag;
+	}
+
+
+
+	public void setpTag(String pTag) {
+		this.pTag = pTag;
+	}
+
+
+
+	public productsDto(int pIdx, String pName, int pRice, int pRice_per, float pRating, Date pDate, int dIdx,
+			int pOrder_price, String pSumnail, String pTag) {
 		super();
-		this.pRating =pRating;
 		this.pIdx = pIdx;
 		this.pName = pName;
 		this.pRice = pRice;
 		this.pRice_per = pRice_per;
+		this.pRating = pRating;
 		this.pDate = pDate;
 		this.dIdx = dIdx;
 		this.pOrder_price = pOrder_price;
 		this.pSumnail = pSumnail;
+		this.pTag = pTag;
 	}
 	
-	
-	
+		
 }

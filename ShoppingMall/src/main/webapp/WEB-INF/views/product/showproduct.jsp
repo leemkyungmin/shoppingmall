@@ -32,6 +32,39 @@
 	    content: '';
 	}
 </style>
+<script>
+	$().ready(function(){
+		var pidx =${pdto.pIdx};
+		
+		var arr =  new Array();
+		arr =localStorage.getItem('recent_show_product');
+		
+		if(arr ==null){
+			localStorage.setItem('recent_show_product',"[{\"pidx\":\""+pidx+"\"}]");
+		} else {
+			
+			for(var i=0; i<arr.length; i++){
+				for(key in arr[i]){
+					if(arr[i][key]==pidx){
+						arr=JSON.parse(JSON.stringify(json_list).replace(/(,null|null,)/g,''));
+						break;
+					}
+				}
+			}
+			 
+			arr.push({
+				pidx:pidx,
+			});
+			if(arr.length > 10){
+				arr.splice(0,(json_list.length-10)); 
+			}
+			localStorage.setItem('recent_show_product', JSON.stringify(arr));
+		}
+		
+		
+	});
+</script>
+
 	<div class="wrap">
 		<div class="wrap-content">
 			<div class="product-content">

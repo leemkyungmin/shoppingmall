@@ -3,7 +3,8 @@
  */
 	function search_cookies(url){
 		$('.slist').html('');
-		var search_cookies = Cookies.getJSON('query');
+		var search_cookies=new Array();
+		search_cookies = JSON.parse(localStorage.getItem('query'));
 		if(search_cookies !=null){
 			var html ='';
 			var count =0;

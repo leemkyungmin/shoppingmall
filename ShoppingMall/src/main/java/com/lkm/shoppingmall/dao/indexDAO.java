@@ -10,4 +10,7 @@ public interface indexDAO {
 
 	public ArrayList<bannerDto> getbanner();
 	public ArrayList<searchDto> searchResult(String query);
+	
+	public productsDto getproduct(String pidx);
+	public ArrayList<productsDto> getproudct_list(String ptag);
 }

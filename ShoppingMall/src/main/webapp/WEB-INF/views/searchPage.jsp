@@ -60,12 +60,11 @@
 							
 							var q ='${query}';
 							
-							if(Cookies.get('query') ===undefined || Cookies.get('query')=='[null]'){
-								Cookies.set('query',"[{\"name\":\""+q+"\"}]");
-								
-							}else{  
-								var json_list = Cookies.getJSON('query'); 
-								
+							if(localStorage.getItem('query') ===undefined || localStorage.getItem('query')=='[null]' ||localStorage.getItem('query')==null ){
+								localStorage.setItem('query',"[{\"name\":\""+q+"\"}]");
+							}else{ 
+								var josn_list =new Array();
+								json_list = JSON.parse(localStorage.getItem('query')); 
 								for(var i=0; i<json_list.length; i++){
 									for(key in json_list[i]){
 										if(json_list[i][key]==q){
@@ -75,16 +74,13 @@
 										}
 									}
 								}
-								
 								json_list.push({
-									name: q,
+									name:q,
 								});
-								console.log(json_list.length);
 								if(json_list.length > 10){
 									json_list.splice(0,(json_list.length-10)); 
 								}
-								Cookies.set('query', json_list);
-								console.log(json_list);
+								localStorage.setItem('query', JSON.stringify(json_list));
 								search_cookies('${pageContext.request.contextPath}');
 								
 							}

@@ -77,7 +77,8 @@
 		});
 	$(document).on('click','.cookie-btn',function(){
 		var cookie_id = $(this).attr('id');
-		var del_cookie =Cookies.getJSON('query');
+		var del_cookie =new Array();
+		 del_cookie = JSON.parse(localStorage.getItem('query'));
 		for(i = 0; i<del_cookie.length ; i++){
 			for(keys in del_cookie[i]){
 				if(del_cookie[i][keys] == cookie_id ){
@@ -85,9 +86,9 @@
 				}
 			}
 		}
-		Cookies.set('query', del_cookie);
+		localStorage.setItem('query', JSON.stringify(del_cookie));
 		console.log(del_cookie);
-		search_cookies();
+		search_cookies('${pageContext.request.contextPath}');
 	});
 	
 	$(document).on('mouseover','#test',function(){

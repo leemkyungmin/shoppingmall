@@ -15,5 +15,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and  p.DIDX = d.DIDX 
         group by p.PIDX,p.PRICE, p.PNAME,d.DNAME,TO_CHAR(p.pSumnail)
 	</select>
- 
+ 	<select id="getproduct" parameterType="String" resultType="com.lkm.shoppingmall.dto.productsDto">
+ 		SELECT *
+ 		FROM PRODUCTS
+ 		WHERE PIDX=#{param}
+ 	</select>
+ 	
+ 	<select id="getproudct_list" parameterType="String" resultType="com.lkm.shoppingmall.dto.productsDto">
+ 	
+ 		SELECT *
+ 		FROM (
+ 			SELECT ROWNUM rn, a.*
+ 			FROM (SELECT *
+ 				  FROM PRODUCTS 
+ 				  WHERE ptag=#{param1}
+ 			) a
+ 					
+ 		)
+        WHERE rn BETWEEN 1 AND 15 
+ 	
+ 	</select>
+ 	
 </mapper>
