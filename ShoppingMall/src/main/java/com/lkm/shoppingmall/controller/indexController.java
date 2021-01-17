@@ -69,7 +69,6 @@ public class indexController {
 		indexDAO idao = sqlSession.getMapper(indexDAO.class);
 		productsDto pdto = idao.getproduct(pidx);
 		
-		JSONArray arr = new JSONArray();
 		JSONObject obj = new JSONObject();
 		obj.put("pname", pdto.getpName());
 		obj.put("price", pdto.getpRice());
@@ -89,16 +88,19 @@ public class indexController {
 		plist =idao.getproudct_list(ptag);
 		
 		JSONArray arr =  new JSONArray();
-		for(int i=0; i<plist.size(); i++) { 
-			JSONObject obj = new JSONObject();
-			obj.put("pidx", plist.get(i).getpIdx());
-			obj.put("pname", plist.get(i).getpName());
-			obj.put("psumnail", plist.get(i).getpSumnail());
-			obj.put("price", plist.get(i).getpRice());
-			arr.add(obj);
+		if(plist !=null) {
+			for(int i=0; i<plist.size(); i++) { 
+				JSONObject obj = new JSONObject();
+				obj.put("pidx", plist.get(i).getpIdx());
+				obj.put("pname", plist.get(i).getpName());
+				obj.put("psumnail", plist.get(i).getpSumnail());
+				obj.put("price", plist.get(i).getpRice());
+				arr.add(obj);
+			}
+			
+			System.out.println(arr);
 		}
 		
-		System.out.println(arr);
 		
 		return arr.toString();
 	}

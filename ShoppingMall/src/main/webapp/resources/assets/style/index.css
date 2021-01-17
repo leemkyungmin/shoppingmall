@@ -16,7 +16,7 @@
     top: 48px;
     width: 300px;
 }
-.side_bar,.user_main,.main-fotter {
+.side_bar,.main-fotter {
 	margin: 20px 50px;		
 }
  section, ul, dl, dd {
@@ -119,9 +119,11 @@ legend {
     border-radius: 50%;
 }
 .user_main{
-	margin-top:80px;
-	height: 500px;
-	border :1px solid black; 
+	width: 1300px;
+    margin-top: 80px;
+    height: 600px;
+    margin: 20px auto;
+    border: 1px solid black;
 }
 .recent_product_info{
 	margin-left: 5px;
@@ -146,6 +148,93 @@ legend {
     border: 1px solid gray;
     margin: 0px 4px;
 }
-.slide ul li{
-	display: inline-block;
+.slide{
+	width: 100%;
+	height: 90px;
+}
+.slide .recnet_plist .rlist{
+	float: left;
+    width: 302px;
+    height:110px;
+    margin: 0 0 0 11px;
+    border :1px solid lightgray;
+    border-radius: 55px;
+}
+.product_img{
+	display:inline-block;
+	
+}
+.search_item{
+	border: 1px solid #eee;
+    border-radius: 55px;
+    height: 110px;
+    padding: 15px 0 0 15px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.slide .recnet_plist .rlist .search_item img {
+	width: 80px;
+	height: 80px;
+	border-radius: 55px;
+}
+.rlist{
+	width: 1270px;
+    height: 415px;
+}
+.product_content{
+	display:inline-block;
+	vertical-align: top;
+	margin-left: 20px;
+	width: 160px;
+}
+.product_content div{
+	margin: 5px;
+}
+.rlist .sameTag_list{
+	 display:none; 
+	width: 1270px;
+	height: 300px;
+	margin-top:40px;
+	
+}
+
+.productlist{
+	position: absolute;
+    left: 20px;
+}
+.rlist.active .sameTag_list{
+	display:block;
+	position: absolute;
+	left: 0;	
+}
+.productlist{
+	height: 100%;
+}
+.productlist .splide__track ul{
+	display:block;
+	height: 100%;
+}
+.productlist .splide__track ul li{
+	position: relative;
+    float: left;
+    width: 224px;
+    height: 345px;
+    margin: 0 0 0 30px;
+    border-radius: 4px;
+}
+.productlist_pimg,.productlist_pimg img{
+	width: 224px;
+	height: 224px;
+	display:inline-block;
+}
+.sameTag_list .splide__track{
+	width: 1270px;
+}
+
+.recent_products{
+	position: relative;
+}
+.sameTag_list .splide__slide{
+	width: 224px;
+	
 }

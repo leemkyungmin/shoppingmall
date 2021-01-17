@@ -34,19 +34,20 @@
 </style>
 <script>
 	$().ready(function(){
-		var pidx =${pdto.pIdx};
+		var pidx ="${pdto.pIdx}";
 		
 		var arr =  new Array();
-		arr =localStorage.getItem('recent_show_product');
+		arr =JSON.parse(localStorage.getItem('recent_show_product'));
 		
-		if(arr ==null){
+		if(localStorage.getItem('recent_show_product') ===undefined || localStorage.getItem('recent_show_product')=='[null]' ||localStorage.getItem('recent_show_product')==null){
 			localStorage.setItem('recent_show_product',"[{\"pidx\":\""+pidx+"\"}]");
 		} else {
 			
 			for(var i=0; i<arr.length; i++){
 				for(key in arr[i]){
 					if(arr[i][key]==pidx){
-						arr=JSON.parse(JSON.stringify(json_list).replace(/(,null|null,)/g,''));
+						delete arr[i];
+						arr=JSON.parse(JSON.stringify(arr).replace(/(,null|null,)/g,''));
 						break;
 					}
 				}
@@ -55,8 +56,8 @@
 			arr.push({
 				pidx:pidx,
 			});
-			if(arr.length > 10){
-				arr.splice(0,(json_list.length-10)); 
+			if(arr.length > 5){
+				arr.splice(0,(json_list.length-5)); 
 			}
 			localStorage.setItem('recent_show_product', JSON.stringify(arr));
 		}
