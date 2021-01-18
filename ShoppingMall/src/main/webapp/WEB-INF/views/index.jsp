@@ -35,6 +35,7 @@
 						var psumnail =JSON.stringify(obj.psumnail).replace(/\"/gi, "");
 						var ptag =JSON.stringify(obj.ptag).replace(/\"/gi, "");
 						html +='<li class="rlist" data-id="'+(i+1)+'" data-value="'+ptag+'">';
+						html +='<a href="${pageContext.request.contextPath}/product/products/'+pidx+'">';
 						html +='<div class="search_item">';
 						html +='<div class="product_img">';
 						html +='<img src="${pageContext.request.contextPath}/resources/images/Department_sumnail/'+psumnail+'">';
@@ -48,7 +49,8 @@
 						html +='</div>';
 						html +='</div>';
 						html +='</div>';
-						
+						html +='</a>';
+						html +='</li>';
 						 
 					}, error:function(){
 						console.log('error');
@@ -165,8 +167,7 @@
 					html +='</ul>';
 					html +='</div>';
 					html +='</div>';
-					html +='</li>';
-				
+					
 				}, error:function(){
 					console.log('error');
 				}

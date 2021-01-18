@@ -54,6 +54,7 @@ public class loginController {
 				request.getSession().setAttribute("pw", udto.getuPw());
 				request.getSession().setAttribute("name", udto.getuName());
 				request.getSession().setAttribute("point", udto.getuPoint());
+				request.getSession().setAttribute("grade", udto.getuGrade());
 				request.getSession().setAttribute("type", type);
 				result = "1";
 			} else {

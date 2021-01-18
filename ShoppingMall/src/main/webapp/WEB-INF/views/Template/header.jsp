@@ -230,13 +230,23 @@
 								<a class="myproducts">판매 상품 보기 </a>
 							</c:if>
 							<a class="myPage">마이페이지</a>
-							<a class="logout">로그아웃</a>				
+							<a class="logout">로그아웃</a>	
+							<c:if test="${sessionScope.type=='user' &&sessionScope.grade == 9  }">
+								<a class="adminPage">관리페이지</a>
+							</c:if>		
 						</c:if>
 					
 					</div>
 				</div>
 			</div>
-		
+		<script type="text/javascript">
+			$().ready(function(){
+				$('.adminPage').click(function(){
+					location.href='${pageContext.request.contextPath}/admin/adminPage';
+				});
+			});
+			
+		</script>
 		
 		<!-- 로그인 세션을 통해서 사용자 정보가 있으면 마이페이지 ,배송조회 ,카트 등등 선택 메뉴 /// 없으면 회원가입 , 로그인  -->
 		

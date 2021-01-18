@@ -60,8 +60,7 @@
 					product_total += $('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') .cart_option_total_price .span_bold').text().replace(/,/g, "")*1;
 					if( $('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+')').data('value') != $('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+2)+')').data('value') || j==li_count-1){
 						post_total += $('.border_cart:nth-child('+(i+1)+') .cart_content ul li:nth-child('+(j+1)+') .post_price .span_bold' ).text().replace(/,/g, "")*1;
-						console.log("["+i+"]")
-						console.log("["+ j+"]post_total : "+post_total);
+						
 					}	
 					total_count++;
 				}

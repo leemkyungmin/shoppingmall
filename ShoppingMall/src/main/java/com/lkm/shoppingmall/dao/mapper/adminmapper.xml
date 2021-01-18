@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.lkm.shoppingmall.dao.adminDAO">
+	
+	<select id="getNotice" resultType="com.lkm.shoppingmall.dto.AdminNotice">
+		SELECT *
+		FROM ADMINNOTICE
+	</select>
+	<select id="getDetail" parameterType="String" resultType="com.lkm.shoppingmall.dto.AdminNotice">
+		SELECT *
+		FROM ADMINNOTICE
+		WHERE AIDX =#{aidx}
+	
+	</select>
+	
+	<select id="getUserInfo" resultType="com.lkm.shoppingmall.dto.userDto">
+		SELECT *
+		FROM USERS
+	</select>
+	<select id="UserDetail" parameterType="String" resultType="com.lkm.shoppingmall.dto.userDto">
+		SELECT * 
+		FROM USERS
+		WHERE UIDX= #{uidx}
+	</select>
+	
+	<select id="user_buyList" parameterType="Map" resultType="com.lkm.shoppingmall.dto.orderListDto">
+		SELECT *
+		FROM(
+            SELECT ROWNUM as rn ,a.*
+            FROM(
+            SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,b.TOTAL_PRICE as price,p.PORDER_PRICE,b.BORDER_STATUS,b.BDATE
+			FROM BUYS b left outer join PRODUCTS p  on p.DIDX =b.DIDX left outer join buys_options bo on bo.bidx=b.bidx
+			WHERE b.UIDX =${uidx} AND  b.PDIDX =0 AND  P.PIDX = b.PIDX 
+            group by b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,b.TOTAL_PRICE,p.PORDER_PRICE,b.BORDER_STATUS,b.BDATE
+            ORDER BY BDATE DESC
+            ) a)
+		WHERE rn BETWEEN ${beginRecord} AND ${endRecord}
+	
+	</select>
+	<select id="user_buy_total" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM BUYS 
+		WHERE UIDX=${uidx}
+	
+	</select>
+	<select id="rlist" parameterType="Map" resultType="com.lkm.shoppingmall.dto.reviewDto">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM as rn,a.*
+			FROM (
+				SELECT r.* 
+				FROM USERS u,BUYS b,REVIEW r
+				WHERE u.UIDX=${uidx} and u.UIDX=b.UIDX and b.BIDX = r.BIDX
+			)a
+		) WHERE rn BETWEEN ${beginRecord} AND ${endRecord}
+	</select>
+	<select id="review_total" parameterType="Map" resultType="int">
+		SELECT count(*) 
+		FROM USERS u,BUYS b,REVIEW r
+		WHERE u.UIDX=${uidx} and u.UIDX=b.UIDX and b.BIDX = r.BIDX
+	</select>
+	<select id="custome_list" parameterType="Map" resultType="com.lkm.shoppingmall.dto.CustomerServiceDto">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM as rn,a.*
+			FROM (
+				SELECT * 
+				FROM CUSTOMER_SERVICE
+				WHERE UIDX=${uidx}
+			)a
+		) WHERE rn BETWEEN ${beginRecord} AND ${endRecord}
+	</select>
+	<select id="custom_count" parameterType="Map" resultType="int">
+		SELECT count(*) 
+		FROM CUSTOMER_SERVICE
+		WHERE UIDX=${uidx}
+	</select>
+	
+	<update id="update_user" parameterType="Map">
+		UPDATE USERS
+		SET UGRADE =${grade}
+		WHERE UIDX =${uidx}
+		
+	</update>
+	
+</mapper>

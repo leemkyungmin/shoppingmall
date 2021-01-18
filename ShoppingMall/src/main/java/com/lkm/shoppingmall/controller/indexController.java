@@ -74,7 +74,6 @@ public class indexController {
 		obj.put("price", pdto.getpRice());
 		obj.put("psumnail", pdto.getpSumnail());
 		obj.put("ptag", pdto.getpTag());
-		System.out.println(obj.toString());
 		return obj.toString();
 	}
 	
@@ -97,8 +96,7 @@ public class indexController {
 				obj.put("price", plist.get(i).getpRice());
 				arr.add(obj);
 			}
-			
-			System.out.println(arr);
+
 		}
 		
 		
