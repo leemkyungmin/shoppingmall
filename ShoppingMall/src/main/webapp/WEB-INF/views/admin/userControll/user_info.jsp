@@ -48,6 +48,23 @@
 	<div class="wrap">
 		<div class="content">
 			<table>
+				<c:if test="${blist.size() ==0 }">
+					<thead>
+						<tr>
+							<th>주문 일자</th>
+							<th>주문 상품 정보</th>
+							<th>상품 금액(수량)</th>
+							<th>배송비</th>
+							<th>주문상태</th>
+						</tr>
+						
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="5"  style="height:200px">구매 기록이 없습니다.</td>
+						</tr>
+					</tbody>
+				</c:if>
 				<c:if test="${blist.size() >0 }">
 					<thead>
 						<tr>
@@ -94,6 +111,20 @@
 						</tr>
 					</c:forEach>
 				</c:if>
+				<c:if test="${rlist.size() eq 0 }">
+					<thead>
+						<tr>
+							<th>작성일</th>
+							<th>내용</th>
+							<th>별점</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="3" style="height:200px;">작성된 리뷰가 없습니다.</td>
+						</tr>
+					</tbody>
+				</c:if>
 				<c:if test="${rlist.size() >0 }">
 					<thead>
 						<tr>
@@ -110,6 +141,22 @@
 								<td>${review.rAting }</td>
 							</tr>
 						</c:forEach>
+					</tbody>
+				</c:if>
+				<c:if test="${cslist.size() == 0 }">
+					<thead>
+						<tr>
+							<th>상담번호</th>
+							<th>상담분류</th>
+							<th>제목</th>
+							<th>작성일</th>
+							<th>상담상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="5" style="height:200px">작성된 문의 글이없습니다</td>
+						</tr>
 					</tbody>
 				</c:if>
 				<c:if test="${cslist.size()>0 }">

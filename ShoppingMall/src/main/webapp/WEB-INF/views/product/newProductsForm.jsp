@@ -13,21 +13,21 @@
 				</div>
 				<div class="product_psumnail">
 					<label for="pSumnail">상품 메인 이미지</label>
-					<input type="file" name="pSumnail" id="pSumnail"  accept="image/jpeg,png">
+					<input type="file" name="pSumnail" id="pSumnail"  accept="image/*">
 				</div>
 				<div class="product_sumnail">
 					<img id="sumnail" src="">
 				</div>
 				<div class="product_notice">
 					<label for="notice_img">공지사항 이미지(중복 등록가능)</label>
-					<input type="file" id="notice_img" multiple="multiple" accept="image/jpeg,png">
+					<input type="file" id="notice_img" multiple="multiple" accept="image/*">
 				</div>
 				<div class="product_notice_imgs">
 					<ul class="notice_imgs"></ul>
 				</div>
 				<div class="product_info">
 					<label for="info_img">상품 이미지</label>
-					<input type="file" id="info_img" multiple="multiple" accept="image/jpeg,png">
+					<input type="file" id="info_img" multiple="multiple" accept="image/*">
 				</div>
 				<div class="product_info_img">
 					<ul class="product_img">

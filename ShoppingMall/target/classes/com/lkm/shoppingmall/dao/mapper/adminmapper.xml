@@ -85,5 +85,91 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE UIDX =${uidx}
 		
 	</update>
+	<select id="getBanner" resultType="com.lkm.shoppingmall.dto.bannerDto">
+		SELECT *
+		FROM BANNER
+	</select>
+	<select id="getpopupnotice" resultType="com.lkm.shoppingmall.dto.PopupNoticeDto">
+		SELECT *
+		FROM POPUPNOTICE
+	</select>
+	<select id="showBanner" parameterType="String" resultType="com.lkm.shoppingmall.dto.bannerDto">
+		SELECT *
+		FROM BANNER
+		WHERE BIDX=#{bidx}
+	</select>
+	
+	<update id="update_banner" parameterType="Map">
+		UPDATE BANNER
+		SET BFILENAME ='${bFilename}',
+			BDEPTNAME ='${bdeptname}',
+			BDATE ='${bdate}',
+			BMANAGER ='${bmanager}',
+			BMANAGER_NUMBER ='${bmanager_number}'
+		WHERE BIDX =${bidx}
+	</update>
+	<delete id="delete_banner" parameterType="String">
+		DELETE BANNER
+		WHERE BIDX =#{bidx}
+	</delete>
+	<insert id="Insert_banner" parameterType="Map">
+		
+		<selectKey keyProperty="bidx" order="BEFORE" resultType="int">
+			SELECT BANNER_SEQ.NEXTVAL as bidx  FROM DUAL
+		</selectKey>
+		
+		INSERT INTO BANNER(
+			BIDX,
+			BFILENAME,
+			BDEPTNAME,
+			BDATE,
+			BMANAGER,
+			BMANAGER_NUMBER
+		) values(
+			${bidx},
+			'${bFilename}',
+			'${bdeptname}',
+			'${bdate}',
+			'${bmanager}',
+			'${bmanager_number}'
+		)
+	</insert>
+	
+	<insert id="Insert_popup" parameterType="Map" >
+		<selectKey keyProperty="popIdx" resultType="int" order="BEFORE">
+			SELECT POPUPNOTICE_SEQ.NEXTVAL as popIdx FROM DUAL
+		</selectKey>
+		
+		INSERT INTO POPUPNOTICE(
+			POPIDX,
+			POPIMG,
+			POPINFO,
+			POPURI
+		) VALUES(
+			${popIdx},
+			'${popImg}',
+			'${popInfo}',
+			'${popupUri}'
+
+		)
+	</insert>
+	
+	<select id="popup_Detail" parameterType="Map" resultType="com.lkm.shoppingmall.dto.PopupNoticeDto">
+		SELECT * 
+		FROM POPUPNOTICE
+		WHERE POPIDX=#{param1}
+	</select>
+	<update id="update_popup" parameterType="Map">
+		UPDATE POPUPNOTICE
+		SET 
+			POPIMG='${popImg}',
+			POPINFO ='${popInfo}',
+			POPURI ='${popupUri}'
+		WHERE POPIDX=${popidx}
+	</update>
+	<delete id="delete_popup" parameterType="String">
+		DELETE POPUPNOTICE
+		WHERE POPIDX=#{param1}
+	</delete>
 	
 </mapper>

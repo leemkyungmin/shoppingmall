@@ -53,9 +53,24 @@
 	#user_iframe{
 		width: 100%;
 		height: 500px;
+		border:0;
 	}
 	.user-controll{
 		margin-top: 20px;
+	}
+	.user-controll .btns{
+		width: 100%;
+	}
+	.user-controll .btns  input[type=button]{
+		float: left;
+		width: 100px;
+		height: 40px;
+		border:0;
+	}
+	.user-controll .btns .b.active{
+		background-color: red;
+		color:white;
+		font-weight: bold;
 	}
 </style>
 <script type="text/javascript">
@@ -136,16 +151,30 @@
 			<script type="text/javascript">
 				$().ready(function(){
 					init("user_buys");
-					
+					$('#user_buys').addClass('active');
 					
 					$('#user_buys').click(function(){
-						init("user_buys");
+						if(!$(this).hasClass('active')){
+							init("user_buys");
+							$('.user-controll .btns .b').removeClass('active');
+							$(this).addClass("active");
+						} 					
 					});
 					$('#user_review').click(function(){
-						init("user_review");
+						if(!$(this).hasClass('active')){
+							init("user_review");
+							$('.user-controll .btns .b').removeClass('active');
+							$(this).addClass("active");
+						}
+					
 					});
 					$('#user_customer_svc').click(function(){
-						init("user_customer_svc");
+						if(!$(this).hasClass('active')){
+							init("user_customer_svc");
+							$('.user-controll .btns .b').removeClass('active');
+							$(this).addClass("active");
+						} 
+						
 					})
 					
 				});
@@ -157,9 +186,9 @@
 			</script>
 			<div class="user-controll">
 				<div class="btns">
-					<input type="button" id="user_buys" value="구매목록" >
-					<input type="button" id="user_review" value="리뷰목록">
-					<input type="button" id="user_customer_svc" value="상담내역">
+					<input type="button" class="b" id="user_buys" value="구매목록" >
+					<input type="button" class="b" id="user_review" value="리뷰목록">
+					<input type="button" class="b" id="user_customer_svc" value="상담내역">
 				</div>
 				<form method="get" target="Uifream" name="ifrm">
 					<input  type="hidden" id="uidx" name="uidx" value="${udto.uIdx }">
