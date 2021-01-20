@@ -35,5 +35,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE rn BETWEEN 1 AND 15 
  	
  	</select>
+ 	<select id="getpopup" resultType="com.lkm.shoppingmall.dto.PopupNoticeDto">
+ 		SELECT * 
+ 		FROM POPUPNOTICE
+ 	</select>
  	
 </mapper>

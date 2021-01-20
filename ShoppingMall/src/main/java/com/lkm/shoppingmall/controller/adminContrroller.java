@@ -24,6 +24,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.lkm.shoppingmall.command.admin.adminHomePageControllCommand;
 import com.lkm.shoppingmall.command.admin.adminPageCommand;
+import com.lkm.shoppingmall.command.admin.deptDetailCommand;
+import com.lkm.shoppingmall.command.admin.deptInfoCommand;
+import com.lkm.shoppingmall.command.admin.dept_buyListCommand;
+import com.lkm.shoppingmall.command.admin.dept_customerListCommand;
+import com.lkm.shoppingmall.command.admin.dept_reviewListCommand;
+import com.lkm.shoppingmall.command.admin.dept_sell_productCommand;
+import com.lkm.shoppingmall.command.admin.dept_sell_recordCommand;
 import com.lkm.shoppingmall.command.admin.popupDetailCommand;
 import com.lkm.shoppingmall.command.admin.showBannerCommand;
 import com.lkm.shoppingmall.command.admin.user_buyListCommand;
@@ -339,7 +346,7 @@ public class adminContrroller {
 				saveFile = new File(realPath, saveFilename);
 				file.transferTo(saveFile);
 			}catch(Exception e) {
-				e.printStackTrace();
+				e.printStackTrace();  
 			}
 			
 		}
@@ -413,4 +420,82 @@ public class adminContrroller {
 		return result;
 	}
 	
+	@GetMapping("admin/deptInfo")
+	public String deptinfo(HttpServletRequest req,Model model) {
+		
+		HttpSession session =req.getSession();
+		
+		if(session.getAttribute("idx") !=null) {
+			if(Integer.parseInt( (String) session.getAttribute("grade")) ==9) {
+				command =new deptInfoCommand();
+				command.execute(sqlsession, model);
+				
+			} 
+			return "admin/deptInfo";
+		} else {
+			return "redirect:/index";
+		}
+		
+	}
+	@GetMapping("admin/dept_Detail")
+	public String dept_Detail(HttpServletRequest req,Model model) {
+		HttpSession session = req.getSession();
+		
+		if(session.getAttribute("idx") !=null) {
+			if(Integer.parseInt( (String) session.getAttribute("grade")) ==9) {
+				model.addAttribute("req",req);
+				command= new deptDetailCommand();
+				command.execute(sqlsession, model);
+				
+			} 
+			return "admin/dept_Detail";
+		} else {
+			return "redirect:/index";
+		}
+	}
+	@GetMapping("admin/deptcontroll/dept_sell_product")
+	public String dept_sell_product(HttpServletRequest req,Model model) {
+		
+		model.addAttribute("req",req);
+		command= new dept_sell_productCommand();
+		command.execute(sqlsession, model);
+		
+		return "admin/deptControll/dept_info";
+	}
+	@GetMapping("admin/deptcontroll/dept_sell_record") 
+	public String dept_sell_record(HttpServletRequest req,Model model) {
+		
+		model.addAttribute("req",req);
+		command = new dept_sell_recordCommand();
+		command.execute(sqlsession, model);
+		
+		return "admin/deptControll/dept_info";
+	}
+	@GetMapping("admin/deptcontroll/dept_customer_svc")
+	public String dept_customer_svc(HttpServletRequest req,Model model) {
+		
+		model.addAttribute("req", req);
+		command= new dept_customerListCommand();
+		command.execute(sqlsession, model); 
+		
+		return "admin/deptControll/dept_info";
+	}
+	@GetMapping("admin/deptcontroll/dept_buys")
+	public String dept_buys(HttpServletRequest req,Model model) {
+		
+		model.addAttribute("req",req);
+		command=new dept_buyListCommand();
+		command.execute(sqlsession, model);
+		
+		return "admin/deptControll/dept_info";
+	}
+	@GetMapping("admin/deptcontroll/dept_review")
+	public String dept_review(HttpServletRequest req,Model model) {
+		
+		model.addAttribute("req",req);
+		command =new dept_reviewListCommand();
+		command.execute(sqlsession, model);
+		
+		return "admin/deptControll/dept_info";
+	}
 }

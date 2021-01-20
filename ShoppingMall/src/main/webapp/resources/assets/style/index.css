@@ -238,3 +238,96 @@ legend {
 	width: 224px;
 	
 }
+
+.modal-backdrop fade in{
+		height: 0;
+	}
+	#Modal,#myModal {
+        display: none;
+	    position: fixed;
+	    margin: auto;
+	    width: 1000px;
+	    height: 700px;
+	    z-index: 100000;
+	    left: 17%;
+	    top: 80px;
+    }
+        
+    #Modal h2{
+    	margin:0;
+   	}
+  
+    #Modal .modal-content,#myModal .modal-body {
+	    width:100%;
+	    height:100%;
+	    overflow:scroll;	
+	    margin:0px auto;
+	    padding:20px 10px;
+	    background:#fff;
+    }
+    .modal-foot{
+   		width:100%;
+	    height:100px;
+	    text-align:center;
+	    margin:0px auto;
+	    padding:20px 10px;
+	    background:#fff;
+    }
+    .modal-foot input[type=button]{
+    	    width: 150px;
+    		height: 50px;
+    }
+    #myModal .modal-title {
+    	width: 100%;
+    	position: relative;
+    	height: 100%;
+    	line-height: 100%;
+	}
+	#myModal .modal-title .title {
+		position: absolute;
+		text-align: center;
+		/* left: 10px; */
+		width: 100%;
+		font-size: 18px;
+	}
+	#Modal .modal-content,#myModal .modal-title .close {
+    	position: absolute;
+   		right: 30px;
+         
+	}
+	#Modal .modal_layer ,#myModal .modal_layer{
+    	position:fixed;
+    	top:0;
+    	left:0;
+		width:100%;
+   		height:100%;
+    	background:rgba(0, 0, 0, 0.5);
+     	z-index:-1;
+	}
+	#myModal .modal-header{
+		position: relative;
+		width: 100%;
+		height: 46px;
+		background: white;
+		border-bottom: 1px solid black;
+		padding:10px 10px;
+	}
+	.navi{
+		display: inline-block;
+		float: left;
+	}
+	.controll {
+		float: right;
+	}
+	#popImg{
+		width: 100%;
+	}
+	.pop_navi{
+		width: 25px;
+		height: 25px;
+	}
+	.pop_navi.selected{
+		background-color: red;
+		color: white;
+		border:0;
+	}

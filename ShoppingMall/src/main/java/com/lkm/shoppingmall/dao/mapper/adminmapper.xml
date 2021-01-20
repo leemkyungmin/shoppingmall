@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             FROM(
             SELECT b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,b.TOTAL_PRICE as price,p.PORDER_PRICE,b.BORDER_STATUS,b.BDATE
 			FROM BUYS b left outer join PRODUCTS p  on p.DIDX =b.DIDX left outer join buys_options bo on bo.bidx=b.bidx
-			WHERE b.UIDX =${uidx} AND  b.PDIDX =0 AND  P.PIDX = b.PIDX 
+			WHERE b.UIDX =${uidx} AND  b.PDIDX =${didx} AND  P.PIDX = b.PIDX 
             group by b.BIDX,p.PIDX,b.BORDER_NUM,p.PNAME,b.TOTAL_PRICE,p.PORDER_PRICE,b.BORDER_STATUS,b.BDATE
             ORDER BY BDATE DESC
             ) a)
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="user_buy_total" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		FROM BUYS 
-		WHERE UIDX=${uidx}
+		WHERE UIDX=${uidx} and PDIDX=${didx}
 	
 	</select>
 	<select id="rlist" parameterType="Map" resultType="com.lkm.shoppingmall.dto.reviewDto">
@@ -69,14 +69,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			FROM (
 				SELECT * 
 				FROM CUSTOMER_SERVICE
-				WHERE UIDX=${uidx}
+				WHERE UIDX=${uidx} and DIDX=${didx}
 			)a
 		) WHERE rn BETWEEN ${beginRecord} AND ${endRecord}
 	</select>
 	<select id="custom_count" parameterType="Map" resultType="int">
 		SELECT count(*) 
 		FROM CUSTOMER_SERVICE
-		WHERE UIDX=${uidx}
+		WHERE UIDX=${uidx} and DIDX=${didx}
 	</select>
 	
 	<update id="update_user" parameterType="Map">
@@ -171,5 +171,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE POPUPNOTICE
 		WHERE POPIDX=#{param1}
 	</delete>
+	
+	<select id="getDeptinfo" resultType="com.lkm.shoppingmall.dto.departmentDto">
+		SELECT d.*,sum(b.TOTAL_PRICE) as total
+		FROM DEPT d LEFT OUTER JOIN BUYS b on d.didx=b.didx
+        GROUP BY d.DIDX, d.DID, d.DPW, d.DPHONE, 
+			d.DSAUP_NO, d.DTYPE, d.DNAME, d.DADDRESS, d.DPOINT, 
+			d.DREG_DATE, d.SHOW
+	</select>
+	
+	<select id="getDeptDetail" parameterType="String" resultType="com.lkm.shoppingmall.dto.departmentDto">
+		SELECT *
+		FROM DEPT
+		WHERE DIDX =#{didx}
+	</select>
+	<select id="getproduct_list" parameterType="String" resultType="com.lkm.shoppingmall.dto.productsDto">
+		SELECT *
+		FROM PRODUCTS
+		WHERE DIDX=#{didx}
+	</select>
+	<select id="getOrder_list" parameterType="String" resultType="com.lkm.shoppingmall.dto.orderListDto">
+		SELECT *
+		FROM(
+    		SELECT ROWNUM as rn,a.*
+    		FROM(
+        		SELECT bidx,border_num,total_price as price,border_status
+       			FROM BUYS 
+        		WHERE DIDX=${didx}
+       			ORDER BY BDATE DESC
+       			)a
+			)WHERE rn between ${beginRecord} and  ${endRecord}
+	</select>
+	
+	<select id="buy_total" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM BUYS 
+		WHERE DIDX=#{didx}
+	</select>
+	
+	<select id="dept_rlist" parameterType="Map" resultType="com.lkm.shoppingmall.dto.reviewDto">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM as rn,a.*
+			FROM (
+				SELECT r.* 
+				FROM DEPT d,BUYS b,REVIEW r
+				WHERE d.DIDX=${didx} and d.dIDX=b.PDIDX and b.BIDX = r.BIDX
+			)a
+		) WHERE rn BETWEEN ${beginRecord} AND ${endRecord}
+	</select>
+	<select id="dept_review_total" parameterType="Map" resultType="int">
+		SELECT count(*) 
+		FROM DEPT d,BUYS b,REVIEW r
+		WHERE d.DIDX=${didx} and d.DIDX=b.PDIDX and b.BIDX = r.BIDX
+	</select>
+	
 	
 </mapper>

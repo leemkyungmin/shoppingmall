@@ -31,7 +31,6 @@ public class user_reviewListCommand implements command {
 		}else {
 			page = 1;
 		}
-		System.out.println(page);
 		String uidx = req.getParameter("uidx");
 		
 		int recordPerPage = 5; // 1페이지당 보여줄 갯수
@@ -39,7 +38,7 @@ public class user_reviewListCommand implements command {
 		int endRecord = recordPerPage * page;
 		
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("uidx", uidx); 
+		data.put("uidx", uidx);
 		data.put("beginRecord",beginRecord);
 		data.put("endRecord", endRecord);
 

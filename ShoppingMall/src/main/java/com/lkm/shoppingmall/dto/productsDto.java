@@ -28,9 +28,22 @@ public class productsDto {
 	int pOrder_price;
 	String pSumnail;
 	String pTag;
+	String post_dept;
 	
 	
 	
+	public String getPost_dept() {
+		return post_dept;
+	}
+
+
+
+	public void setPost_dept(String post_dept) {
+		this.post_dept = post_dept;
+	}
+
+
+
 	public productsDto() {}
 
 
@@ -156,7 +169,7 @@ public class productsDto {
 
 
 	public productsDto(int pIdx, String pName, int pRice, int pRice_per, float pRating, Date pDate, int dIdx,
-			int pOrder_price, String pSumnail, String pTag) {
+			int pOrder_price, String pSumnail, String pTag, String post_dept) {
 		super();
 		this.pIdx = pIdx;
 		this.pName = pName;
@@ -168,7 +181,11 @@ public class productsDto {
 		this.pOrder_price = pOrder_price;
 		this.pSumnail = pSumnail;
 		this.pTag = pTag;
+		this.post_dept = post_dept;
 	}
+
+
+
 	
 		
 }

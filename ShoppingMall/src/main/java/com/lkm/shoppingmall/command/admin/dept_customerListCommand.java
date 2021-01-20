@@ -12,9 +12,11 @@ import org.springframework.ui.Model;
 import com.lkm.shoppingmall.commom.PageMaker;
 import com.lkm.shoppingmall.commom.command;
 import com.lkm.shoppingmall.dao.adminDAO;
+import com.lkm.shoppingmall.dto.CustomerServiceDto;
 import com.lkm.shoppingmall.dto.orderListDto;
+import com.lkm.shoppingmall.dto.reviewDto;
 
-public class user_buyListCommand implements command {
+public class dept_customerListCommand implements command {
 
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
@@ -30,27 +32,26 @@ public class user_buyListCommand implements command {
 		}else {
 			page = 1;
 		}
-		System.out.println(page);
-		String uidx = req.getParameter("uidx");
+		String didx = req.getParameter("didx");
 		
 		int recordPerPage = 5; // 1페이지당 보여줄 갯수
 		int beginRecord = (page - 1) * recordPerPage + 1;
 		int endRecord = recordPerPage * page;
 		
 		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("uidx", uidx);
-		data.put("didx","0");
+		data.put("uidx",0);
+		data.put("didx", didx); 
 		data.put("beginRecord",beginRecord);
 		data.put("endRecord", endRecord);
 
 		adminDAO adao =  sqlSession.getMapper(adminDAO.class);
-		ArrayList<orderListDto> blist = new ArrayList<orderListDto>();
-		blist =adao.user_buyList(data);
+	
+		ArrayList<CustomerServiceDto> cslist =new ArrayList<CustomerServiceDto>();
+		cslist = adao.custome_list(data);
+		totalCount =adao.custom_count(data);
 		
-		totalCount =adao.user_buy_total(data);
-		
-		String pageMaker = PageMaker.getPageView2("user_buys?uidx="+uidx , page, recordPerPage, totalCount);
-		model.addAttribute("blist", blist);
+		String pageMaker = PageMaker.getPageView2("dept_customer_svc?didx="+didx , page, recordPerPage, totalCount);
+		model.addAttribute("cslist", cslist);
 		model.addAttribute("pageMaker", pageMaker);
 
 	}

@@ -44,12 +44,12 @@
 							
 					</table>
 					
-					<input type="hidden" id="popImg" name="popImg"  value="${popdto.popImgs }">
+					<input type="hidden" id="popImg" name="popImg"  value="${popdto.popImg}">
 					<input type="hidden" id="popidx" name="popidx" value="${popdto.popIdx }">
 					
 				</form>
 				<div class="show_popImg">
-					<img id="img" src="${pageContext.request.contextPath}resources/assets/images/popupImg/${popdto.popImg}">
+					<img id="img" src="${pageContext.request.contextPath}/resources/assets/images/popupImg/${popdto.popImg}">
 				</div>
 				
 				<script type="text/javascript">
