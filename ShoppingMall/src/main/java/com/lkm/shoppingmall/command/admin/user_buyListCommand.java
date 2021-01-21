@@ -30,7 +30,6 @@ public class user_buyListCommand implements command {
 		}else {
 			page = 1;
 		}
-		System.out.println(page);
 		String uidx = req.getParameter("uidx");
 		
 		int recordPerPage = 5; // 1페이지당 보여줄 갯수

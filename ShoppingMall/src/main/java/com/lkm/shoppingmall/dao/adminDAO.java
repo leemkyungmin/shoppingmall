@@ -1,6 +1,5 @@
 package com.lkm.shoppingmall.dao;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -8,6 +7,7 @@ import com.lkm.shoppingmall.dto.AdminNotice;
 import com.lkm.shoppingmall.dto.CustomerServiceDto;
 import com.lkm.shoppingmall.dto.PopupNoticeDto;
 import com.lkm.shoppingmall.dto.bannerDto;
+import com.lkm.shoppingmall.dto.customer_service_reviewDto;
 import com.lkm.shoppingmall.dto.departmentDto;
 import com.lkm.shoppingmall.dto.orderListDto;
 import com.lkm.shoppingmall.dto.productsDto;
@@ -69,4 +69,20 @@ public interface adminDAO {
 	
 	public ArrayList<reviewDto> dept_rlist(Map<String,Object> data);
 	public int dept_review_total(Map<String,Object> data);
+	
+	public ArrayList<CustomerServiceDto> cs_admin_list(Map<String,Object> data);
+	public int csTotal(Map<String,Object> data);
+	
+	public CustomerServiceDto customer_service_detail(String cidx);
+	
+	public customer_service_reviewDto customer_service_review(String cidx);
+	
+	public int answer_customer_service(String cidx);
+	
+	public int insert_customer_review(Map<String,Object> data);
+	
+	public int customer_service_update(String cidx);
+	
+	public int customer_service_callback(String cidx);
+	
 }

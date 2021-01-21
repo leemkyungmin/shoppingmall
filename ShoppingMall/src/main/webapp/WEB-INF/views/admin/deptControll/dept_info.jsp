@@ -32,7 +32,7 @@
 		text-align: center;
 		
 	}
-	.content table tbody td:first-child {
+	.content table tbody td{
 		width: 117px;
 	}
 	.content table tfoot td{

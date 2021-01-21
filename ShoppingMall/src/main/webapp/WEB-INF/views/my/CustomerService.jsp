@@ -90,6 +90,15 @@
 											<c:if test="${cdto.cType eq 1}">
 												[상품문의]
 											</c:if>
+											<c:if test="${cdto.cType eq 2}">
+												[구매문의]
+											</c:if>
+											<c:if test="${cdto.cType eq 3}">
+												[판매문의]
+											</c:if>
+											<c:if test="${cdto.cType eq 4}">
+												[광고문의]
+											</c:if>
 										</div>
 									</td> 
 									<td>

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.lkm.shoppingmall.command.admin.Customer_Service_DetailCommand;
+import com.lkm.shoppingmall.command.admin.Customer_serviceCommand;
 import com.lkm.shoppingmall.command.admin.adminHomePageControllCommand;
 import com.lkm.shoppingmall.command.admin.adminPageCommand;
 import com.lkm.shoppingmall.command.admin.deptDetailCommand;
@@ -478,24 +480,110 @@ public class adminContrroller {
 		command= new dept_customerListCommand();
 		command.execute(sqlsession, model); 
 		
-		return "admin/deptControll/dept_info";
+		return "admin/deptControll/dept_info";  
 	}
 	@GetMapping("admin/deptcontroll/dept_buys")
 	public String dept_buys(HttpServletRequest req,Model model) {
 		
 		model.addAttribute("req",req);
-		command=new dept_buyListCommand();
+		command=new dept_buyListCommand();   
 		command.execute(sqlsession, model);
 		
 		return "admin/deptControll/dept_info";
 	}
 	@GetMapping("admin/deptcontroll/dept_review")
 	public String dept_review(HttpServletRequest req,Model model) {
-		
+		    
 		model.addAttribute("req",req);
 		command =new dept_reviewListCommand();
 		command.execute(sqlsession, model);
-		
+		 
 		return "admin/deptControll/dept_info";
+	}
+	@GetMapping("admin/Customer_service")
+	public String Customer_service(HttpServletRequest req,Model model) {
+		
+		HttpSession session = req.getSession();
+		if(session.getAttribute("idx") !=null) {
+			if(Integer.parseInt( (String) session.getAttribute("grade")) ==9) {
+				model.addAttribute("req",req);  
+				command = new Customer_serviceCommand(); 
+				command.execute(sqlsession, model); 
+	
+			} 
+			return "admin/customer_service";
+		} else {
+			return "redirect:/index";
+		}
+		
+	}
+	@GetMapping("admin/Customer_Service_Detail")  
+	public String Customer_Service_Detail(HttpServletRequest req,Model model) {
+		HttpSession session = req.getSession();
+		if(session.getAttribute("idx") !=null) {
+			if(Integer.parseInt( (String) session.getAttribute("grade")) ==9) {
+				model.addAttribute("req",req);
+				command= new Customer_Service_DetailCommand();
+				command.execute(sqlsession, model);
+	
+			} 
+			return "admin/customer_service_Detail";
+		} else {
+			return "redirect:/index";
+		}
+		
+	}
+	@GetMapping("admin/admin_customer_iframe")
+	public String cs_iframe(HttpServletRequest req,Model model) {
+		model.addAttribute("req",req);
+		command= new Customer_Service_DetailCommand();
+		command.execute(sqlsession, model);
+		
+		return "admin/admin_Customer_iframe";
+	}
+	
+	@PostMapping("admin/answer_customer_service")
+	@ResponseBody
+	public int anser_customer_service(HttpServletRequest req) {
+	
+		String cidx = req.getParameter("cidx");
+		System.out.println(cidx);   
+		adminDAO adao =sqlsession.getMapper(adminDAO.class);
+		int result = adao.answer_customer_service(cidx);
+		
+		
+		return result;
+	}
+	@PostMapping("admin/insert_customer_review")
+	@ResponseBody
+	public int insert_customer_review(HttpServletRequest req) {
+		
+		String cidx =req.getParameter("cidx");
+		String answer =req.getParameter("answer");
+		
+		adminDAO adao = sqlsession.getMapper(adminDAO.class);
+		Map<String,Object> data = new HashMap<String, Object>();
+		data.put("cidx", cidx);
+		data.put("answer", answer);
+		
+		int result = adao.insert_customer_review(data);
+		
+		if(result >0) {
+			result =adao.customer_service_update(cidx);
+		}
+		
+		
+		return result;
+	}
+	@PostMapping("admin/customer_service_callback")
+	@ResponseBody
+	public int customer_service_callback(HttpServletRequest req) {
+		
+		String cidx= req.getParameter("cidx");
+		adminDAO adao = sqlsession.getMapper(adminDAO.class);
+		int result =adao.customer_service_callback(cidx);
+		
+		return result;
+		
 	}
 }

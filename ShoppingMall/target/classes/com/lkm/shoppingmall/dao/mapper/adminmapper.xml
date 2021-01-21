@@ -195,7 +195,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM(
     		SELECT ROWNUM as rn,a.*
     		FROM(
-        		SELECT bidx,border_num,total_price as price,border_status
+        		SELECT bidx,BDATE,border_num,total_price as price,border_status
        			FROM BUYS 
         		WHERE DIDX=${didx}
        			ORDER BY BDATE DESC
@@ -226,5 +226,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE d.DIDX=${didx} and d.DIDX=b.PDIDX and b.BIDX = r.BIDX
 	</select>
 	
+	<select id="cs_admin_list" parameterType="Map" resultType="com.lkm.shoppingmall.dto.CustomerServiceDto">
+		SELECT * 
+		FROM CUSTOMER_SERVICE 
+		WHERE CSTATUS='${cStatus}'
+	</select>
+	
+	<select id="csTotal" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		FROM CUSTOMER_SERVICE
+		WHERE CSTATUS='${cStatus}'
+	</select>
+	
+	<select id="customer_service_detail" parameterType="String" resultType="com.lkm.shoppingmall.dto.CustomerServiceDto">
+		SELECT *
+		FROM CUSTOMER_SERVICE
+		WHERE CIDX=#{cidx}
+	</select>
+	
+	<select id="customer_service_review" parameterType="String" resultType="com.lkm.shoppingmall.dto.customer_service_reviewDto">
+		SELECT * 
+		FROM CUSTOMER_SERVICE_REVIEW
+		WHERE CIDX=#{cidx}
+	</select>
+	
+	<update id="answer_customer_service" parameterType="String">
+		UPDATE CUSTOMER_SERVICE
+		SET CSTATUS='9'
+		WHERE CIDX=#{cidx}
+	</update>
+	
+	<insert id="insert_customer_review" parameterType="Map" >
+		INSERT INTO CUSTOMER_SERVICE_REVIEW(
+			CSRIDX,
+			CSRWRITER,
+			CSRCONTENT,
+			CSRWRITE_DATE,
+			CIDX
+		) VALUES(
+			CUSTOMER_SERVICE_REVIEW_SEQ.NEXTVAL,
+			'관리자',
+			'${answer}',
+			sysdate,
+			${cidx}
+		)
+	</insert>
+	<update id="customer_service_update" parameterType="String">
+		UPDATE CUSTOMER_SERVICE
+		SET CSTATUS='1'
+		WHERE CIDX=#{cidx}
+	</update>
+	
+	<update id="customer_service_callback" parameterType="String">
+		UPDATE CUSTOMER_SERVICE
+		SET CSTATUS='0'
+		WHERE CIDX=#{cidx}
+	</update>
 	
 </mapper>

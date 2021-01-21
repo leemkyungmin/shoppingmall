@@ -5,6 +5,7 @@
  
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -56,7 +57,7 @@
       </li>
      
       <li class="nav-item">
-        <a class="nav-link" href="admin/Customer_service">
+        <a class="nav-link" href="${pageContext.request.contextPath}/admin/Customer_service">
           <i class="fas fa-fw fa-table"></i>
           <span>고객센터</span></a>
       </li>
