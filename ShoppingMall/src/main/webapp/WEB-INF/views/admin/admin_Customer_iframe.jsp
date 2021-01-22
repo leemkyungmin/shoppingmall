@@ -16,7 +16,6 @@
 <script type="text/javascript">
 	
 	document.onkeydown = function(e){
-	    /* F5, Ctrl+r, Ctrl+F5 */
 	    if(e.ctrlKey == true && (e.keyCode == 116 || e.keyCode==78 || e.keyCode == 82)){
 	        e.cancelBubble = true; 
 	        e.returnValue = false; 
@@ -43,9 +42,6 @@
 		function off(){
 		    $(window).off("beforeunload");
 		}
-
-		
-		
 		$('#summernote').summernote({
 			height : 700
 			

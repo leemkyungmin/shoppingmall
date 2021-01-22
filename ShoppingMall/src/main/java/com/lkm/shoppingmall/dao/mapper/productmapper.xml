@@ -226,4 +226,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	<!-- 상품 excel로 만들기에 필요한 데이터  -->
+	<select id="getFile" parameterType="String" resultType="com.lkm.shoppingmall.dto.Dept_OrderList_ToFile">
+		SELECT *
+		FROM (SELECT b.BIDX,b.BORDER_NUM,b.BORDER_MENT,bo.boname,bo.bocount,u.UADDRESS as address,u.UNAME as name,u.UPHONE as phone
+		      FROM BUYS b RIGHT OUTER JOIN BUYS_OPTIONS bo on b.BIDX =bo.BIDX RIGHT OUTER JOIN USERS u on u.UIDX=b.Uidx
+		      WHERE b.DIDX =#{didx} AND b.POST_NUM IS NULL AND b.BORDER_STATUS =2 AND ENIDX IS NULL
+		      UNION 
+		      SELECT b.BIDX,b.BORDER_NUM,b.BORDER_MENT,bo.boname,bo.bocount,d.DADDRESS,d.DNAME,d.DPHONE
+		      FROM BUYS b RIGHT OUTER JOIN BUYS_OPTIONS bo on b.BIDX =bo.BIDX RIGHT OUTER JOIN DEPT d on d.DIDX=b.PDidx
+		      WHERE b.DIDX =#{didx} AND b.POST_NUM IS NULL  AND b.BORDER_STATUS =2 AND ENIDX IS NULL
+			)
+	</select>
+	<select id="getDname" parameterType="String" resultType="String">
+		SELECT DNAME
+		FROM DEPT
+		WHERE DIDX=#{didx}
+	</select>
+	<select id="DeptTodayExcelCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM EXCEL_FILE
+		WHERE EN_DATE='${date}' and DIDX=${didx}
+	</select>
+	<delete id="Delete_excel" parameterType="Map">
+		DELETE EXCEL_FILE
+		WHERE ENFILE_NAME='${filename}'
+	</delete>
+	<insert id="Insert_excel" parameterType="Map" >
+		<selectKey keyProperty="enidx" resultType="int" order="BEFORE">
+			SELECT EXCEL_FILE_SEQ.nextval as enidx FROM dual
+		</selectKey>
+		
+		INSERT INTO EXCEL_FILE(
+			ENIDX,
+			ENFILE_NAME,
+			EN_DATE,
+			DIDX
+		) VALUES(
+			${enidx},
+			'${filename}',
+			'${date}',
+			${didx}
+		)
+	</insert>
+	<update id="Update_buys" parameterType="Map">
+		UPDATE BUYS
+		SET ENIDX=${enidx}
+		WHERE BIDX =${bidx}
+	</update>
 </mapper>

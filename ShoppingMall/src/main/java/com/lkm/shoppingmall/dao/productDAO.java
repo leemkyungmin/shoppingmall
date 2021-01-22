@@ -1,8 +1,10 @@
 package com.lkm.shoppingmall.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.lkm.shoppingmall.dto.Dept_OrderList_ToFile;
 import com.lkm.shoppingmall.dto.buyOptionDto;
 import com.lkm.shoppingmall.dto.buys_optionDto;
 import com.lkm.shoppingmall.dto.departmentDto;
@@ -58,5 +60,16 @@ public interface productDAO {
 	
 	public int insert_cart(Map<String, Object> cart);
 	
-
+	public ArrayList<Dept_OrderList_ToFile> getFile(String didx);
+	
+	public String getDname(String didx);
+	
+	public int DeptTodayExcelCount(Map<String,Object> data);
+	
+	public int Delete_excel(Map<String, Object> data);
+	
+	public int Insert_excel(Map<String,Object> data);
+	
+	public int Update_buys(Map<String,Object> buy_update);
+	
 }

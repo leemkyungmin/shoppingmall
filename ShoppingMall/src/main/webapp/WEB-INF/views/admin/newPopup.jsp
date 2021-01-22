@@ -68,7 +68,7 @@
 									data:'popInfo='+popInfo+'&popImg='+popImg+'&popupUri='+popupUri,
 									success:function(data){
 										opener.history.go(0);
-										location.href='${pageContext.request.contextPath}/popupDetail?popidx='+data;
+										location.href='${pageContext.request.contextPath}/admin/popupDetail?popidx='+data;
 									},error:function(){
 										console.log('error');
 									}

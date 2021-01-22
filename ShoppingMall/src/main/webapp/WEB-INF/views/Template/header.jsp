@@ -227,7 +227,7 @@
 						</c:if>
 						<c:if test="${sessionScope.idx !=null }">
 							<c:if test="${sessionScope.buysell eq 'sell' }">
-								<a class="myproducts">판매 상품 보기 </a>
+								<a class="myproducts">내 상품</a>
 							</c:if>
 							<a class="myPage">마이페이지</a>
 							<a class="logout">로그아웃</a>	

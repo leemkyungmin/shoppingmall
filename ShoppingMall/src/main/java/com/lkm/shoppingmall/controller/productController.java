@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.JsonObject;
 import com.lkm.shoppingmall.command.product.Update_myproduct;
+import com.lkm.shoppingmall.command.product.my_product_orderList;
 import com.lkm.shoppingmall.command.product.myproductCommand;
 import com.lkm.shoppingmall.command.product.myproductinfoCommand;
 import com.lkm.shoppingmall.command.product.selectproduct;
@@ -148,11 +149,8 @@ public class productController {
 							UUID.randomUUID()+
 							"." + extName;
 					String realPath = mr.getSession().getServletContext().getRealPath("/resources/images/Department_notice");
-					System.out.println(realPath);
 					File directory = new File(realPath);
-					System.out.println(directory);
 					if ( !directory.exists() ) {
-						
 						directory.mkdirs();
 					}
 					File saveFile = new File(realPath, saveFilename);
@@ -624,6 +622,25 @@ public class productController {
 				
 		
 		return "redirect:/my/myCartList";
+		
+	}
+	@GetMapping("product/orderList")
+	public String orderList(HttpServletRequest req,Model model) {
+		
+		HttpSession session =req.getSession();
+		if(session.getAttribute("idx") !=null) {
+			if(session.getAttribute("buysell").equals("sell")) {
+				model.addAttribute("req", req);
+				command=new my_product_orderList();
+				command.execute(sqlsession, model);
+			}
+			
+			return "product/dept_orderList"; 
+		} else {
+			return "redirect:/login";
+		}
+		
+		
 		
 	}
 }

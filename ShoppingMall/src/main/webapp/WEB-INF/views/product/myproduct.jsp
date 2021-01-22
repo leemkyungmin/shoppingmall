@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../Template/header.jsp" %>
-<% String path =application.getRealPath("/");
-%>
 <style>
 	.wrap{
 		width: 1200px;
@@ -11,6 +9,9 @@
 		margin: 0 auto;
 		padding: 10px 0 50px;
 		outline: none; 
+	}
+	a{
+		text-decoration: none;
 	}
 	.title{
 		margin-top:20px;
@@ -24,6 +25,7 @@
 	.new_products_input{
 		display:inline-block;
 		float: right;
+		
 	}
 	.product_box{
 		width: 100%;
@@ -52,27 +54,77 @@
 		height: 200px;
 		padding-top: 47px;
 	}
-	a{
+	.new_products_input a{
 		list-style: none;
 		text-decoration: none;
 		color: black;
+		cursor: pointer;
+		padding:0 20px;
+		border-left: 1px solid black;
 	}
+	.product_img{
+		float: left;
+	}
+	.dropbtn {
+	  background-color: #ea2129;
+	  color: white;
+	  padding: 16px;
+	  font-size: 16px;
+	  border: none;
+	}
+	
+	.dropdown {
+	  position: relative;
+	  display: inline-block;
+	}
+	
+	.dropdown-content {
+	  display: none;
+	  position: absolute;
+	  background-color: #f1f1f1;
+	  min-width: 180px;
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  z-index: 1;
+	}
+	
+	.dropdown-content a {
+	  color: black;
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  display: block;
+	}
+	
+	.dropdown-content a:hover {background-color: #ddd;}
+	
+	.dropdown:hover .dropdown-content {display: block;}
+	
+		
 </style>
 <script>
 	$().ready(function(){
 		$('.input_product').click(function(){
 			location.href="newProductsForm";
 		});
+		$('.myproduct_sell_list').click(function(){
+			location.href='${pageContext.request.contextPath}/product/orderList';
+		});
 	});
 </script>
 	<div class="wrap">
-		<div class="wrap-content">
+		<div class="wrap-content"> 
 			<div class="title">
 				<div class="myproduct_count">
 					<span class="count">${sessionScope.name}님 판매 상품 개수:${myplist.size()}</span>
 				</div>
 				<div class="new_products_input">
-					<a class="input_product">새 상품 등록</a>
+					<div class="dropdown">
+					  <button class="dropbtn">주문리스트/상품등록</button>
+					  <div class="dropdown-content">
+					    <a class="myproduct_sell_list">주문 리스트</a>
+						<a class="input_product">새 상품 등록</a>
+					  </div>
+					</div>
+					
 				</div>
 			</div>
 			<div class="content">
