@@ -34,18 +34,47 @@
   		width:300px;
   		float: right;
   	}
-  	.btn_controll input[type=button]{
-  		background-color: red;
-  		color:white;
-  		height: 100%;
-  		border: 0;
-  		height: 38px;
-  	}
+  	.dropbtn {
+	  background-color: #ea2129;
+	  color: white;
+	  padding: 16px;
+	  font-size: 16px;
+	  border: none;
+	}
+	
+	.dropdown {
+	  position: relative;
+	  display: inline-block;
+	}
+	
+	.dropdown-content {
+	  display: none;
+	  position: absolute;
+	  background-color: #f1f1f1;
+	  min-width: 180px;
+	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	  z-index: 1;
+	}
+	
+	.dropdown-content a {
+	  color: black;
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  display: block;
+	}
+	
+	.dropdown-content a:hover {background-color: #ddd;}
+	
+	.dropdown:hover .dropdown-content {display: block;}
   </style>
   <script>
   	$().ready(function(){
-  		$('#create_execel').click(function(){
+  		$('.create_execel').click(function(){
+  			// 판매 리스트가 없으면 생성 못하도록 막을것 .
   			location.href='${pageContext.request.contextPath}/Excel/CreateExcelFile';
+  		});
+  		$('.show_excel_list').click(function(){
+  			location.href="${pageContext.request.contextPath}/product/Excel_file"
   		});
   	})
   </script>
@@ -54,7 +83,13 @@
             <i class="fas fa-table"></i>
             	판매 리스트
             	<div class="btn_controll">
-	           		<input type="button" id="create_execel" value="액셀파일 생성" >
+            		<div class="dropdown">
+					  <button class="dropbtn">파일생성/송장등록</button>
+					  <div class="dropdown-content">
+					    <a class="create_execel">액셀파일 생성</a>
+						<a class="show_excel_list">파일보기/송장등록</a>
+					  </div>
+					</div>
 	           </div>
             </div>
            

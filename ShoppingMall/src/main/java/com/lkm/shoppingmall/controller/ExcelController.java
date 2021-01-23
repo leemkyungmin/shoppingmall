@@ -3,11 +3,13 @@ package com.lkm.shoppingmall.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +26,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -198,6 +203,44 @@ public class ExcelController {
 			}
 		}
 		
+	}
+	
+	@Autowired
+	private SqlSession Sqlsession;
+	
+	@PostMapping("Excel/excel_final_updload")
+	@ResponseBody
+	public int excel_upload(MultipartHttpServletRequest mr) throws IllegalStateException, IOException {
+		
+		MultipartFile f = mr.getFile("file");
+		String enidx =mr.getParameter("enidx");
+		
+		String saveFilename="";
+		String originFilename  =f.getOriginalFilename();
+		String extName = originFilename.substring(originFilename.lastIndexOf(".")+1);
+		saveFilename = originFilename.substring(0, originFilename.lastIndexOf("."))+
+				"." + extName;
+		String realPath = mr.getSession().getServletContext().getRealPath("/resources/excelFiles");
+		File directory = new File(realPath);
+		if ( !directory.exists() ) {
+			directory.mkdirs();
+		}
+		File file =new File(realPath+"/"+saveFilename);
+		if( file.exists()) {
+			file.delete();
+		}
+		
+		File saveFile = new File(realPath, saveFilename);
+		f.transferTo(saveFile);
+		
+		productDAO pdao = Sqlsession.getMapper(productDAO.class);
+		Map<String,Object> data=  new HashMap<String, Object>();
+		data.put("enidx", enidx);
+		data.put("en_file_final",saveFilename);
+		int result = pdao.update_excelFile_final(data);
+		
+		System.out.println(result);
+		return result;
 	}
 		
 }

@@ -31,7 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.JsonObject;
+import com.lkm.shoppingmall.command.product.Excel_fileCommand;
 import com.lkm.shoppingmall.command.product.Update_myproduct;
+import com.lkm.shoppingmall.command.product.dept_list_showCommand;
 import com.lkm.shoppingmall.command.product.my_product_orderList;
 import com.lkm.shoppingmall.command.product.myproductCommand;
 import com.lkm.shoppingmall.command.product.myproductinfoCommand;
@@ -634,13 +636,41 @@ public class productController {
 				command=new my_product_orderList();
 				command.execute(sqlsession, model);
 			}
-			
-			return "product/dept_orderList"; 
+			   
+			return "product/dept_orderList";  
 		} else {
 			return "redirect:/login";
 		}
+      
+	}    
+	@GetMapping("product/Excel_file") 
+	public String insert_posNum(HttpServletRequest req,Model model) {
 		
+		HttpSession session =req.getSession();
+		if(session.getAttribute("idx") !=null) {
+			if(session.getAttribute("buysell").equals("sell")) {
+				model.addAttribute("req", req);
+				command = new Excel_fileCommand();
+				command.execute(sqlsession, model);
+			}
+			return "product/Excel_file_list"; 
+		} else {
+			return "redirect:/login";
+		}
+	} 
+	@PostMapping("product/Dept_list_show")
+	public String Dept_List_show(HttpServletRequest req,Model model) {
 		
-		
+		HttpSession session =req.getSession();
+		if(session.getAttribute("idx") !=null) {
+			if(session.getAttribute("buysell").equals("sell")) {
+				model.addAttribute("req", req);
+				command =new dept_list_showCommand();
+				command.execute(sqlsession, model);
+			}
+			return "product/Excel_file_list_selected"; 
+		} else {
+			return "redirect:/login";
+		}
 	}
 }

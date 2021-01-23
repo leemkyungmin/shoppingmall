@@ -2,8 +2,8 @@ package com.lkm.shoppingmall.dto;
 
 public class Dept_OrderList_ToFile {
 
-	int bIdx,boCount;
-	String bOrder_num,bOrder_ment,boName,address,name,phone,bPost_num,bExcel_fileName;
+	int bIdx,boCount,enIdx;
+	String bOrder_num,bOrder_ment,boName,address,name,phone,bPost_num;
 	
 	
 	public Dept_OrderList_ToFile() {}
@@ -26,6 +26,16 @@ public class Dept_OrderList_ToFile {
 
 	public void setBoCount(int boCount) {
 		this.boCount = boCount;
+	}
+
+
+	public int getEnIdx() {
+		return enIdx;
+	}
+
+
+	public void setEnIdx(int enIdx) {
+		this.enIdx = enIdx;
 	}
 
 
@@ -99,21 +109,12 @@ public class Dept_OrderList_ToFile {
 	}
 
 
-	public String getbExcel_fileName() {
-		return bExcel_fileName;
-	}
-
-
-	public void setbExcel_fileName(String bExcel_fileName) {
-		this.bExcel_fileName = bExcel_fileName;
-	}
-
-
-	public Dept_OrderList_ToFile(int bIdx, int boCount, String bOrder_num, String bOrder_ment, String boName,
-			String address, String name, String phone, String bPost_num, String bExcel_fileName) {
+	public Dept_OrderList_ToFile(int bIdx, int boCount, int enIdx, String bOrder_num, String bOrder_ment, String boName,
+			String address, String name, String phone, String bPost_num) {
 		super();
 		this.bIdx = bIdx;
 		this.boCount = boCount;
+		this.enIdx = enIdx;
 		this.bOrder_num = bOrder_num;
 		this.bOrder_ment = bOrder_ment;
 		this.boName = boName;
@@ -121,9 +122,10 @@ public class Dept_OrderList_ToFile {
 		this.name = name;
 		this.phone = phone;
 		this.bPost_num = bPost_num;
-		this.bExcel_fileName = bExcel_fileName;
 	}
 
+	
+	
 	
 	
 }

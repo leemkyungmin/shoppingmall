@@ -274,4 +274,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET ENIDX=${enidx}
 		WHERE BIDX =${bidx}
 	</update>
+	
+	<select id="getFileList" parameterType="Map" resultType="com.lkm.shoppingmall.dto.Excel_FileDto">
+		SELECT EN_DATE,COUNT(EN_DATE) as total
+		FROM EXCEL_FILE
+		WHERE DIDX =${didx} AND EN_DATE BETWEEN '${stDay}' and '${endDay}'
+		GROUP BY EN_DATE
+		ORDER BY EN_DATE ASC
+	</select>
+	
+	<select id="excelFileList" parameterType="Map" resultType="com.lkm.shoppingmall.dto.Excel_FileDto">
+		SELECT *
+		FROM EXCEL_FILE
+		WHERE DIDX =${didx} AND EN_DATE ='${enDate}'
+	</select>
+	<update id="update_excelFile_final" parameterType="Map">
+		UPDATE EXCEL_FILE
+		SET ENFILE_FINAL='${en_file_final}'
+		WHERE ENIDX=${enidx}
+	</update>
 </mapper>

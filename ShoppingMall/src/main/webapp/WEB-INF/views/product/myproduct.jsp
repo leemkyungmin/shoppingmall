@@ -108,6 +108,7 @@
 		$('.myproduct_sell_list').click(function(){
 			location.href='${pageContext.request.contextPath}/product/orderList';
 		});
+		
 	});
 </script>
 	<div class="wrap">

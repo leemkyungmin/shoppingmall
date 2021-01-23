@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.lkm.shoppingmall.dto.Dept_OrderList_ToFile;
+import com.lkm.shoppingmall.dto.Excel_FileDto;
 import com.lkm.shoppingmall.dto.buyOptionDto;
 import com.lkm.shoppingmall.dto.buys_optionDto;
 import com.lkm.shoppingmall.dto.departmentDto;
@@ -71,5 +72,11 @@ public interface productDAO {
 	public int Insert_excel(Map<String,Object> data);
 	
 	public int Update_buys(Map<String,Object> buy_update);
+	
+	public ArrayList<Excel_FileDto> getFileList(Map<String,Object> data );
+	
+	public ArrayList<Excel_FileDto> excelFileList(Map<String, Object> data);
+	
+	public int update_excelFile_final(Map<String,Object> data);
 	
 }
