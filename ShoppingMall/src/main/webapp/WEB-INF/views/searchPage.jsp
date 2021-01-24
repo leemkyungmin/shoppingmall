@@ -44,13 +44,7 @@
 						검색결과<span class="count">${sdto.size()}개</span>
 					</Strong>
 				</div>
-				<div class="design-controll">
-					<select class="search-orderby">
-						<option value="낮은 가격순">낮은 가격순</option>
-						<option value="낮은 가격순">높은 가격순</option>
-						<option value="낮은 가격순">많은 리뷰순</option>
-					</select>
-				</div>
+				
 			</div>
 			<section class="search_section">
 				<ul class="item-list">

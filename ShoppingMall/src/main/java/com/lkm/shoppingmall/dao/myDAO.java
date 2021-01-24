@@ -47,4 +47,5 @@ public interface myDAO {
 	public void buy_option(Map<String,Object> buys_option);
 	
 	public void delete_cart(String cidx);
+
 }

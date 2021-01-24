@@ -19,8 +19,8 @@ import com.lkm.shoppingmall.dto.userDto;
 public interface productDAO {
 
 	public ArrayList<productsDto> mylist(String idx);
-	
 	public int insertproduct(Map<String,Object> query);
+	public int priceUpdate(Map<String,Object> query);
 	public void  insertproductnotice(Map<String,Object> notice);
 	public int insertproductOption1(Map<String,Object> option1);
 	public int insertproductOption2(Map<String,Object> option2);
@@ -78,5 +78,7 @@ public interface productDAO {
 	public ArrayList<Excel_FileDto> excelFileList(Map<String, Object> data);
 	
 	public int update_excelFile_final(Map<String,Object> data);
+	
+	public int update_post_num(Map<String,Object> final_data);
 	
 }

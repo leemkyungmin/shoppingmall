@@ -2,6 +2,7 @@ package com.lkm.shoppingmall.controller;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -9,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,11 +24,11 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -76,7 +76,7 @@ public class ExcelController {
 
 					
 				    Workbook wb = new HSSFWorkbook();
-				    Sheet sheet = wb.createSheet("판매리스트");
+				    Sheet sheet = wb.createSheet(filename);
 				    Row row = null;
 				    Cell cell = null;
 				    int rowNo = 0;
@@ -218,6 +218,9 @@ public class ExcelController {
 		String saveFilename="";
 		String originFilename  =f.getOriginalFilename();
 		String extName = originFilename.substring(originFilename.lastIndexOf(".")+1);
+		if(!(extName.toUpperCase().equals("XLS") || extName.toUpperCase().equals("XLSX")) ) {
+			extName="xls";
+		}
 		saveFilename = originFilename.substring(0, originFilename.lastIndexOf("."))+
 				"." + extName;
 		String realPath = mr.getSession().getServletContext().getRealPath("/resources/excelFiles");
@@ -238,8 +241,58 @@ public class ExcelController {
 		data.put("enidx", enidx);
 		data.put("en_file_final",saveFilename);
 		int result = pdao.update_excelFile_final(data);
+		System.out.println(realPath);
+		FileInputStream fis = new FileInputStream(saveFile);
+		Workbook wb =null;
+		if(extName.toUpperCase().endsWith("XLS")) {
+            try {
+                wb = new HSSFWorkbook(fis);
+            } catch (IOException e) {
+                throw new RuntimeException(e.getMessage(), e);
+            }
+        }
+        else if(extName.toUpperCase().endsWith("XLSX")) {
+            try {
+                wb = new XSSFWorkbook(fis);
+            } catch (IOException e) {
+                throw new RuntimeException(e.getMessage(), e);
+            }
+        }
 		
-		System.out.println(result);
+		Sheet sheet =wb.getSheetAt(0);
+		
+		int target_bidx =0;
+		int target_postnum =0;
+		for(int i=0; i<sheet.getRow(0).getPhysicalNumberOfCells(); i++ ) {
+			Cell cell = sheet.getRow(0).getCell(i);
+			if(cell.toString().equals("구매번호")) {
+				target_bidx=i;
+			} else if(cell.toString().equals("송장번호")) {
+				target_postnum=i;
+			}
+		}
+		System.out.println("target_bidx="+target_bidx);
+		System.out.println("target_postnum="+target_postnum);
+		
+		int row_count = sheet.getPhysicalNumberOfRows();
+		
+		for(int i=1; i<row_count; i++) {
+			Row row = sheet.getRow(i);
+			System.out.println(row.getCell(target_bidx).toString());
+			System.out.println(row.getCell(8).toString().replaceAll("-",""));
+			Map<String,Object> final_data =new HashMap<String, Object>();
+			final_data.put("bidx",row.getCell(target_bidx).toString());
+			final_data.put("post_num",row.getCell(8).toString().replaceAll("-",""));
+			final_data.put("enidx",enidx);
+			result =pdao.update_post_num(final_data);
+		}
+		
+		if(result >0) {
+		
+			
+		}
+		
+
 		return result;
 	}
 		

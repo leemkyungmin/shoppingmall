@@ -22,7 +22,8 @@ public class Update_myproduct  implements command{
 		
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		String pName= req.getParameter("pName");
-		int price = Integer.parseInt(req.getParameter("price"));
+		String post_dept = req.getParameter("post_dept");
+		String tags = req.getParameter("tags");
 		int order_price =Integer.parseInt(req.getParameter("order_price"));
 		int pidx= Integer.parseInt(req.getParameter("pidx"));
 		String sumNail =req.getParameter("sumNail");
@@ -38,7 +39,8 @@ public class Update_myproduct  implements command{
 		pdto.setpIdx(pidx);
 		pdto.setpName(pName);
 		pdto.setpOrder_price(order_price);
-		pdto.setpRice(price);
+		pdto.setpTag(tags);
+		pdto.setPost_dept(post_dept);
 		pdto.setpSumnail(sumNail);
 		
 		result =pdao.updateProducts(pdto);
@@ -62,7 +64,7 @@ public class Update_myproduct  implements command{
 				option_avg +=Integer.parseInt(p);
 			}
 			options.put("poname", option1[i]);
-			options.put("avg_price", option_avg);
+			options.put("avg_price", option_avg/op2_price.length);
 			options.put("pidx",pidx);
 			int option1_result =pdao.insertproductOption1(options);
 							
@@ -81,6 +83,9 @@ public class Update_myproduct  implements command{
 			}
 			
 		}
+		Map<String,Object> query = new HashMap<String, Object>();
+		query.put("pidx",pidx);
+		pdao.priceUpdate(query);
 		
 		
 	}

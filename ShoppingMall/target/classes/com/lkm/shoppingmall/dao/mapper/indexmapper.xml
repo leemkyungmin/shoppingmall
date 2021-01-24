@@ -11,14 +11,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchResult" parameterType="String" resultType="com.lkm.shoppingmall.dto.searchDto">
 		SELECT p.PIDX,p.PRICE,p.PNAME,NVL(AVG(r.RATING)*20+10,0) AS rRATING,NVL(COUNT(r.PIDX),0) AS rRCOUNT,d.DNAME,TO_CHAR(p.pSumnail) as pSumnail 
 		FROM PRODUCTS p LEFT OUTER JOIN REVIEW R on p.PIDX = R.PIDX , DEPT d
-		WHERE p.PNAME LIKE '%' || #{param1} ||'%' 
-		and  p.DIDX = d.DIDX 
+		WHERE (p.PNAME LIKE '%' || #{param1} ||'%' OR p.PTAG LIKE '%' || #{param1} || '%')
+		AND  p.DIDX = d.DIDX 
         group by p.PIDX,p.PRICE, p.PNAME,d.DNAME,TO_CHAR(p.pSumnail)
 	</select>
  	<select id="getproduct" parameterType="String" resultType="com.lkm.shoppingmall.dto.productsDto">
  		SELECT *
  		FROM PRODUCTS
- 		WHERE PIDX=#{param}
+ 		WHERE PIDX=#{param1}
  	</select>
  	
  	<select id="getproudct_list" parameterType="String" resultType="com.lkm.shoppingmall.dto.productsDto">
@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			SELECT ROWNUM rn, a.*
  			FROM (SELECT *
  				  FROM PRODUCTS 
- 				  WHERE ptag=#{param1}
+ 				  WHERE ptag LIKE '%' || #{param1} ||'%'
  			) a
  					
  		)

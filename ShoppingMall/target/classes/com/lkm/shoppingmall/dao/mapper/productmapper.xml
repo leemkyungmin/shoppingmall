@@ -11,12 +11,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE p.DIDX =#{param1}
         group by p.PIDX,p.pNAME,p.PDATE,p.DIDX,p.Price,p.PORDER_PRICE,TO_CHAR(p.pSumnail)
 	</select>
+	<update id="priceUpdate" parameterType="Map" >
+		UPDATE PRODUCTS
+		SET PRICE= (SELECT MIN(POPRICE) FROM PRODUCTS_OPTION WHERE PIDX=${pidx} AND PODEPT !=0 )
+		WHERE PIDX=${pidx} 
+	</update>
 	<insert id="insertproduct" parameterType="Map" >
 		<selectKey keyProperty="pidx" resultType="int" order="BEFORE">
 			SELECT PRODUCTS_SEQ.NEXTVAL as pidx FROM DUAL
 		</selectKey>
-		INSERT INTO PRODUCTS(PIDX,PNAME,PRICE,PRICE_PER,PDATE,PORDER_PRICE,DIDX,PSUMNAIL)
-		VALUES(
+		INSERT INTO PRODUCTS(
+		PIDX,
+		PNAME,
+		PRICE,
+		PRICE_PER,
+		PDATE,
+		PORDER_PRICE,
+		DIDX,
+		PSUMNAIL,
+		PRATING,
+		POST_DEPT,
+		PTAG
+		) VALUES (
 			${pidx},
 			'${pName}',
 			${price},
@@ -24,7 +40,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SYSDATE,
 			${order_price},
 			${didx},
-			'${psumNail}'	
+			'${psumNail}',
+			0,
+			'${post_dept}',
+			'${tags}'	
 		)
 	</insert>
 	<insert id="insertproductnotice" parameterType="Map">
@@ -91,7 +110,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE PRODUCTS
 		SET PNAME = '${pName}',
 			PORDER_PRICE =${pOrder_price},
-			PRICE = ${pRice},
+			POST_DEPT='${post_dept},
+			PTAG='${pTag}'
 			PSUMNAIL = '${pSumnail}'
 		WHERE PIDX = ${pIdx}
 	</update>
@@ -287,10 +307,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		FROM EXCEL_FILE
 		WHERE DIDX =${didx} AND EN_DATE ='${enDate}'
+		ORDER BY ENIDX ASC ,EN_DATE ASC
 	</select>
 	<update id="update_excelFile_final" parameterType="Map">
 		UPDATE EXCEL_FILE
 		SET ENFILE_FINAL='${en_file_final}'
 		WHERE ENIDX=${enidx}
+	</update>
+	<update id="update_post_num" parameterType="Map">
+		UPDATE BUYS 
+		SET POST_NUM = '${post_num}' AND BSTATUS=3
+		WHERE BIDX=${bidx} AND ENIDX=${enidx}
 	</update>
 </mapper>

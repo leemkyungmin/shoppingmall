@@ -219,7 +219,8 @@ public class productController {
 			return "redirect:/login";
 		} else {
 			String pName = req.getParameter("pName");
-			String price = req.getParameter("price");
+			String tags =req.getParameter("tags");
+			String post_dept =req.getParameter("post_dept");
 			String order_price =req.getParameter("order_price");
 			String option1[] = req.getParameterValues("option1");
 			String sumNail =req.getParameter("sumNail");
@@ -230,12 +231,13 @@ public class productController {
 			int result =0;
 			Map<String,Object> query = new HashMap<String, Object>();
 			query.put("pName", pName);
-			query.put("price", price);
+			query.put("price", 0);
+			query.put("tags", tags);
+			query.put("post_dept", post_dept);
 			query.put("order_price",order_price);
 			query.put("psumNail",sumNail);
 			query.put("didx", idx);
 			result = pdao.insertproduct(query);
-			System.out.println("pidx : "+query.get("pidx"));
 			
 			if(result >0) {
 				String pidx = query.get("pidx")+"";
@@ -257,13 +259,12 @@ public class productController {
 						option_avg +=Integer.parseInt(p);
 					}
 					options.put("poname", option1[i]);
-					options.put("avg_price", option_avg);
+					options.put("avg_price", option_avg/op2_price.length);
 					options.put("pidx", pidx);
 					int option1_result =pdao.insertproductOption1(options);
 									
 					if(option1_result >0) {
 						String poidx = options.get("poidx")+"";
-						System.out.println(op2_names.length);
 						for(int j=0; j<op2_names.length; j++) {
 							Map<String,Object> option2 = new HashMap<String, Object>();
 							option2.clear();
@@ -276,6 +277,7 @@ public class productController {
 					}
 					
 				}
+				pdao.priceUpdate(query);
 			}
 			
 			return "redirect:/product/myproduct";

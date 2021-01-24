@@ -1,5 +1,6 @@
 package com.lkm.shoppingmall.command.my;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -26,7 +27,7 @@ public class customer_svc_write implements command {
 		csdto.setcHit(cHit);
 		
 		customer_service_reviewDto csrdto = mdao.getReview(cIdx);
-		
+
 		model.addAttribute("csrdto",csrdto);
 		model.addAttribute("csdto", csdto);
 	}

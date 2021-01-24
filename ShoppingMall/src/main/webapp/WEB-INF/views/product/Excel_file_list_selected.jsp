@@ -1,7 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../Template/header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<!DOCTYPE html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<style>
+		body{
+			overflow-x:hidden;
+			overflow-y:hidden; 
+		}
+		.wrap{
+			width: 800px;
+			min-height: 800px;
+		}
 		.footer-wrap{
 			position: absolute;
 			bottom: 0;
@@ -9,7 +20,6 @@
 		}
 		table{
 			border-collapse: collapse;
-			width: 600px;
 		}
 		tr{
 			height: 40px;
@@ -24,7 +34,12 @@
 			height: 100%;
 			width: 100%;
 		}
+		.wrap{
+			min-height: 800px;
+		}
 	</style>
+</head>
+<body>
 	<div class="wrap">
 		<div class="wrap-content">
 			<div class="DeptInfo">
@@ -113,6 +128,4 @@
 		
 		
 	</script>
-	
-	
-<%@ include file="../Template/fotter.jsp" %>
+</body>

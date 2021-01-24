@@ -131,6 +131,31 @@
 		min-height: 500px;
 		
 	}
+	.csr_list{
+		font-size: 20px;
+		height: 400px;
+		border:1px solid black;
+	}
+	.writer{
+		display:inline-block;
+		float: left;
+	}
+	.reg_date{
+		display:inline-block;
+		float: right;
+		margin-right: 20px;
+	}
+	.answer_title{
+		height: 50px;
+    	border-bottom: 1px solid black;
+    	line-height: 50px;
+	}
+	.content{
+		margin:10px 0;
+	}
+	p{
+		word-break:break-all;
+	}
 </style>
 </head>
 <body>
@@ -160,6 +185,31 @@
 				<div class="content">
 					<textarea id="summernote">${csdto.cContent }</textarea>
 				</div>
+				
+				<c:if test="${csrdto ne null }">
+				<div class="csr_list">
+					<div class="answer_title">
+						<div class="writer">
+							작성자:${csrdto.cSrWriter}
+						</div>
+						<div class="reg_date">
+							답변일:${csrdto.cSrwrite_date }
+						</div>
+					</div>
+					<div class="content">
+						<p>${csrdto.cSrcontent }</p>
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${csrdto eq null }">
+				<div class="csr_list">
+					
+					<div class="content">
+						<p>아직 작성된 답글이 없습니다.</p>
+					</div>
+				</div>
+			</c:if>
+				
 				<div class="btns">
 					<c:if test="${csdto.cStatus eq 0 }">
 						<input type="button" id="update" value="수정하기">
@@ -168,23 +218,6 @@
 				</div>
 			</form>
 		</div>
-		<c:if test="${csrdto ne null }">
-			<div class="customer_svc_review">
-				<div class="admin_review_writer">
-					<div class="writer">
-						<label>작성자:관리자</label>
-					</div>
-					<div class="write_date">
-						<label>작성일:</label>
-					</div>
-				</div>
-				
-				<div class="admin_review_content">
-					가나다라마바사 아자차카파타하 도레미파솔라시도레미파솔라시도레미
-					도레미파솔라시도 레미파솔라시도레미 
-				</div>
-			</div>
-		</c:if>
 		
 	</div>
 </body>

@@ -220,7 +220,10 @@
 									$().ready(function(){
 										var length =0;
 										var data = ${pdto.pRating}*20;
-										if(data <20){
+										if (data<10){
+											length =0;
+										}
+										else if(data <20){
 											length =10;	
 										} else if (data <30){
 											length =20;
@@ -298,77 +301,79 @@
 								</div>
 							</div>
 						</div>
-						<div class="seller-info">
-							<div class="resend_title">
-								반품 / 교환 정보
-							</div>
-							<table>
-								<tr>
-									<td>판매자명</td>
-									<td>${deptdto.dName }</td>
-								</tr>
-								<tr>
-									<td>연락처</td>
-									<td>${deptdto.dPhone}</td>
-								</tr>
-								<tr>
-									<td>고객문의 가능시간</td>
-									<td>09시~18시(공휴일 제외)</td>
-								</tr>
-								<tr>
-									<td>반품 / 교환지 주소</td>
-									<td>${fn:replace(deptdto.dAddress,'/',' ') }</td>
-								</tr>
-								<tr>
-									<td>반품 / 교환안내</td>
-									<td>${deptdto.dName} ${deptdto.dPhone }</td>
-								</tr>
-								<tr>
-									<td>반품 / 교환기준</td>
-									<td>
-										상품 수령 후 7일 이내에 신청하실 수 있습니다. 단, 제품이 표시광고 내용과 다르거나 불량 등 계약과 다르게 이행된 경우는<br>
-										제품 수령일부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일이내에 교환/반품이 가능합니다
-										<ul>
-											<li>
-												추가적으로 다음의 경우 해당하는 반품/교환은 신청이 불가능할 수 있습니다.
-												<ul>
-													<li>-소비자의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우 (단지, 상품 확인을 위한 포장 훼손 제외)</li>
-													<li>-소비자의 사용 또는 소비에 의해 상품 등의 가치가 현저히 감소한 경우</li>
-													<li>-시간의 경과에 의해 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우</li>
-													<li>-복제가 가능한 상품 등의 포장을 훼손한 경우</li>
-													<li>-소비자의 주문에 따라 개별적으로 생산되는 상품이 제작에 들어간 경우</li>
-												</ul>
-											</li>
-										</ul>
-									</td>
-								</tr>
-							</table>
+					</div>
+					<div class="seller-info">
+						<div class="resend_title">
+							반품 / 교환 정보
 						</div>
-						<div class="seller">
-							<div class="seller-title">
-								판매자정보
-							</div>
-							<table>
-								<tr>
-									<td>판매자</td>
-									<td>${deptdto.dName}</td>
-									<td>대표번호</td>
-									<td>${deptdto.dPhone}</td>
-								</tr>
-								<tr>
-									<td>사업자등록번호</td>
-									<td>${deptdto.dSaup_no}</td>
-									<td>가입일</td>
-									<td>${deptdto.dReg_date }</td>
-								</tr>
-								<tr>
-									<td>영업 소재지</td>
-									<td colspan="3">${fn:replace(deptdto.dAddress,'/',' ') }
-								</tr>
-							</table>
+						<table>
+							<tr>
+								<td>판매자명</td>
+								<td>${deptdto.dName }</td>
+							</tr>
+							<tr>
+								<td>연락처</td>
+								<td>${deptdto.dPhone}</td>
+							</tr>
+							<tr>
+								<td>고객문의 가능시간</td>
+								<td>09시~18시(공휴일 제외)</td>
+							</tr>
+							<tr>
+								<td>반품 / 교환지 주소</td>
+								<td>${fn:replace(deptdto.dAddress,'/',' ') }</td>
+							</tr>
+							<tr>
+								<td>반품 / 교환안내</td>
+								<td>${deptdto.dName} ${deptdto.dPhone }</td>
+							</tr>
+							<tr>
+								<td>반품 / 교환기준</td>
+								<td>
+									상품 수령 후 7일 이내에 신청하실 수 있습니다. 단, 제품이 표시광고 내용과 다르거나 불량 등 계약과 다르게 이행된 경우는<br>
+									제품 수령일부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일이내에 교환/반품이 가능합니다
+									<ul>
+										<li>
+											추가적으로 다음의 경우 해당하는 반품/교환은 신청이 불가능할 수 있습니다.
+											<ul>
+												<li>-소비자의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우 (단지, 상품 확인을 위한 포장 훼손 제외)</li>
+												<li>-소비자의 사용 또는 소비에 의해 상품 등의 가치가 현저히 감소한 경우</li>
+												<li>-시간의 경과에 의해 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우</li>
+												<li>-복제가 가능한 상품 등의 포장을 훼손한 경우</li>
+												<li>-소비자의 주문에 따라 개별적으로 생산되는 상품이 제작에 들어간 경우</li>
+											</ul>
+										</li>
+									</ul>
+								</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div class="seller">
+						<div class="seller-title">
+							판매자정보
 						</div>
+						<table>
+							<tr>
+								<td>판매자</td>
+								<td>${deptdto.dName}</td>
+								<td>대표번호</td>
+								<td>${deptdto.dPhone}</td>
+							</tr>
+							<tr>
+								<td>사업자등록번호</td>
+								<td>${deptdto.dSaup_no}</td>
+								<td>가입일</td>
+								<td>${deptdto.dReg_date }</td>
+								</tr>
+							<tr>
+								<td>영업 소재지</td>
+								<td colspan="3">${fn:replace(deptdto.dAddress,'/',' ') }
+							</tr>
+						</table>
 					</div>
 				</div>
+				
 			</div>
 			<div class="option-menu">
 				<div class="option_menu_inner">

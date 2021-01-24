@@ -36,6 +36,28 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/sb_admin/demo/datatables-demo.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/sb_admin/demo/chart-area-demo.js"></script>
   <style>
+  	.wrap{
+  		min-height: 800px;
+  	}
+  	.card-header{
+  		min-height: 700px;
+  	}
+  	.content{
+  		width:800px;
+  		height: 100%;
+  		float: left;
+  	}
+  	.iframe_content{
+  		width: 800px;
+  		float: left;
+  	}
+  	.iframe_content iframe{
+		border:0;
+  		min-height: 700px;
+  		width: 100%;
+  		overflow-x:hidden; 
+  		overflow-y:hidden; 
+  	}
   	.title{
   		display:inline-block;
   		height: 54px;
@@ -224,47 +246,51 @@
 					</div>
 					
 				</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                	<tr>
-						<th>날짜</th>
-						<th>건수</th>
-					</tr>               
-				 </thead>
-               		
-                <tbody>
-					<c:if test="${eflist.size()>0 }">
-						<c:forEach var="ef" items="${eflist }">
-							<tr data-date="${ef.en_Date}">
-								<td>${ef.en_Date }</td>
-								<td>${ef.total }</td>
-								
-							</tr>
-						</c:forEach>
-					</c:if>
-				</tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <script type="text/javascript">
-        	$().ready(function(){
-        		$('.table tbody tr').click(function(){
-        			var date = $(this).data('date');
-        			$('#enDate').val(date);
-        			document.frm.submit();
-        		});
-        	});
-        </script>
-		<form name="frm" action="${pageContext.request.contextPath}/product/Dept_list_show" method="post">
-			<input type="hidden" id="enDate" name="enDate">
-		</form>
-		
+		          <div class="card-body">
+		            <div class="table-responsive">
+		              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		                <thead>
+		                	<tr>
+								<th>날짜</th>
+								<th>건수</th>
+							</tr>               
+						 </thead>
+		               		
+		                <tbody>
+							<c:if test="${eflist.size()>0 }">
+								<c:forEach var="ef" items="${eflist }">
+									<tr data-date="${ef.en_Date}">
+										<td>${ef.en_Date }</td>
+										<td>${ef.total }</td>
+										
+									</tr>
+								</c:forEach>
+							</c:if>
+						</tbody>
+		              </table>
+		            </div>
+		          </div>
+		       	 </div>
+			     <script type="text/javascript">
+			        $().ready(function(){
+			        	$('.table tbody tr').click(function(){
+			        		var date = $(this).data('date');
+			        		$('#enDate').val(date);
+			        		document.frm.submit();
+			        	});
+			        });
+			     </script>
+					<form name="frm" action="${pageContext.request.contextPath}/product/Dept_list_show" method="post" target="exiframe">
+						<input type="hidden" id="enDate" name="enDate">
+					</form>
+				
+			
+			</div>
 			
 		</div>
-		
+		<div class="iframe_content">
+			<iframe name="exiframe" ></iframe>
+		</div>
 	</div>
 
 <%@ include file="../Template/fotter.jsp" %>

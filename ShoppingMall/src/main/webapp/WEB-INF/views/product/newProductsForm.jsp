@@ -37,12 +37,29 @@
 					<table>
 						<tbody>
 							<tr>
-								<td><label for="price">상품 평균 가격</label></td>
-								<td><input type="text" id="price" name="price" placeholder="숫자만 입력해주세요" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
+								<td><label for="price">이용택배사</label></td>
+								<td>
+									<select name="post_dept" id="post_dept">
+										
+										<option value="01">우체국</option>
+										<option value="04">대한통운</option>
+										<option value="05">한진택배</option>
+										<option value="06">로젠택배</option>
+										<option value="08">롯데택배</option>
+										<option value="22">대신택배</option>
+										<option value="23">경동택배</option>
+									</select>
+								</td>
 							</tr>
 							<tr>
 								<td><label for="order_price">배송비</label></td>
 								<td><input type="text" id="order_price" name="order_price" placeholder="숫자만 입력해주세요" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
+							</tr>
+							<tr>
+								<td>태그들</td>
+								<td>
+									<input type="text" name="tags" id="tags" placeholder="여러개 등록시 (,)추가해주세요">
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -132,6 +149,7 @@
 						});
 					});	
 					$('#notice_img').change(function(){
+						$('.notice_imgs').remove('li');
 						var fm = new FormData();
 						var files = $('#notice_img')[0].files;
 						var i=0;
@@ -257,7 +275,6 @@
 				var pSumnail =$('#pSumnail')[0].files;
 				var notice_img =$('#notice_img')[0].files;
 				var info_img =$('#info_img')[0].files;
-				var price =$('#price');
 				var order_price =$('#order_price');
 				var form = $('#fm');
 				if(title.val() ==''){
@@ -269,10 +286,7 @@
 					alert('공지사항 이미지를 입력해주세요');
 				} else if(info_img.length == 0) {
 					alert('상품 이미지를 입력해주세요');
-				} else if(price.val() ==''){
-					alert('가격을 입력해주세요');
-					price.focus();
-				} else if(order_price ==''){
+				}  else if(order_price ==''){
 					alert('배송비 를 입력해주세요');
 					order_price.focus();
 				} else {
