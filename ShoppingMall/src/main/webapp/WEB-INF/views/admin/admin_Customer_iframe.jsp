@@ -91,13 +91,12 @@
 	
 	function cidx_callBack(){
 		var cidx=$('#cidx').val();
-		alert('cidx:'+cidx);
 		$.ajax({
 			url:'${pageContext.request.contextPath}/admin/customer_service_callback',
 			data:'cidx='+cidx,
 			type:'post',
 			success:function(data){
-				window.top.location.href='${pageContext.request.contextPath}/admin/Customer_service?cStatus='+cidx;
+				window.top.location.href='${pageContext.request.contextPath}/admin/Customer_service?cStatus=0';
 			},error:function(){
 				console.log('error');
 			}

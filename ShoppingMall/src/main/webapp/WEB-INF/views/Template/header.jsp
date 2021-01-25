@@ -129,7 +129,12 @@
 
 	<header>
 		<div class="header-style">
+			
 			<div class="main-header">
+				<div class="headerBar">
+					<i class="fas fa-bars fa-2x"></i>
+				</div>
+				
 				<a href="${pageContext.request.contextPath}/index">
 					<img class="header-logo" alt="메인 이미지" src="${pageContext.request.contextPath}/resources/assets/images/logo1.PNG">
 				</a>
@@ -155,11 +160,7 @@
 											</ul>
 										</div>
 									</div>
-									<div class="top10-list">
-										<div class="top10-list-title">
-											<h2>실시간 쇼핑 검색어</h2><span class="top10_by_time"></span>
-										</div>
-									</div>
+									
 								</div>
 								
 							</div>		
@@ -167,9 +168,7 @@
 						</fieldset>
 					</form>
 				</div>
-				<div class="livechart">
-					#####실시간 차트 #####
-				</div>
+				
 				<div class="user-controll">
 					<ul >
 						<li class="user-icon">
@@ -208,18 +207,7 @@
 		</div>
 			<div class="title_menu" >
 				<div class="shopping-list">
-					<div class="group_menu">
-						<ul>
-							<li>의류</li>
-							<li>식품</li>
-							<li>뷰티</li>
-							<li>가전제품 </li>
-							<li>인테리어</li>
-						</ul>
-					</div>
-					<div class="">
-						<!-- 상단 li:hover 해당 div 표시 -->
-					</div>
+					
 					<div class="group_login">
 						<c:if test="${sessionScope.idx ==null}">
 							<a class="login">로그인</a>

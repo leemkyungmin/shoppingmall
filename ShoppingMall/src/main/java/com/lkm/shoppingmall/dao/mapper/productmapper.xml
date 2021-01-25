@@ -316,7 +316,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<update id="update_post_num" parameterType="Map">
 		UPDATE BUYS 
-		SET POST_NUM = '${post_num}' AND BSTATUS=3
+		SET POST_NUM = '${post_num}', BORDER_STATUS='3'
 		WHERE BIDX=${bidx} AND ENIDX=${enidx}
 	</update>
 </mapper>

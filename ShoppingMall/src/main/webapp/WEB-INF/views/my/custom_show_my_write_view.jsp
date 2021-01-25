@@ -172,13 +172,13 @@
 							<option value="4">광고문의</option>
 						</select>
 						
-						<input type="text" id="cTitle" name="cTitle" value=${csdto.cTitle }>
+						<input type="text" id="cTitle" name="cTitle" value="${csdto.cTitle }">
 					</div>
 					<div class="hit_count">
 						<label>조회수 : ${csdto.cHit }</label>
 					</div>
 					<div class="wirte_date">
-						<label>작성일 : </label>
+						<label>작성일 : ${csdto.cReg_date }</label>
 					</div>
 							
 				</div>

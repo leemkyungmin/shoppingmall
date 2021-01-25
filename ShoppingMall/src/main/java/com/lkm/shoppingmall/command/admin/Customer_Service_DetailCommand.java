@@ -29,6 +29,8 @@ public class Customer_Service_DetailCommand implements command {
 		csdto =adao.customer_service_detail(cidx);
 		model.addAttribute("csdto",csdto);  
 		model.addAttribute("csrdto", csrdto);
+		
+	
 	}
 
 }

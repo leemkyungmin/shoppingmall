@@ -56,8 +56,8 @@
 			arr.push({
 				pidx:pidx,
 			});
-			if(arr.length > 5){
-				arr.splice(0,(json_list.length-5)); 
+			if(arr.length > 4){
+				arr.splice(0,(json_list.length-4)); 
 			}
 			localStorage.setItem('recent_show_product', JSON.stringify(arr));
 		}
@@ -84,7 +84,7 @@
 							</strong>
 						</div>
 						<div class="order_price">
-							${pdto.pOrder_price}원 ~
+							${pdto.pRice}원 ~
 						</div>
 					</div>
 				</div>

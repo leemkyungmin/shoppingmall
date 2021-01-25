@@ -294,6 +294,11 @@
 	
 		function init(ptag,id){
 			console.log(ptag,id)
+			
+			var arr = ptag.split(',');
+			ptag =arr[0];
+			console.log(ptag);
+			
 			var html ='';
 			$.ajax({
 				url:'${pageContext.request.contextPath}/recent_product_list',
@@ -310,8 +315,6 @@
 					html +='<ul class="splide__list">';
 					
 				    for(var j=0; j<arr.length; j++){
-						
-						
 						
 						html +='<li class="splide__slide">';
 						var obj_list = arr[j];

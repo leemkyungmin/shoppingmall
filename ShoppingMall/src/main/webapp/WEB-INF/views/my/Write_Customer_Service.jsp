@@ -33,7 +33,6 @@
 	        	enctype: 'multipart/form-data',
 	        	processData: false,
 	        	success: function(img_name) {
-	        		alert(img_name);
 	          		$(el).summernote('insertImage', '${pageContext.request.contextPath}/resources/images/summernote/'+img_name);
 	        	}
 	      	});
