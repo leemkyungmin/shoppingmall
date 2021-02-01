@@ -9,106 +9,16 @@
 <meta charset="UTF-8">
 <title>비밀번호 확인 -lkm Shoppingmall</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style>
-	.wrap{
-		width: 1000px;
-		margin: 0 auto;
-	}
-	.wrap-header{
-		border-bottom:2px solid gray;
-		height: 50px;
-		padding-bottom: 10px;
-		margin-top: 50px;
-	}
-	.wrap-header img{
-		width: 94px;
-    	height: 40px;
-    	line-height: 40px;
-    	margin-top: 5px;
-	}
-	.wrap-header h2{
-		display:inline-block;
-		margin: 0;
-	}
-	.wrap-header .header-title{
-		display:inline-block;
-		height: 50px;
-		vertical-align: middle;
-	}
-	.wrap-header form{
-		width: 1000px;
-		margin: 0 auto;
-	}
-	.wrap_content{
-		margin-top: 40px;
-	}
-	.pass_info{
-		margin: -1px 0 15px;
-	    font-size: 15px;
-	    line-height: 24px;
-	    letter-spacing: -1px;
-	    text-align: center;
-	}
-	.password-check{
-		margin: 0 auto;
-		width:330px;
-		border: 1px solid gray;
-		padding: 20px;
-	}
-	.password-box .password-input #pw{
-		width: 323px;
-	    height: 37px;
-	    margin: 16px 0 8px;
-	}
-	.password-btn #pw_btn{
-		width: 330px;
-		height: 45px;
-		margin: 5px 0 8px;
-		background: red;
-		color: white;
-		font-size: 20px;
-		font-weight: bold;
-		
-	}
-</style>
-<script type="text/javascript">
-	$().ready(function(){
-		
-		$('#pw_btn').click(function(){
-			
-			var pw = $('#pw');
-			
-			if(pw.val().length >0){
-				$.ajax({
-					url : '${pageContext.request.contextPath}/my/pwChk',
-					type : 'POST',
-					data :'pw='+pw.val(),
-					success :function(data){
-						if(data ==1){
-							location.href='${pageContext.request.contextPath}/my/myPage';
-						} else {
-							alert('비밀번호가 틀립니다.');
-							pw.val('');
-							pw.focus();
-						}
-					}, error :function(){
-						alert('서버 오류');
-					}
-				});
-			}
-			
-			
-		});
-		
-	});
-			
-</script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/style/confirmPassword.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/confirmPassword.js"></script>
 
 </head>
 <body>
 	<div class="wrap">
 		<div class="wrap-header">
-			<img alt="logo1" src="${pageContext.request.contextPath}/resources/assets/images/logo1.PNG">
+			<a href="${pageContext.request.contextPath}/index">
+				<img alt="logo1" src="${pageContext.request.contextPath}/resources/assets/images/logo1.PNG">
+			</a>
 			<div class="header-title">
 				<h2>비밀번호 확인</h2>
 			</div>

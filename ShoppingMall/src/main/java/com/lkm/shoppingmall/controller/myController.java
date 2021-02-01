@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.google.gson.JsonObject;
 import com.lkm.shoppingmall.command.my.CsutomerSvcCommand;
 import com.lkm.shoppingmall.command.my.customer_svc_write;
+import com.lkm.shoppingmall.command.my.insertReviewCommand;
 import com.lkm.shoppingmall.command.my.updateuserCommand;
 import com.lkm.shoppingmall.commom.CartKakaopay;
 import com.lkm.shoppingmall.commom.Kakaopay;
@@ -431,5 +433,45 @@ public class myController {
 			}
 		}
 
+	}
+	@RequestMapping(value="my/insertReviewImg",method=RequestMethod.POST,produces = "text/html; charset=utf-8")
+	@ResponseBody
+	public String uploadReviewImg(MultipartHttpServletRequest  mr) {
+		MultipartFile list =mr.getFile("file");
+		String saveFilename = null;
+		File saveFile =null;
+		if(!list.isEmpty()) {
+			String originFilename  =list.getOriginalFilename();
+			String extName = originFilename.substring(originFilename.lastIndexOf(".")+1);
+			try {
+				saveFilename = originFilename.substring(0, originFilename.lastIndexOf(".")) +
+						"_" +
+						UUID.randomUUID()+
+						"." + extName;
+				String realPath = mr.getSession().getServletContext().getRealPath("/resources/images/reviewImg");
+				System.out.println(realPath);
+				File directory = new File(realPath);
+				
+				if ( !directory.exists() ) {
+					directory.mkdirs();
+				}
+				saveFile = new File(realPath, saveFilename);
+				list.transferTo(saveFile);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return saveFilename;
+	}
+	@PostMapping("my/insertReview")
+	public String insertReview(HttpServletRequest req,Model model) {
+		model.addAttribute("req", req);
+		
+		command=new insertReviewCommand();
+		command.execute(sqlsession, model);;
+		
+		return "redirect:/my/OrderList";
+		
 	}
 }

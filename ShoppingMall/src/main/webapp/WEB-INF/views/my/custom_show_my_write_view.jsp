@@ -13,7 +13,9 @@
 <!-- include summernote css/js-->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/style/custom_show_my_write.css">
 <script type="text/javascript">
+
 	$().ready(function(){
 		$('#summernote').summernote({
 			height : 700,
@@ -71,91 +73,7 @@
 	});
 </script>
 <style>
-	.wrap{
-		width: 1000px;
-		margin: 30px auto;
-	}
-	.wrap .title{
-		font-size: 20px;
-		margin: 10px 0;
-		padding:10px 0;
-		border-bottom: 1px solid gray;
-	}
-	.wrap .title .title-ctype label{
-		width: 80px;
-	}
-	.wrap .title .title-ctype #cType,#cTitle,.hit_count,.title-ctype{
-		height: 29px;
-		display:inline-block;
-		
-	}
-	.wrap .title .title-ctype #cTitle{
-		width: 600px;
-	}
-	.hit_count{
-		float: right;
-	}
-	.content #summernote{
-		height: 500px;
-	}
-	.wrap .btns{
-		height: 40px;
-	    margin: 10px auto;
-	    text-align: right;
-	    margin-bottom: 20px;
-	}
-	.wrap .user_svc form{
-		border-bottom: 1px solid gray;
-		margin-bottom: 20px;
-	}
-	.wrap .btns input[type=button]{
-		width: 200px;
-		height: 40px;
-		margin-left: 20px;
-	}
 	
-	.customer_svc_review {
-		min-height: 500px;
-		border:  1px solid black;
-		font-size: 20px;
-	}
-	.customer_svc_review .admin_review_writer{
-		padding: 10px;
-		margin-bottom: 15px;
-		border-bottom: 1px solid gray;
-	}
-	.admin_review_content{
-		padding: 10px;
-	}
-	.user_svc{
-		min-height: 500px;
-		
-	}
-	.csr_list{
-		font-size: 20px;
-		height: 400px;
-		border:1px solid black;
-	}
-	.writer{
-		display:inline-block;
-		float: left;
-	}
-	.reg_date{
-		display:inline-block;
-		float: right;
-		margin-right: 20px;
-	}
-	.answer_title{
-		height: 50px;
-    	border-bottom: 1px solid black;
-    	line-height: 50px;
-	}
-	.content{
-		margin:10px 0;
-	}
-	p{
-		word-break:break-all;
-	}
 </style>
 </head>
 <body>

@@ -309,8 +309,8 @@
 												배송완료
 											</div>
 											<div class="order-location">
-													<input type="button" id="olocation" name="olocation">
-													<input type="button" id="Reviewrite" name="Reviewrite">
+													<input type="button" id="olocation" name="olocation" value="배송조회"><br/>
+													<input type="button" id="Reviewrite" name="Reviewrite" data-id="${orderlist.bIdx}" value="리뷰작성">
 											</div>
 										</c:if> 
 									</td>
@@ -320,6 +320,17 @@
 							
 							<script>
 								$().ready(function(){
+									var win;
+									$('#Reviewrite').click(function(){
+										var bidx = $(this).data('id');
+										
+										if(win !=null){
+											win.clsoe();
+										}
+										var status = "toolbar=no,directories=no,scrollbars=no,resizable=no,status=no,menubar=no,width=1000, height=700, top=50,left=500"; 
+										win = window.open('${pageContext.request.contextPath}/order/writeReview?bidx='+bidx,'리뷰작성하기',status);
+									});
+									
 									$(document).on('click','#olocation',function(){
 										var data =$(this).data('value');
 										var id = $(this).data('id');

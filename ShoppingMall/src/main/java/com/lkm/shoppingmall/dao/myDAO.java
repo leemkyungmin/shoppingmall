@@ -48,4 +48,5 @@ public interface myDAO {
 	
 	public void delete_cart(String cidx);
 
+	public int insertReview(Map<String,Object> data);
 }

@@ -131,77 +131,80 @@
 		<div class="header-style">
 			
 			<div class="main-header">
-				<div class="headerBar">
-					<i class="fas fa-bars fa-2x"></i>
-				</div>
+				<div class="header-content">
 				
-				<a href="${pageContext.request.contextPath}/index">
-					<img class="header-logo" alt="메인 이미지" src="${pageContext.request.contextPath}/resources/assets/images/logo1.PNG">
-				</a>
+					<div class="headerBar">
+						<i class="fas fa-bars fa-2x"></i>
+					</div>
 					
-				<div class="header-search" id="header-search">
-					<form action="${pageContext.request.contextPath}/search" name="fm">
-						<fieldset>
-							<legend>검색</legend>
-							<div class="search-bar">
-								<input type="text" name ="search-item" id="search-item" placeholder="검색할 단어를 입력하세요" autocomplete="off">
-								<button id="searchBarBtn"><i class="fas fa-search fa-2x"></i></button>
-							</div>
-							
-							<div class="group-search">
-								<div class="search_word">
-									<div class="mysearch">
-										<div class="mysearch-title">
-											<h2>최근 검색어</h2>
-										</div>
-										<div class="mysearch-content">
-											<ul class="slist">
-												
-											</ul>
-										</div>
-									</div>
-									
+					<a href="${pageContext.request.contextPath}/index">
+						<img class="header-logo" alt="메인 이미지" src="${pageContext.request.contextPath}/resources/assets/images/logo1.PNG">
+					</a>
+						
+					<div class="header-search" id="header-search">
+						<form action="${pageContext.request.contextPath}/search" name="fm">
+							<fieldset>
+								<legend>검색</legend>
+								<div class="search-bar">
+									<input type="text" name ="search-item" id="search-item" placeholder="검색할 단어를 입력하세요" autocomplete="off">
+									<button id="searchBarBtn"><i class="fas fa-search fa-2x"></i></button>
 								</div>
 								
-							</div>		
+								<div class="group-search">
+									<div class="search_word">
+										<div class="mysearch">
+											<div class="mysearch-title">
+												<h2>최근 검색어</h2>
+											</div>
+											<div class="mysearch-content">
+												<ul class="slist">
+													
+												</ul>
+											</div>
+										</div>
+										
+									</div>
 									
-						</fieldset>
-					</form>
-				</div>
+								</div>		
+										
+							</fieldset>
+						</form>
+					</div>
 				
-				<div class="user-controll">
-					<ul >
-						<li class="user-icon">
-							<i id="test"class="fas fa-user fa-2x"></i>
-							<div class="c_layer">
-								<ul>
-									<li>
-										<a href="${pageContext.request.contextPath}/order/OrderList">주문/배송 조회</a>
-									</li>
-									<li>
-										<a href="${pageContext.request.contextPath}/order/OrderCancelList">취소/반품/교환</a>
-									</li>
-									<li>
-										<a href="${pageContext.request.contextPath}/my/CustomerService">고객센터</a>
-									</li>
-									<li>
-										<a href="${pageContext.request.contextPath}/my/confirmPassword">회원정보</a>
-									</li>
-									<c:if test="${sessionScope.idx !=null }">
+					<div class="user-controll">
+						<ul >
+							<li class="user-icon">
+								<i id="test"class="fas fa-user fa-2x"></i>
+								<div class="c_layer">
+									<ul>
 										<li>
-											<a href="${pageContext.request.contextPath}/logout">로그아웃 </a>
+											<a href="${pageContext.request.contextPath}/order/OrderList">주문/배송 조회</a>
 										</li>
-									</c:if>
-								</ul>
-							</div>
-						</li>
-						<li id="move_orderlist" class="user-icon">
-							<i class="fas fa-truck-moving fa-2x"></i>
-						</li>
-						<li class="user-icon" id="move_myCartList">
-							<i class="fas fa-shopping-cart fa-2x"></i>
-						</li>
-					</ul>
+										<li>
+											<a href="${pageContext.request.contextPath}/order/OrderCancelList">취소/반품/교환</a>
+										</li>
+										<li>
+											<a href="${pageContext.request.contextPath}/my/CustomerService">고객센터</a>
+										</li>
+										<li>
+											<a href="${pageContext.request.contextPath}/my/confirmPassword">회원정보</a>
+										</li>
+										<c:if test="${sessionScope.idx !=null }">
+											<li>
+												<a href="${pageContext.request.contextPath}/logout">로그아웃 </a>
+											</li>
+										</c:if>
+									</ul>
+								</div>
+							</li>
+							<li id="move_orderlist" class="user-icon">
+								<i class="fas fa-truck-moving fa-2x"></i>
+							</li>
+							<li class="user-icon" id="move_myCartList">
+								<i class="fas fa-shopping-cart fa-2x"></i>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>

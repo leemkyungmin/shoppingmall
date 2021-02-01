@@ -190,6 +190,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM CART
 		WHERE CIDX=#{cidx}
 	</delete>
-	
+	<insert id="insertReview" parameterType="Map" >
+		INSERT INTO REVIEW(
+			RIDX,
+			RCONTENT,
+			RATING,
+			RWRITE_DATE,
+			PIDX,
+			BIDX,
+			RWRITER
+		) VALUES(
+			REVIEW_SEQ.NEXTVAL,
+			'${content}',
+			${point},
+			sysdate,
+			(SELECT PIDX FROM  BUYS WHERE BIDX=${bidx}),
+			${bidx},
+			'${name}'
+		)
+	</insert>
 	 
 </mapper>
